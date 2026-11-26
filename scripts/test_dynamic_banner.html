@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Adsterra Responsive Test</title>
+</head>
+<body style="background:#222; color:#fff;">
+  <div id="adsterra-billboard-slot" style="display:flex; justify-content:center; align-items:center; min-height:90px; width:100%; overflow:hidden;">
+    <script type="text/javascript">
+      (function() {
+        var isMobile = window.innerWidth < 768;
+        var key = isMobile ? '1cdf29d3af257663a92ffa6b5207a68a' : '6703ea03ffb309455182c593d4e6ea81';
+        var w = isMobile ? 320 : 728;
+        var h = isMobile ? 50 : 90;
+        
+        window.atOptions = {
+          'key' : key,
+          'format' : 'iframe',
+          'height' : h,
+          'width' : w,
+          'params' : {}
+        };
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.setAttribute('data-cfasync', 'false');
+        s.src = 'https://czernik.org/22/' + key;
+        document.currentScript.parentNode.appendChild(s);
+      })();
+    </script>
+  </div>
+</body>
+</html>

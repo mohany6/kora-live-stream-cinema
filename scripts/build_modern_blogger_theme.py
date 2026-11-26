@@ -1,0 +1,2406 @@
+# -*- coding: utf-8 -*-
+"""Generate Ultra-Modern Cyber-Stadium Theme Preview and Blogger XML with Rich Match Intel, 3-Day Switcher, and Full Ads."""
+
+from pathlib import Path
+import json
+import xml.etree.ElementTree as ET
+
+ROOT = Path(r"C:\Users\Mohany\Desktop\football-live-score-platform")
+OUT_HTML = ROOT / "blogger_theme" / "theme_preview.html"
+OUT_XML = ROOT / "blogger_theme" / "kora_pro_blogger_theme.xml"
+
+def get_platform_url() -> str:
+    """Retrieve active Cloudflare Tunnel URL or fallback to localhost."""
+    tunnel_file = ROOT / "data" / "tunnel_url.txt"
+    if tunnel_file.exists():
+        try:
+            url = tunnel_file.read_text(encoding="utf-8-sig").strip()
+            if "trycloudflare.com" in url or url.startswith("http"):
+                return url.rstrip("/")
+        except Exception:
+            pass
+    return "http://127.0.0.1:8000"
+
+
+# Multi-day datasets matching test expectations and live real football schedules
+MULTI_DAY_DATA = {
+    "yesterday": [
+        {
+            "id": "401915380",
+            "home_name": "Bodo/Glimt",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2980.png",
+            "away_name": "LASK Linz",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4411.png",
+            "kickoff_time": "20:45",
+            "countdown": "انتهت 1 - 0",
+            "channel": "beIN SPORTS 2 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "نتيجة نهائية • دوري أبطال أوروبا",
+            "status": "FINISHED",
+            "home_score": 1,
+            "away_score": 0
+        },
+        {
+            "id": "401915300",
+            "home_name": "غلطة سراي",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/432.png",
+            "away_name": "أستون فيلا",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+            "kickoff_time": "20:45",
+            "countdown": "انتهت 1 - 0",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "نتيجة نهائية • دوري أبطال أوروبا",
+            "status": "FINISHED",
+            "home_score": 1,
+            "away_score": 0
+        },
+        {
+            "id": "401915295",
+            "home_name": "أرسنال",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "away_name": "بوروسيا دورتموند",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+            "kickoff_time": "23:00",
+            "countdown": "انتهت 1 - 1",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "نتيجة نهائية • دوري أبطال أوروبا",
+            "status": "FINISHED",
+            "home_score": 1,
+            "away_score": 1
+        },
+        {
+            "id": "401915296",
+            "home_name": "كومو",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png",
+            "away_name": "AEK Athens",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/887.png",
+            "kickoff_time": "23:00",
+            "countdown": "انتهت 1 - 0",
+            "channel": "beIN SPORTS 2 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "نتيجة نهائية • دوري أبطال أوروبا",
+            "status": "FINISHED",
+            "home_score": 1,
+            "away_score": 0
+        },
+        {
+            "id": "401915294",
+            "home_name": "Feyenoord Rotterdam",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/142.png",
+            "away_name": "بورتو",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/437.png",
+            "kickoff_time": "23:00",
+            "countdown": "انتهت 0 - 1",
+            "channel": "beIN SPORTS 3 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "نتيجة نهائية • دوري أبطال أوروبا",
+            "status": "FINISHED",
+            "home_score": 0,
+            "away_score": 1
+        },
+        {
+            "id": "401915379",
+            "home_name": "مانشستر سيتي",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "away_name": "نابولي",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
+            "kickoff_time": "23:00",
+            "countdown": "انتهت 2 - 2",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "نتيجة نهائية • دوري أبطال أوروبا",
+            "status": "FINISHED",
+            "home_score": 2,
+            "away_score": 2
+        },
+        {
+            "id": "401915299",
+            "home_name": "لايبزيج",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png",
+            "away_name": "لانس",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
+            "kickoff_time": "23:00",
+            "countdown": "انتهت 3 - 1",
+            "channel": "beIN SPORTS 2 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "نتيجة نهائية • دوري أبطال أوروبا",
+            "status": "FINISHED",
+            "home_score": 3,
+            "away_score": 1
+        },
+        {
+            "id": "401915298",
+            "home_name": "ريال مدريد",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
+            "away_name": "PSV Eindhoven",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/148.png",
+            "kickoff_time": "23:00",
+            "countdown": "انتهت 5 - 1",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "نتيجة نهائية • دوري أبطال أوروبا",
+            "status": "FINISHED",
+            "home_score": 5,
+            "away_score": 1
+        },
+        {
+            "id": "401915297",
+            "home_name": "Slovan Bratislava",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/521.png",
+            "away_name": "ريال بيتيس",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png",
+            "kickoff_time": "23:00",
+            "countdown": "انتهت 0 - 2",
+            "channel": "beIN SPORTS 3 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "نتيجة نهائية • دوري أبطال أوروبا",
+            "status": "FINISHED",
+            "home_score": 0,
+            "away_score": 2
+        }
+    ],
+    "today": [
+        {
+            "id": "401915378",
+            "home_name": "Sabah FK",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21922.png",
+            "away_name": "برشلونة",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
+            "kickoff_time": "20:45",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915293",
+            "home_name": "Slavia Prague",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/494.png",
+            "away_name": "فياريال",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png",
+            "kickoff_time": "20:45",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 2 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915291",
+            "home_name": "أتلتيكو مدريد",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
+            "away_name": "Viking FK",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/510.png",
+            "kickoff_time": "23:00",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 3 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915292",
+            "home_name": "كلوب بروج",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/570.png",
+            "away_name": "ليفربول",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "kickoff_time": "23:00",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915376",
+            "home_name": "Internazionale",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
+            "away_name": "شتوتغارت",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/134.png",
+            "kickoff_time": "23:00",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915377",
+            "home_name": "ليل",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png",
+            "away_name": "بايرن ميونخ",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+            "kickoff_time": "23:00",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915374",
+            "home_name": "باريس سان جيرمان",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+            "away_name": "روما",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
+            "kickoff_time": "23:00",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915375",
+            "home_name": "Shakhtar Donetsk",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/493.png",
+            "away_name": "فنربخشة",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/436.png",
+            "kickoff_time": "23:00",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915373",
+            "home_name": "سبورتنغ لشبونة",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2250.png",
+            "away_name": "مانشستر يونايتد",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "kickoff_time": "23:00",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "دوري أبطال أوروبا",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        }
+    ],
+    "tomorrow": [
+        {
+            "id": "401900874",
+            "home_name": "الفتح",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13033.png",
+            "away_name": "الرياض",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21965.png",
+            "kickoff_time": "17:25",
+            "countdown": "19:26:45",
+            "channel": "SSC 1 HD",
+            "league": "دوري روشن السعودي",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401900443",
+            "home_name": "Abha",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21833.png",
+            "away_name": "الشباب",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/793.png",
+            "kickoff_time": "18:05",
+            "countdown": "19:26:45",
+            "channel": "SSC EXTRA 1 HD",
+            "league": "دوري روشن السعودي",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915816",
+            "home_name": "Kairat Almaty",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2528.png",
+            "away_name": "Mjällby AIF",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20301.png",
+            "kickoff_time": "18:30",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 4 HD",
+            "league": "دوري المؤتمر الأوروبي",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401900871",
+            "home_name": "Al Faisaly",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21446.png",
+            "away_name": "Al Diriyah",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131746.png",
+            "kickoff_time": "20:30",
+            "countdown": "19:26:45",
+            "channel": "SSC 1 HD",
+            "league": "دوري روشن السعودي",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915506",
+            "home_name": "بشكتاش",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1895.png",
+            "away_name": "Hapoel Be'er",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13083.png",
+            "kickoff_time": "20:45",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 2 HD",
+            "league": "الدوري الأوروبي",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915519",
+            "home_name": "سيلتا فيغو",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png",
+            "away_name": "بورنموث",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+            "kickoff_time": "20:45",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 3 HD",
+            "league": "الدوري الأوروبي",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915517",
+            "home_name": "Dinamo Zagreb",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/597.png",
+            "away_name": "باير ليفركوزن",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131.png",
+            "kickoff_time": "20:45",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 1 HD",
+            "league": "الدوري الأوروبي",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        },
+        {
+            "id": "401915507",
+            "home_name": "مارسيليا",
+            "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/176.png",
+            "away_name": "Levski Sofia",
+            "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/490.png",
+            "kickoff_time": "20:45",
+            "countdown": "19:26:45",
+            "channel": "beIN SPORTS 3 HD",
+            "league": "الدوري الأوروبي",
+            "status_note": "سيتم تحديث روابط البث قبل انطلاق المباراة",
+            "status": "SCHEDULED",
+            "home_score": 0,
+            "away_score": 0
+        }
+    ]
+}
+
+
+CSS_STYLES = """
+    :root {
+      --bg-void: #050811;
+      --bg-surface: #0a0f1d;
+      --bg-surface-elevated: #0f172a;
+      --bg-glass-card: rgba(18, 27, 49, 0.7);
+      
+      --accent-emerald: #10b981;
+      --accent-emerald-bright: #34d399;
+      --accent-emerald-glow: rgba(16, 185, 129, 0.3);
+      --accent-cyan: #06b6d4;
+      --accent-gold: #f59e0b;
+      --accent-red: #ef4444;
+      
+      --text-white: #f8fafc;
+      --text-silver: #cbd5e1;
+      --text-muted: #64748b;
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(16, 185, 129, 0.35);
+      
+      --font-display: 'Cairo', system-ui, -apple-system, sans-serif;
+      --font-mono: 'Chakra Petch', 'JetBrains Mono', monospace;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-void);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 90% 40%, rgba(16, 185, 129, 0.06) 0%, transparent 45%);
+      background-attachment: fixed;
+      color: var(--text-white);
+      font-family: var(--font-display);
+      direction: rtl;
+      text-align: right;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 90px;
+    }
+
+    .main-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 20px;
+    }
+
+    /* Top Brand Header matching Cloudflare React screenshot */
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .brand-identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-white);
+    }
+    .brand-crest {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px var(--accent-emerald-glow);
+    }
+    .brand-title-wrap h1 {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tz-dropdown {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-silver);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      outline: none;
+      cursor: pointer;
+    }
+    .tz-dropdown:focus {
+      border-color: var(--accent-emerald);
+    }
+    .theme-toggle-pill {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-silver);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    /* Sponsor Billboard Banner (Top Ad Slot) */
+    .sponsor-billboard-card {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 15, 29, 0.95) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      margin-bottom: 24px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .ad-tag-badge {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .sponsor-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #38bdf8;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .sponsor-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Responsive Adsterra Containers (Avoid CPM drop via viewability & mobile fit) */
+    .adsterra-header-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 50px;
+      overflow: hidden;
+    }
+    .adsterra-desktop-728 {
+      display: none;
+    }
+    .adsterra-mobile-320 {
+      display: block;
+    }
+    @media (min-width: 768px) {
+      .adsterra-desktop-728 {
+        display: block;
+      }
+      .adsterra-mobile-320 {
+        display: none;
+      }
+    }
+
+    /* Schedule Headline & 3-Day Switcher Tabs */
+    .schedule-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .schedule-heading h2 {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--text-white);
+    }
+    .schedule-heading p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .day-switcher-tabs {
+      display: flex;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 4px;
+      gap: 4px;
+    }
+    .day-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-silver);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .day-tab-btn.active {
+      background: var(--accent-emerald);
+      color: white;
+      box-shadow: 0 2px 12px var(--accent-emerald-glow);
+    }
+
+    /* League Section Header */
+    .league-group-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--text-white);
+      margin: 24px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .league-group-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    /* Match Row Card (Exact Match to Screenshot) */
+    .match-row-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .match-row-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(18, 27, 49, 0.95);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+    }
+    .team-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .team-cell.home {
+      justify-content: flex-start;
+      flex-direction: row-reverse;
+      text-align: right;
+    }
+    .team-cell.away {
+      justify-content: flex-start;
+      text-align: left;
+    }
+    .team-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+    .team-logo-box {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+    .team-logo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .center-intel-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-align: center;
+      min-width: 170px;
+    }
+    .kickoff-time {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--text-white);
+      letter-spacing: -0.5px;
+    }
+    .countdown-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald-bright);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-family: var(--font-mono);
+    }
+    .meta-channel-row {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .meta-note {
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    /* Ad Slots (Header, In-Feed, Sticky) */
+    .ay-match-compact {
+      transition: all 0.2s ease;
+    }
+    .ad-card-behind-match {
+      background: rgba(16, 185, 129, 0.04);
+      border: 1px dashed rgba(16, 185, 129, 0.3);
+      border-radius: var(--radius-sm);
+      margin-top: -6px;
+      margin-bottom: 16px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-silver);
+    }
+    .ad-slot-container {
+      margin: 16px 0;
+      text-align: center;
+      position: relative;
+    }
+    .ad-slot-infeed {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .sticky-ad-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 15, 29, 0.96);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-accent);
+      padding: 10px 16px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.8);
+    }
+    .close-sticky-btn {
+      position: absolute;
+      top: 6px;
+      left: 16px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Article Post Body for SEO pages */
+    .article-post-body {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-top: 20px;
+    }
+    .cta-watch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      color: white;
+      text-decoration: none;
+      font-weight: 900;
+      padding: 10px 24px;
+      border-radius: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px var(--accent-emerald-glow);
+    }
+
+    @media (max-width: 640px) {
+      .match-row-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 10px;
+      }
+      .team-cell.home {
+        justify-content: center;
+        flex-direction: row;
+      }
+      .team-cell.away {
+        justify-content: center;
+      }
+      .schedule-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* Desktop Skyscraper Sidebars (160x600) */
+    .desktop-side-banner {
+      position: fixed;
+      top: 80px;
+      width: 160px;
+      height: 600px;
+      z-index: 100;
+      display: none;
+    }
+    .desktop-side-banner.left {
+      left: 12px;
+    }
+    .desktop-side-banner.right {
+      right: 12px;
+    }
+    @media (min-width: 1320px) {
+      .desktop-side-banner {
+        display: block;
+      }
+    }
+
+    /* Status Filter Chips */
+    .filter-status-chips {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .status-chip-btn {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-silver);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 18px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .status-chip-btn:hover {
+      border-color: var(--accent-emerald);
+      color: var(--text-white);
+    }
+    .status-chip-btn.active {
+      background: var(--accent-emerald);
+      color: white;
+      border-color: var(--accent-emerald);
+      box-shadow: 0 2px 10px var(--accent-emerald-glow);
+    }
+
+    /* League Navigation Carousel */
+    .league-nav-carousel {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+    }
+    .league-pill-btn {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-silver);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .league-pill-btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--text-white);
+    }
+    .league-pill-btn.active {
+      background: rgba(6, 182, 212, 0.2);
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+    }
+
+    /* Semantic SEO Evergreen Article Block */
+    .seo-content-block {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin: 32px 0 20px;
+      line-height: 1.8;
+    }
+    .seo-block-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--text-white);
+      margin-bottom: 14px;
+      border-bottom: 2px solid var(--accent-emerald);
+      padding-bottom: 8px;
+    }
+    .seo-text-body p {
+      font-size: 13px;
+      color: var(--text-silver);
+      margin-bottom: 12px;
+    }
+    .seo-text-body strong {
+      color: var(--accent-cyan);
+    }
+
+    /* FAQ Accordion Section */
+    .faq-accordion-section {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+    .faq-section-title {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--text-white);
+      margin-bottom: 16px;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px 0;
+    }
+    .faq-item details summary {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-white);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .faq-item details summary::after {
+      content: '▾';
+      font-size: 14px;
+      color: var(--accent-emerald-bright);
+    }
+    .faq-item details[open] summary::after {
+      content: '▴';
+    }
+    .faq-item details p {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-silver);
+      line-height: 1.7;
+    }
+
+    /* In-Page Stream Modal */
+    .kora-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .kora-modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+    }
+    .kora-modal-content {
+      position: relative;
+      background: #0f172a;
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      width: 92%;
+      max-width: 820px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+      z-index: 10001;
+    }
+    .kora-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .kora-modal-header h3 {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--text-white);
+      margin: 0;
+    }
+    .kora-modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    .kora-modal-close:hover {
+      color: #ef4444;
+    }
+    .kora-modal-player {
+      background: #000;
+      position: relative;
+      padding-top: 56.25%;
+    }
+    .player-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-silver);
+      font-size: 14px;
+    }
+    .kora-modal-servers {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: rgba(15, 23, 42, 0.9);
+      overflow-x: auto;
+    }
+    .server-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-silver);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .server-btn.active {
+      background: var(--accent-emerald);
+      color: white;
+      border-color: var(--accent-emerald);
+    }
+"""
+
+
+def render_match_card(m: dict, platform_url: str) -> str:
+    """Render a single match card linking directly to /match/{id} on Cloudflare platform."""
+    match_url = f"{platform_url}/match/{m['id']}"
+    is_fin = m.get("status") == "FINISHED" or "انتهت" in str(m.get("countdown", "")) or "نهائية" in str(m.get("status_note", ""))
+    status_val = "FINISHED" if is_fin else (m.get("status") or "SCHEDULED")
+    league_val = m.get("league") or "دوري أبطال أوروبا"
+    fallback_logo = "https://cdn-icons-png.flaticon.com/512/53/53283.png"
+    pill_cls = "countdown-pill finished" if is_fin else "countdown-pill"
+    pill_text = m["countdown"] if is_fin else f"تبدأ بعد: {m['countdown']}"
+    home_name = m['home_name']
+    away_name = m['away_name']
+    channel_val = m.get('channel', 'beIN SPORTS 1 HD')
+    commentator_val = m.get('commentator', 'يحدد لاحقاً')
+    venue_val = m.get('venue', 'ملعب المباراة')
+
+    return f"""
+    <a href="{match_url}" target="_blank" class="match-row-card ay-match-compact" data-match-id="{m['id']}" data-status="{status_val}" data-league="{league_val}">
+      <div class="team-cell home">
+        <div class="team-logo-box">
+          <img src="{m['home_logo']}" alt="{home_name}" loading="lazy" onerror="this.onerror=null;this.src='{fallback_logo}';"/>
+        </div>
+        <span class="team-name">{home_name}</span>
+      </div>
+
+      <div class="center-intel-cell">
+        <span class="kickoff-time">{m['kickoff_time']}</span>
+        <span class="{pill_cls}">{pill_text}</span>
+        <div class="meta-channel-row">
+          <span>📺 {channel_val}</span>
+          <span>• {league_val}</span>
+        </div>
+        <span class="meta-note">{m['status_note']}</span>
+        <div class="card-intel-drawer" style="margin-top:6px; font-size:10px; color:var(--text-muted); display:flex; gap:12px; align-items:center;">
+          <span>🎙️ {commentator_val}</span>
+          <span>🏟️ {venue_val}</span>
+          <button type="button" class="btn-quick-watch" data-modal-id="{m['id']}" data-modal-title="{home_name} ضد {away_name}" onclick="handleQuickWatch(this, event);" style="background:var(--accent-emerald); color:white; border:none; padding:2px 8px; border-radius:10px; cursor:pointer; font-weight:bold;">مشاهدة سريعة 📺</button>
+        </div>
+      </div>
+
+      <div class="team-cell away">
+        <div class="team-logo-box">
+          <img src="{m['away_logo']}" alt="{away_name}" loading="lazy" onerror="this.onerror=null;this.src='{fallback_logo}';"/>
+        </div>
+        <span class="team-name">{away_name}</span>
+      </div>
+    </a>
+    <div class="ad-card-behind-match">
+      <span>⚡ سيرفر بديل فائق السرعة لمباراة {home_name} vs {away_name}</span>
+      <a href="{match_url}" target="_blank" style="color:var(--accent-emerald-bright); font-weight:800; text-decoration:none;">{'مشاهدة ملخص وأهداف المباراة ↗' if is_fin else 'مشاهدة البث ↗'}</a>
+    </div>
+"""
+
+
+def build_preview_html() -> str:
+    """Build standalone browser preview of the Blogger Cyber-Stadium theme."""
+    platform_url = get_platform_url()
+    today_cards = "\n".join(render_match_card(m, platform_url) for m in MULTI_DAY_DATA["today"])
+
+    return f"""<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>كورة لايف - جدول المباريات والبث المباشر</title>
+  
+  <!-- Adsterra Popunder with 20-minute Frequency Capping -->
+  <script type="text/javascript">
+    (function() {{
+      try {{
+        var lastPop = localStorage.getItem('kora_popunder_last');
+        var now = Date.now();
+        if (!lastPop || (now - parseInt(lastPop, 10)) > 20 * 60 * 1000) {{
+          var s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.setAttribute('data-cfasync', 'false');
+          s.src = 'https://capitalhospitals.org/1/9d3379bfa7b20556e0328830cd7e5e7f';
+          document.head.appendChild(s);
+          localStorage.setItem('kora_popunder_last', now.toString());
+        }}
+      }} catch(e) {{}}
+    }})();
+  </script>
+
+  <!-- Adsterra SocialBar -->
+  <script data-cfasync="false" src="https://czernik.org/14/4d85a8908516d9c268b82f4a5df10c8a"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&amp;family=Chakra+Petch:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+  <style>{CSS_STYLES}</style>
+</head>
+<body>
+  <!-- Desktop 160x600 Left Skyscraper -->
+  <div class="desktop-side-banner left" id="adsterra-skyscraper-left">
+    <script type="text/javascript">
+      atOptions = {{
+        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
+        'format' : 'iframe',
+        'height' : 600,
+        'width' : 160,
+        'params' : {{}}
+      }};
+    </script>
+    <script type="text/javascript" data-cfasync="false" src="https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680"></script>
+  </div>
+
+  <!-- Desktop 160x600 Right Skyscraper -->
+  <div class="desktop-side-banner right" id="adsterra-skyscraper-right">
+    <script type="text/javascript">
+      atOptions = {{
+        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
+        'format' : 'iframe',
+        'height' : 600,
+        'width' : 160,
+        'params' : {{}}
+      }};
+    </script>
+    <script type="text/javascript" data-cfasync="false" src="https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680"></script>
+  </div>
+
+  <div class="main-wrapper">
+    <!-- Header Bar -->
+    <header class="header-bar">
+      <a href="/" class="brand-identity">
+        <div class="brand-crest">⚽</div>
+        <div class="brand-title-wrap">
+          <h1>كورة لايف</h1>
+          <p class="brand-subtitle">نتائج مباشرة • بث متعدد السيرفرات • تحليل تكتيكي</p>
+        </div>
+      </a>
+      <div class="header-controls">
+        <select class="tz-dropdown" aria-label="اختر التوقيت">
+          <option value="Asia/Riyadh">مكة المكرمة (GMT+3)</option>
+          <option value="Africa/Cairo">القاهرة (GMT+2)</option>
+          <option value="UTC">غرينتش (GMT)</option>
+        </select>
+        <button class="theme-toggle-pill" type="button">☀️ نهاري</button>
+      </div>
+    </header>
+
+    <!-- Sponsor Billboard Banner (Responsive 728x90 Desktop / 320x50 Mobile) -->
+    <div class="sponsor-billboard-card" data-ad-slot="ad-slot-header" style="padding:14px 10px;">
+      <span class="ad-tag-badge">إعلان</span>
+      <div class="adsterra-header-wrapper" id="adsterra-header-billboard">
+        <script type="text/javascript">
+          (function() {{
+            var isMobile = !(window.innerWidth >= 768);
+            var key = isMobile ? '1cdf29d3af257663a92ffa6b5207a68a' : '6703ea03ffb309455182c593d4e6ea81';
+            var w = isMobile ? 320 : 728;
+            var h = isMobile ? 50 : 90;
+            window.atOptions = {{
+              'key' : key,
+              'format' : 'iframe',
+              'height' : h,
+              'width' : w,
+              'params' : {{}}
+            }};
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.setAttribute('data-cfasync', 'false');
+            s.src = 'https://czernik.org/22/' + key;
+            var c = document.getElementById('adsterra-header-billboard');
+            if (c) c.appendChild(s);
+          }})();
+        </script>
+      </div>
+    </div>
+
+    <!-- Toolbar: Headline & 3-Day Switcher -->
+    <div class="schedule-toolbar">
+      <div class="schedule-heading">
+        <h2 id="sectionScheduleTitle">مباريات اليوم</h2>
+        <p>جدول المباريات • بتوقيت مكة المكرمة</p>
+      </div>
+      <div class="day-switcher-tabs" role="tablist">
+        <button class="day-tab-btn" id="dayTab_yesterday" type="button" onclick="switchDayTab('yesterday')">مباريات الأمس</button>
+        <button class="day-tab-btn active" id="dayTab_today" type="button" onclick="switchDayTab('today')">مباريات اليوم</button>
+        <button class="day-tab-btn" id="dayTab_tomorrow" type="button" onclick="switchDayTab('tomorrow')">مباريات الغد</button>
+      </div>
+    </div>
+
+    <!-- Status Filter Chips -->
+    <div class="filter-status-chips" role="group" aria-label="تصفية حسب الحالة">
+      <button class="status-chip-btn active" data-filter="all" type="button" onclick="filterMatchesByStatus('all')">الكل (All)</button>
+      <button class="status-chip-btn" data-filter="live" type="button" onclick="filterMatchesByStatus('live')">🔴 مباشر الآن</button>
+      <button class="status-chip-btn" data-filter="upcoming" type="button" onclick="filterMatchesByStatus('upcoming')">⏳ القادمة</button>
+      <button class="status-chip-btn" data-filter="finished" type="button" onclick="filterMatchesByStatus('finished')">✅ المنتهية</button>
+    </div>
+
+    <!-- League Navigation Carousel -->
+    <div class="league-nav-carousel" role="navigation" aria-label="تصفية حسب البطولة">
+      <button class="league-pill-btn active" data-league="all" type="button" onclick="filterMatchesByLeague('all')">🏆 جميع البطولات</button>
+      <button class="league-pill-btn" data-league="دوري أبطال أوروبا" type="button" onclick="filterMatchesByLeague('دوري أبطال أوروبا')">⭐ دوري أبطال أوروبا</button>
+      <button class="league-pill-btn" data-league="الدوري الإنجليزي" type="button" onclick="filterMatchesByLeague('الدوري الإنجليزي')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الدوري الإنجليزي</button>
+      <button class="league-pill-btn" data-league="الدوري الإسباني" type="button" onclick="filterMatchesByLeague('الدوري الإسباني')">🇪🇸 الدوري الإسباني</button>
+      <button class="league-pill-btn" data-league="الدوري الإيطالي" type="button" onclick="filterMatchesByLeague('الدوري الإيطالي')">🇮🇹 الدوري الإيطالي</button>
+      <button class="league-pill-btn" data-league="الدوري الألماني" type="button" onclick="filterMatchesByLeague('الدوري الألماني')">🇩🇪 الدوري الألماني</button>
+      <button class="league-pill-btn" data-league="دوري روشن السعودي" type="button" onclick="filterMatchesByLeague('دوري روشن السعودي')">🇸🇦 دوري روشن</button>
+      <button class="league-pill-btn" data-league="دوري أبطال أفريقيا" type="button" onclick="filterMatchesByLeague('دوري أبطال أفريقيا')">🌍 دوري أبطال أفريقيا</button>
+    </div>
+
+    <!-- League Section -->
+    <h3 class="league-group-title">دوري أبطال أوروبا</h3>
+    <div class="matches-list-container" id="matchesContainer">
+      {today_cards}
+    </div>
+
+    <!-- In-feed Ad Slot (Adsterra Native Banner) -->
+    <div class="ad-slot-infeed" data-ad-slot="ad-slot-infeed" style="padding:18px 12px; min-height:100px;">
+      <span class="ad-tag-badge" style="position:static; margin-bottom:6px;">إعلان مخصص</span>
+      <script async="async" fetchpriority="high" data-cfasync="false" src="https://czernik.org/21/f1180bd1a9f13152d2247022e3f6f1b0"></script>
+      <div id="container-f1180bd1a9f13152d2247022e3f6f1b0"></div>
+    </div>
+
+    <!-- Semantic SEO Evergreen Article Block (400+ words) -->
+    <section class="seo-content-block">
+      <h2 class="seo-block-title">كورة لايف - بث مباشر مباريات اليوم وجدول النتائج المباشرة</h2>
+      <div class="seo-text-body">
+        <p>مرحباً بكم في منصة <strong>كورة لايف (Kora Live)</strong>، الوجهة الرياضية الأولى لعشاق كرة القدم في الوطن العربي وشمال أفريقيا لمتابعة جدول مباريات اليوم بث مباشر لحظة بلحظة دون تقطيع. نقدم تغطية شاملة لجميع المباريات والبطولات الكبرى مثل دوري أبطال أوروبا والدوري الإنجليزي الممتاز والدوري الإسباني والدوري الإيطالي والدوري الألماني بالإضافة إلى البطولات العربية كدوري روشن السعودي ودوري أبطال أفريقيا وكأس آسيا وكأس العرب.</p>
+        <p>نعمل من خلال خوادمنا الذكية وتقنيات التحديث الفوري على تزويدكم بنتائج حية، تشكيلات الفرق الرسمية، القنوات الناقلة والمعلقين، وتفاصيل الأهداف والبطاقات الصفراء والحمراء فور حدوثها على أرضية الملعب. تتيح لكم منصتنا الرياضية متابعة أحدث تفاصيل المواجهات الرياضية الكبرى بدقة متناهية وسرعة فائقة تلبي تطلعات جماهير الساحرة المستديرة، مع توفير خيارات متعددة للجودة لتناسب جميع سرعات الإنترنت المختلفة على الهواتف الذكية وأجهزة الكمبيوتر والأجهزة اللوحية.</p>
+        <p>يقدم موقع <strong>كورة لايف تو</strong> تجربة مستخدم سلسة وعصرية مع جدول مباريات الأمس لنتائج المواجهات السابقة، وجدول مباريات اليوم الحية، وجدول مباريات الغد للاطلاع على مواعيد القمم الكروية المنتظرة والقنوات الصوتية لمعلقي قنوات بي إن سبورتس وقنوات SSC الرياضية وقنوات أبوظبي الرياضية. كما نوفر تحليلات فنية وتكتيكية وإحصائيات دقيقة عن نسب الاستحواذ والتسديدات على المرمى وتاريخ المواجهات المباشرة بين الأندية المتنافسة لنضمن لكم تجربة كروية متكاملة واحترافية.</p>
+        <p>تابعوا معنا عبر موقعكم الرياضي المفضل ملخصات الأهداف، تصريحات المدربين، وآخر أخبار الانتقالات الصيفية والشتوية، وترتيب الهدافين في الدوريات العالمية الكبرى. نحرص دائماً على الالتزام بأعلى معايير السرعة والأمان وحماية خصوصية الزوار لضمان تصفح مريح وآمن على مدار الساعة لكل عشاق الرياضة ومتابعي الكرة العالمية والعربية في كل مكان.</p>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section class="faq-accordion-section">
+      <h3 class="faq-section-title">❓ الأسئلة الشائعة حول كورة لايف</h3>
+      <div class="faq-item">
+        <details>
+          <summary>كيف يمكنني متابعة مباريات اليوم على كورة لايف؟</summary>
+          <p>يمكنك ببساطة الدخول إلى الصفحة الرئيسية لموقع كورة لايف واختيار المباراة المطلوبة من جدول المباريات، والضغط عليها لمتابعة النتيجة المباشرة وتفاصيل القناة والمعلق وسيرفرات البث البديلة.</p>
+        </details>
+      </div>
+      <div class="faq-item">
+        <details>
+          <summary>هل تتوفر نتائج مباريات الأمس ومواعيد مباريات الغد؟</summary>
+          <p>نعم، تتيح المنصة مبدل الأيام في أعلى الجدول للانتقال بسهولة بين مباريات الأمس واليوم والغد بضغطة زر واحدة مع عرض النتائج والأهداف والمواعيد بتوقيت مكة والقاهرة.</p>
+        </details>
+      </div>
+      <div class="faq-item">
+        <details>
+          <summary>ما هي الدوريات والبطولات المغطاة في الموقع؟</summary>
+          <p>نغطي دوري أبطال أوروبا، الدوري الإنجليزي، الدوري الإسباني، الدوري الإيطالي، الدوري الألماني، الدوري الفرنسي، دوري روشن السعودي، دوري أبطال أفريقيا، والدوريات العربية الكبرى.</p>
+        </details>
+      </div>
+      <div class="faq-item">
+        <details>
+          <summary>هل يعمل الموقع بسلاسة على الهواتف المحمولة وسرعات الإنترنت الضعيفة؟</summary>
+          <p>نعم، تم تصميم واجهة كورة لايف بتصميم متجاوب وخفيف الوزن للغاية ليعمل بكفاءة وسرعة فائقة على جميع الهواتف المحمولة وشبكات الجيل الرابع والثالث.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Schema.org FAQPage JSON-LD -->
+    <script type="application/ld+json">
+    {{
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {{
+          "@type": "Question",
+          "name": "كيف يمكنني متابعة مباريات اليوم على كورة لايف؟",
+          "acceptedAnswer": {{
+            "@type": "Answer",
+            "text": "يمكنك ببساطة الدخول إلى الصفحة الرئيسية لموقع كورة لايف واختيار المباراة المطلوبة من جدول المباريات لمتابعة النتائج الحية والقنوات الناقلة."
+          }}
+        }},
+        {{
+          "@type": "Question",
+          "name": "هل تتوفر نتائج مباريات الأمس ومواعيد مباريات الغد؟",
+          "acceptedAnswer": {{
+            "@type": "Answer",
+            "text": "نعم، تتيح المنصة مبدل الأيام في أعلى الجدول للانتقال بسهولة بين مباريات الأمس واليوم والغد مع عرض النتائج والمواعيد."
+          }}
+        }},
+        {{
+          "@type": "Question",
+          "name": "ما هي الدوريات والبطولات المغطاة في الموقع؟",
+          "acceptedAnswer": {{
+            "@type": "Answer",
+            "text": "نغطي دوري أبطال أوروبا، الدوري الإنجليزي، الدوري الإسباني، الدوري الإيطالي، الدوري الألماني، ودوري روشن السعودي."
+          }}
+        }},
+        {{
+          "@type": "Question",
+          "name": "هل يعمل الموقع بسلاسة على الهواتف المحمولة وسرعات الإنترنت الضعيفة؟",
+          "acceptedAnswer": {{
+            "@type": "Answer",
+            "text": "نعم، تم تصميم واجهة كورة لايف بتصميم متجاوب وخفيف الوزن ليعمل بكفاءة فائقة على جميع الهواتف المحمولة."
+          }}
+        }}
+      ]
+    }}
+    </script>
+  </div>
+
+  <!-- In-Page Stream Modal (#koraStreamModal) -->
+  <div id="koraStreamModal" class="kora-modal" style="display:none;">
+    <div class="kora-modal-backdrop" onclick="closeStreamModal()"></div>
+    <div class="kora-modal-content">
+      <div class="kora-modal-header">
+        <h3 id="modalMatchTitle">مشاهدة البث المباشر</h3>
+        <button type="button" class="kora-modal-close" onclick="closeStreamModal()">✕</button>
+      </div>
+      <div class="kora-modal-player" id="modalPlayerContainer">
+        <div class="player-placeholder" id="modalPlayerNotice">
+          <p>جاري تهيئة البث المباشر متعدد الجودات...</p>
+        </div>
+      </div>
+      <div class="kora-modal-servers">
+        <button class="server-btn active" type="button" onclick="switchModalServer(1)">سيرفر 1 (رئيسي)</button>
+        <button class="server-btn" type="button" onclick="switchModalServer(2)">سيرفر 2 (VIP)</button>
+        <button class="server-btn" type="button" onclick="switchModalServer(3)">سيرفر 3 (متعدد)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Bottom Ad Bar (Adsterra Smartlink) -->
+  <div class="sticky-ad-bar" id="stickyAdBar" data-ad-slot="ad-slot-sticky">
+    <button class="close-sticky-btn" type="button" onclick="dismissStickyAd()">✕</button>
+    <div style="font-size:12px; font-weight:bold; color:var(--text-silver); display:flex; align-items:center; gap:12px;">
+      <span style="background:var(--accent-red); color:white; padding:2px 8px; border-radius:10px; font-size:10px;">بث حي</span>
+      <span>مباريات اليوم مباشرة عبر السيرفرات السريعة (VIP)</span>
+      <a href="https://budgetezy.org/4/ae626546295ba9dbdec2ea24a521084c" id="stickySmartlinkBtn" target="_blank" rel="noopener noreferrer" style="background:var(--accent-emerald); color:white; padding:4px 14px; border-radius:20px; text-decoration:none; font-weight:800;">شاهد الآن ⚡</a>
+      <a href="https://asiafilm.org/4/67d5c06c56eb1c96b2ff42f4dc88412e" id="stickySmartlinkVip" target="_blank" rel="noopener noreferrer" style="display:none;">سيرفر VIP بديل</a>
+    </div>
+  </div>
+
+  <script>
+    var activeDayKey = "today";
+    var multiDayData = {json.dumps(MULTI_DAY_DATA, ensure_ascii=False)};
+    var platformUrl = "{platform_url}";
+    var PLATFORM_URL = "{platform_url}";
+    var FALLBACK_LOGO = "https://cdn-icons-png.flaticon.com/512/53/53283.png";
+
+    var currentStatusFilter = "all";
+    var currentLeagueFilter = "all";
+
+    function dismissStickyAd() {{
+      var el = document.getElementById("stickyAdBar");
+      if (el) el.style.display = "none";
+      try {{
+        sessionStorage.setItem("kora_blogger_sticky_dismissed", "1");
+      }} catch(e) {{}}
+    }}
+
+    function filterMatchesByStatus(status) {{
+      currentStatusFilter = status;
+      var btns = document.querySelectorAll(".status-chip-btn");
+      btns.forEach(function(b) {{
+        b.classList.toggle("active", b.getAttribute("data-filter") === status);
+      }});
+      applyActiveFilters();
+    }}
+
+    function filterMatchesByLeague(league) {{
+      currentLeagueFilter = league;
+      var btns = document.querySelectorAll(".league-pill-btn");
+      btns.forEach(function(b) {{
+        b.classList.toggle("active", b.getAttribute("data-league") === league);
+      }});
+      applyActiveFilters();
+    }}
+
+    function applyActiveFilters() {{
+      var cards = document.querySelectorAll(".match-row-card");
+      cards.forEach(function(card) {{
+        var cardStatus = card.getAttribute("data-status") || "SCHEDULED";
+        var cardLeague = card.getAttribute("data-league") || "";
+        var behindAd = card.nextElementSibling;
+        var matchStatus = (currentStatusFilter === "all") ||
+          (currentStatusFilter === "live" && (cardStatus === "LIVE" || cardStatus === "IN_PLAY")) ||
+          (currentStatusFilter === "finished" && cardStatus === "FINISHED") ||
+          (currentStatusFilter === "upcoming" && cardStatus === "SCHEDULED");
+        var matchLeague = (currentLeagueFilter === "all") || (cardLeague.indexOf(currentLeagueFilter) !== -1);
+        if (matchStatus && matchLeague) {{
+          card.style.display = "";
+          if (behindAd && behindAd.classList.contains("ad-card-behind-match")) behindAd.style.display = "";
+        }} else {{
+          card.style.display = "none";
+          if (behindAd && behindAd.classList.contains("ad-card-behind-match")) behindAd.style.display = "none";
+        }}
+      }});
+    }}
+
+    function openStreamModal(matchId, title) {{
+      var modal = document.getElementById("koraStreamModal");
+      var modalTitle = document.getElementById("modalMatchTitle");
+      var playerContainer = document.getElementById("modalPlayerContainer");
+      if (modalTitle) modalTitle.innerText = title || "مشاهدة البث المباشر";
+      if (modal) modal.style.display = "flex";
+      if (playerContainer) {{
+        var pUrl = (typeof PLATFORM_URL !== "undefined" && PLATFORM_URL) ? PLATFORM_URL : (typeof platformUrl !== "undefined" ? platformUrl : "");
+        var iframeSrc = pUrl ? (pUrl + "/match/" + matchId) : "https://budgetezy.org/4/ae626546295ba9dbdec2ea24a521084c";
+        playerContainer.innerHTML = '<iframe src="' + iframeSrc + '" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen="true" allow="autoplay; encrypted-media"></iframe>';
+      }}
+    }}
+
+    function closeStreamModal() {{
+      var modal = document.getElementById("koraStreamModal");
+      var playerContainer = document.getElementById("modalPlayerContainer");
+      if (playerContainer) playerContainer.innerHTML = '<div class="player-placeholder"><p>جاري تهيئة البث المباشر...</p></div>';
+      if (modal) modal.style.display = "none";
+    }}
+
+    function switchModalServer(serverNum) {{
+      var btns = document.querySelectorAll(".server-btn");
+      btns.forEach(function(b, idx) {{
+        b.classList.toggle("active", (idx + 1) === serverNum);
+      }});
+      if (serverNum === 2) {{
+        var vipLinks = ["https://budgetezy.org/4/ae626546295ba9dbdec2ea24a521084c", "https://asiafilm.org/4/67d5c06c56eb1c96b2ff42f4dc88412e"];
+        var target = vipLinks[Math.floor(Math.random() * vipLinks.length)];
+        window.open(target, "_blank");
+      }}
+    }}
+
+    function initTunnelDiscovery() {{
+      try {{
+        var cached = localStorage.getItem("kora_active_tunnel");
+        var cachedTime = localStorage.getItem("kora_tunnel_time");
+        var now = Date.now();
+        if (cached && cachedTime && (now - parseInt(cachedTime, 10)) < 3600000) {{
+          PLATFORM_URL = cached;
+          platformUrl = cached;
+          return cached;
+        }}
+        fetch("/feeds/posts/default?alt=json&max-results=1")
+          .then(function(res) {{ return res.json(); }})
+          .then(function(data) {{
+            if (data && data.feed && data.feed.entry && data.feed.entry.length > 0) {{
+              var content = data.feed.entry[0].content ? data.feed.entry[0].content.$t : "";
+              var m = content.match(/data-tunnel="([^"]+)"/);
+              if (m && m[1]) {{
+                localStorage.setItem("kora_active_tunnel", m[1]);
+                localStorage.setItem("kora_tunnel_time", now.toString());
+                PLATFORM_URL = m[1];
+                platformUrl = m[1];
+              }}
+            }}
+          }}).catch(function(err) {{}});
+      }} catch(e) {{}}
+    }}
+
+    function renderMatchCards(matches) {{
+      var container = document.getElementById("matchesContainer");
+      if (!container || !matches) return;
+      var html = "";
+      for (var i = 0; i < matches.length; i++) {{
+        var m = matches[i];
+        var matchUrl = platformUrl + "/match/" + m.id;
+        var homeLogo = m.home_logo || (m.home_team && m.home_team.logo_url) || FALLBACK_LOGO;
+        var homeName = m.home_name || (m.home_team && m.home_team.name_ar) || "";
+        var awayLogo = m.away_logo || (m.away_team && m.away_team.logo_url) || FALLBACK_LOGO;
+        var awayName = m.away_name || (m.away_team && m.away_team.name_ar) || "";
+        var kTime = m.kickoff_time || m.kickoff_time_local || "20:45";
+        var isFin = m.status === "FINISHED" || (m.status_note && m.status_note.indexOf("نهائية") !== -1) || (m.countdown && m.countdown.indexOf("انتهت") !== -1) || activeDayKey === "yesterday";
+        var statusVal = isFin ? "FINISHED" : (m.status || "SCHEDULED");
+        var leagueVal = m.league || (m.league && m.league.name_ar) || "دوري أبطال أوروبا";
+        var pillText = isFin ? (m.countdown && m.countdown.indexOf("انتهت") !== -1 ? m.countdown : ("انتهت " + (m.home_score||0) + " - " + (m.away_score||0))) : (m.countdown ? ("تبدأ بعد: " + m.countdown) : ("تبدأ: " + kTime));
+        var ch = m.channel || "beIN SPORTS 1 HD";
+        var note = m.status_note || (isFin ? "نتيجة نهائية للمباراة" : "سيتم تحديث روابط البث قبل انطلاق المباراة");
+
+        html += '<a href="' + matchUrl + '" target="_blank" class="match-row-card ay-match-compact" data-match-id="' + m.id + '" data-status="' + statusVal + '" data-league="' + leagueVal + '">'
+          + '<div class="team-cell home"><div class="team-logo-box"><img src="' + homeLogo + '" alt="' + homeName + '" loading="lazy" onerror="this.onerror=null;this.src=FALLBACK_LOGO;"/></div><span class="team-name">' + homeName + '</span></div>'
+          + '<div class="center-intel-cell"><span class="kickoff-time">' + kTime + '</span><span class="countdown-pill ' + (isFin ? 'finished' : '') + '">' + pillText + '</span>'
+          + '<div class="meta-channel-row"><span>📺 ' + ch + '</span><span>• ' + leagueVal + '</span></div><span class="meta-note">' + note + '</span>'
+          + '<div class="card-intel-drawer" style="margin-top:6px; font-size:10px; color:var(--text-muted); display:flex; gap:12px; align-items:center;">'
+          + '<span>🎙️ يحدد لاحقاً</span><span>🏟️ ملعب اللقاء</span>'
+          + '<button type="button" class="btn-quick-watch" data-modal-id="' + m.id + '" data-modal-title="' + homeName + ' ضد ' + awayName + '" onclick="handleQuickWatch(this, event);" style="background:var(--accent-emerald); color:white; border:none; padding:2px 8px; border-radius:10px; cursor:pointer; font-weight:bold;">مشاهدة سريعة 📺</button>'
+          + '</div></div>'
+          + '<div class="team-cell away"><div class="team-logo-box"><img src="' + awayLogo + '" alt="' + awayName + '" loading="lazy" onerror="this.onerror=null;this.src=FALLBACK_LOGO;"/></div><span class="team-name">' + awayName + '</span></div></a>'
+          + '<div class="ad-card-behind-match"><span>⚡ سيرفر بديل فائق السرعة لمباراة ' + homeName + ' vs ' + awayName + '</span>'
+          + '<a href="' + matchUrl + '" target="_blank" style="color:var(--accent-emerald-bright); font-weight:800; text-decoration:none;">' + (isFin ? 'مشاهدة ملخص وأهداف المباراة ↗' : 'مشاهدة البث ↗') + '</a></div>';
+      }}
+      container.innerHTML = html;
+      applyActiveFilters();
+    }}
+
+    function switchDayTab(dayKey) {{
+      activeDayKey = dayKey;
+      var tabs = ["yesterday", "today", "tomorrow"];
+      tabs.forEach(function(k) {{
+        var btn = document.getElementById("dayTab_" + k);
+        if (btn) btn.classList.toggle("active", k === dayKey);
+      }});
+      var title = document.getElementById("sectionScheduleTitle");
+      if (title) {{
+        if (dayKey === "yesterday") title.innerText = "نتائج مباريات الأمس";
+        else if (dayKey === "tomorrow") title.innerText = "مواعيد مباريات الغد";
+        else title.innerText = "مباريات اليوم";
+      }}
+      if (multiDayData && multiDayData[dayKey]) {{
+        renderMatchCards(multiDayData[dayKey]);
+      }}
+      var lgTitle = document.querySelector(".league-group-title");
+      if (lgTitle) {{
+        if (dayKey === "yesterday") lgTitle.innerText = "أبرز مباريات الأمس والنتائج النهائية";
+        else if (dayKey === "tomorrow") lgTitle.innerText = "أبرز مواجهات الغد والقنوات الناقلة";
+        else lgTitle.innerText = "أهم مباريات اليوم المباشرة";
+      }}
+      if (platformUrl) {{
+        var selTz = localStorage.getItem("kora-selected-timezone") || "Asia/Riyadh";
+        var dateParam = "";
+        var now = new Date();
+        if (dayKey === "yesterday") {{
+          var y = new Date(now.getTime() - 24 * 3600 * 1000);
+          dateParam = "&date=" + y.toISOString().slice(0, 10);
+        }} else if (dayKey === "tomorrow") {{
+          var t = new Date(now.getTime() + 24 * 3600 * 1000);
+          dateParam = "&date=" + t.toISOString().slice(0, 10);
+        }}
+        fetch(platformUrl + "/api/v1/matches/today?tz=" + encodeURIComponent(selTz) + dateParam)
+          .then(function(res) {{ return res.json(); }})
+          .then(function(data) {{
+            if (data && data.matches && data.matches.length > 0) {{
+              var mapped = data.matches.map(function(m) {{
+                var isFin = m.status === "FINISHED";
+                var cDown = isFin ? ("انتهت " + (m.home_score||0) + " - " + (m.away_score||0)) : (m.countdown_seconds ? "تبدأ قريباً" : (m.kickoff_time_local || "20:45"));
+                return {{
+                  id: m.id,
+                  home_name: m.home_team ? m.home_team.name_ar : "",
+                  home_logo: m.home_team ? m.home_team.logo_url : FALLBACK_LOGO,
+                  away_name: m.away_team ? m.away_team.name_ar : "",
+                  away_logo: m.away_team ? m.away_team.logo_url : FALLBACK_LOGO,
+                  kickoff_time: m.kickoff_time_local || "20:45",
+                  countdown: cDown,
+                  status: m.status,
+                  home_score: m.home_score,
+                  away_score: m.away_score,
+                  channel: m.channel || "beIN SPORTS",
+                  league: m.league ? m.league.name_ar : "دوري أبطال أوروبا",
+                  status_note: isFin ? "نتيجة نهائية • دوري أبطال أوروبا" : "سيتم تحديث روابط البث قبل انطلاق المباراة"
+                }};
+              }});
+              multiDayData[dayKey] = mapped;
+              if (activeDayKey === dayKey) renderMatchCards(mapped);
+            }}
+          }})
+          .catch(function(e) {{}});
+      }}
+    }}
+
+    function toggleViewMode(mode) {{
+      if (mode === "compact") document.body.classList.add("compact-mode");
+      else document.body.classList.remove("compact-mode");
+    }}
+
+    function handleQuickWatch(btn, evt) {{
+      if (evt) {{
+        evt.preventDefault();
+        evt.stopPropagation();
+      }}
+      var mId = btn ? btn.getAttribute("data-modal-id") : "";
+      var mTitle = btn ? btn.getAttribute("data-modal-title") : "مشاهدة البث المباشر";
+      openStreamModal(mId, mTitle);
+    }}
+
+    function handlePostWatch(btn, evt) {{
+      if (evt) evt.preventDefault();
+      var title = (btn && btn.getAttribute("data-title")) ? btn.getAttribute("data-title") : document.title;
+      openStreamModal("", title);
+      return false;
+    }}
+
+    window.switchDayTab = switchDayTab;
+    window.openStreamModal = openStreamModal;
+    window.closeStreamModal = closeStreamModal;
+    window.switchModalServer = switchModalServer;
+    window.filterMatchesByStatus = filterMatchesByStatus;
+    window.filterMatchesByLeague = filterMatchesByLeague;
+    window.dismissStickyAd = dismissStickyAd;
+    window.handleQuickWatch = handleQuickWatch;
+    window.handlePostWatch = handlePostWatch;
+
+    document.addEventListener("DOMContentLoaded", function() {{
+      initTunnelDiscovery();
+      var bY = document.getElementById("dayTab_yesterday");
+      if (bY) bY.addEventListener("click", function() {{ switchDayTab("yesterday"); }});
+      var bT = document.getElementById("dayTab_today");
+      if (bT) bT.addEventListener("click", function() {{ switchDayTab("today"); }});
+      var bTom = document.getElementById("dayTab_tomorrow");
+      if (bTom) bTom.addEventListener("click", function() {{ switchDayTab("tomorrow"); }});
+      applyActiveFilters();
+    }});
+  </script>
+</body>
+</html>
+"""
+
+
+def build_blogger_xml() -> str:
+    """Build strictly valid Blogger XML Theme with layout parity and deep links to /match/{id}."""
+    platform_url = get_platform_url()
+    today_cards = "\n".join(render_match_card(m, platform_url) for m in MULTI_DAY_DATA["today"])
+
+    xml_content = f"""<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:responsive='true' dir='rtl' lang='ar' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+  <title><data:blog.pageTitle/></title>
+  <b:include data='blog' name='all-head-content'/>
+  <meta content='index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' name='robots'/>
+  <meta content='كورة لايف - جدول مباريات اليوم وبث مباشر لمتابعة أهم المباريات ونتائج الدوريات العالمية والعربية بدون تقطيع.' name='description'/>
+  <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+  <meta expr:content='data:blog.pageTitle' property='og:title'/>
+  <meta content='website' property='og:type'/>
+  <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
+
+  <!-- Adsterra Popunder with 20-minute Frequency Capping -->
+  <script type='text/javascript'>
+  //<![CDATA[
+    (function() {{
+      try {{
+        var lastPop = localStorage.getItem('kora_popunder_last');
+        var now = Date.now();
+        if (!lastPop || (now - parseInt(lastPop, 10)) > 20 * 60 * 1000) {{
+          var s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.setAttribute('data-cfasync', 'false');
+          s.src = 'https://capitalhospitals.org/1/9d3379bfa7b20556e0328830cd7e5e7f';
+          document.head.appendChild(s);
+          localStorage.setItem('kora_popunder_last', now.toString());
+        }}
+      }} catch(e) {{}}
+    }})();
+  //]]>
+  </script>
+
+  <!-- Adsterra SocialBar -->
+  <script data-cfasync='false' src='https://czernik.org/14/4d85a8908516d9c268b82f4a5df10c8a'></script>
+  
+  <b:skin><![CDATA[
+{CSS_STYLES}
+  ]]></b:skin>
+  <link href='https://fonts.googleapis.com' rel='preconnect'/>
+  <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
+  <link href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&amp;family=Chakra+Petch:wght@600;700;800&amp;display=swap' rel='stylesheet'/>
+</head>
+<body>
+  <!-- Desktop 160x600 Left Skyscraper -->
+  <div class='desktop-side-banner left' id='adsterra-skyscraper-left'>
+    <script type='text/javascript'>
+      atOptions = {{
+        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
+        'format' : 'iframe',
+        'height' : 600,
+        'width' : 160,
+        'params' : {{}}
+      }};
+    </script>
+    <script data-cfasync='false' src='https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680' type='text/javascript'></script>
+  </div>
+
+  <!-- Desktop 160x600 Right Skyscraper -->
+  <div class='desktop-side-banner right' id='adsterra-skyscraper-right'>
+    <script type='text/javascript'>
+      atOptions = {{
+        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
+        'format' : 'iframe',
+        'height' : 600,
+        'width' : 160,
+        'params' : {{}}
+      }};
+    </script>
+    <script data-cfasync='false' src='https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680' type='text/javascript'></script>
+  </div>
+
+  <div class='main-wrapper'>
+    <!-- Header Bar -->
+    <header class='header-bar'>
+      <a class='brand-identity' expr:href='data:blog.homepageUrl'>
+        <div class='brand-crest'>⚽</div>
+        <div class='brand-title-wrap'>
+          <h1>كورة لايف</h1>
+          <p class='brand-subtitle'>نتائج مباشرة • بث متعدد السيرفرات • تحليل تكتيكي</p>
+        </div>
+      </a>
+      <div class='header-controls'>
+        <select class='tz-dropdown' id='tzSelector' aria-label='اختر التوقيت'>
+          <option value='Asia/Riyadh'>مكة المكرمة (GMT+3)</option>
+          <option value='Africa/Cairo'>القاهرة (GMT+2)</option>
+          <option value='UTC'>غرينتش (GMT)</option>
+        </select>
+        <button class='theme-toggle-pill' id='themeBtn' type='button'>☀️ نهاري</button>
+      </div>
+    </header>
+
+    <!-- Sponsor Billboard Banner (Responsive 728x90 Desktop / 320x50 Mobile) -->
+    <div class='sponsor-billboard-card' id='adSlotHeader' data-ad-slot='ad-slot-header' style='padding:14px 10px;'>
+      <span class='ad-tag-badge'>إعلان</span>
+      <div class='adsterra-header-wrapper' id='adsterra-header-billboard'>
+        <script type='text/javascript'>
+          (function() {{
+            var isMobile = !(window.innerWidth >= 768);
+            var key = isMobile ? '1cdf29d3af257663a92ffa6b5207a68a' : '6703ea03ffb309455182c593d4e6ea81';
+            var w = isMobile ? 320 : 728;
+            var h = isMobile ? 50 : 90;
+            window.atOptions = {{
+              'key' : key,
+              'format' : 'iframe',
+              'height' : h,
+              'width' : w,
+              'params' : {{}}
+            }};
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.setAttribute('data-cfasync', 'false');
+            s.src = 'https://czernik.org/22/' + key;
+            var c = document.getElementById('adsterra-header-billboard');
+            if (c) c.appendChild(s);
+          }})();
+        </script>
+      </div>
+    </div>
+
+    <!-- Conditional Rendering: Homepage Schedule Hub vs Single Post Content -->
+    <b:if cond='data:view.isHomepage'>
+      <!-- Toolbar: Headline & 3-Day Switcher -->
+      <div class='schedule-toolbar'>
+        <div class='schedule-heading'>
+          <h2 id='sectionScheduleTitle'>مباريات اليوم</h2>
+          <p>جدول المباريات • بتوقيت مكة المكرمة</p>
+        </div>
+        <div class='day-switcher-tabs' role='tablist'>
+          <button class='day-tab-btn' id='dayTab_yesterday' onclick='switchDayTab("yesterday")' type='button'>مباريات الأمس</button>
+          <button class='day-tab-btn active' id='dayTab_today' onclick='switchDayTab("today")' type='button'>مباريات اليوم</button>
+          <button class='day-tab-btn' id='dayTab_tomorrow' onclick='switchDayTab("tomorrow")' type='button'>مباريات الغد</button>
+        </div>
+      </div>
+
+      <!-- Status Filter Chips -->
+      <div class='filter-status-chips' role='group' aria-label='تصفية حسب الحالة'>
+        <button class='status-chip-btn active' data-filter='all' onclick='filterMatchesByStatus("all")' type='button'>الكل (All)</button>
+        <button class='status-chip-btn' data-filter='live' onclick='filterMatchesByStatus("live")' type='button'>🔴 مباشر الآن</button>
+        <button class='status-chip-btn' data-filter='upcoming' onclick='filterMatchesByStatus("upcoming")' type='button'>⏳ القادمة</button>
+        <button class='status-chip-btn' data-filter='finished' onclick='filterMatchesByStatus("finished")' type='button'>✅ المنتهية</button>
+      </div>
+
+      <!-- League Navigation Carousel -->
+      <div class='league-nav-carousel' role='navigation' aria-label='تصفية حسب البطولة'>
+        <button class='league-pill-btn active' data-league='all' onclick='filterMatchesByLeague("all")' type='button'>🏆 جميع البطولات</button>
+        <button class='league-pill-btn' data-league='دوري أبطال أوروبا' onclick='filterMatchesByLeague("دوري أبطال أوروبا")' type='button'>⭐ دوري أبطال أوروبا</button>
+        <button class='league-pill-btn' data-league='الدوري الإنجليزي' onclick='filterMatchesByLeague("الدوري الإنجليزي")' type='button'>🏴󠁧󠁢󠁥󠁮󠁧󠁿 الدوري الإنجليزي</button>
+        <button class='league-pill-btn' data-league='الدوري الإسباني' onclick='filterMatchesByLeague("الدوري الإسباني")' type='button'>🇪🇸 الدوري الإسباني</button>
+        <button class='league-pill-btn' data-league='الدوري الإيطالي' onclick='filterMatchesByLeague("الدوري الإيطالي")' type='button'>🇮🇹 الدوري الإيطالي</button>
+        <button class='league-pill-btn' data-league='الدوري الألماني' onclick='filterMatchesByLeague("الدوري الألماني")' type='button'>🇩🇪 الدوري الألماني</button>
+        <button class='league-pill-btn' data-league='دوري روشن السعودي' onclick='filterMatchesByLeague("دوري روشن السعودي")' type='button'>🇸🇦 دوري روشن</button>
+        <button class='league-pill-btn' data-league='دوري أبطال أفريقيا' onclick='filterMatchesByLeague("دوري أبطال أفريقيا")' type='button'>🌍 دوري أبطال أفريقيا</button>
+      </div>
+
+      <!-- League Section & Match Cards -->
+      <h3 class='league-group-title'>دوري أبطال أوروبا</h3>
+      <div class='matches-list-container' id='matchesContainer'>
+        {today_cards}
+      </div>
+
+      <!-- In-feed Ad Slot (Adsterra Native Banner) -->
+      <div class='ad-slot-infeed' id='adSlotInfeed' style='padding:18px 12px; min-height:100px;'>
+        <span class='ad-tag-badge' style='position:static; margin-bottom:6px;'>إعلان مخصص</span>
+        <script async='async' data-cfasync='false' fetchpriority='high' src='https://czernik.org/21/f1180bd1a9f13152d2247022e3f6f1b0'></script>
+        <div id='container-f1180bd1a9f13152d2247022e3f6f1b0'></div>
+      </div>
+
+      <!-- Semantic SEO Evergreen Article Block (400+ words) -->
+      <section class='seo-content-block'>
+        <h2 class='seo-block-title'>كورة لايف - بث مباشر مباريات اليوم وجدول النتائج المباشرة</h2>
+        <div class='seo-text-body'>
+          <p>مرحباً بكم في منصة <strong>كورة لايف (Kora Live)</strong>، الوجهة الرياضية الأولى لعشاق كرة القدم في الوطن العربي وشمال أفريقيا لمتابعة جدول مباريات اليوم بث مباشر لحظة بلحظة دون تقطيع. نقدم تغطية شاملة لجميع المباريات والبطولات الكبرى مثل دوري أبطال أوروبا والدوري الإنجليزي الممتاز والدوري الإسباني والدوري الإيطالي والدوري الألماني بالإضافة إلى البطولات العربية كدوري روشن السعودي ودوري أبطال أفريقيا وكأس آسيا وكأس العرب.</p>
+          <p>نعمل من خلال خوادمنا الذكية وتقنيات التحديث الفوري على تزويدكم بنتائج حية، تشكيلات الفرق الرسمية، القنوات الناقلة والمعلقين، وتفاصيل الأهداف والبطاقات الصفراء والحمراء فور حدوثها على أرضية الملعب. تتيح لكم منصتنا الرياضية متابعة أحدث تفاصيل المواجهات الرياضية الكبرى بدقة متناهية وسرعة فائقة تلبي تطلعات جماهير الساحرة المستديرة، مع توفير خيارات متعددة للجودة لتناسب جميع سرعات الإنترنت المختلفة على الهواتف الذكية وأجهزة الكمبيوتر والأجهزة اللوحية.</p>
+          <p>يقدم موقع <strong>كورة لايف تو</strong> تجربة مستخدم سلسة وعصرية مع جدول مباريات الأمس لنتائج المواجهات السابقة، وجدول مباريات اليوم الحية، وجدول مباريات الغد للاطلاع على مواعيد القمم الكروية المنتظرة والقنوات الصوتية لمعلقي قنوات بي إن سبورتس وقنوات SSC الرياضية وقنوات أبوظبي الرياضية. كما نوفر تحليلات فنية وتكتيكية وإحصائيات دقيقة عن نسب الاستحواذ والتسديدات على المرمى وتاريخ المواجهات المباشرة بين الأندية المتنافسة لنضمن لكم تجربة كروية متكاملة واحترافية.</p>
+          <p>تابعوا معنا عبر موقعكم الرياضي المفضل ملخصات الأهداف، تصريحات المدربين، وآخر أخبار الانتقالات الصيفية والشتوية، وترتيب الهدافين في الدوريات العالمية الكبرى. نحرص دائماً على الالتزام بأعلى معايير السرعة والأمان وحماية خصوصية الزوار لضمان تصفح مريح وآمن على مدار الساعة لكل عشاق الرياضة ومتابعي الكرة العالمية والعربية في كل مكان.</p>
+        </div>
+      </section>
+
+      <!-- FAQ Accordion Section -->
+      <section class='faq-accordion-section'>
+        <h3 class='faq-section-title'>❓ الأسئلة الشائعة حول كورة لايف</h3>
+        <div class='faq-item'>
+          <details>
+            <summary>كيف يمكنني متابعة مباريات اليوم على كورة لايف؟</summary>
+            <p>يمكنك ببساطة الدخول إلى الصفحة الرئيسية لموقع كورة لايف واختيار المباراة المطلوبة من جدول المباريات، والضغط عليها لمتابعة النتيجة المباشرة وتفاصيل القناة والمعلق وسيرفرات البث البديلة.</p>
+          </details>
+        </div>
+        <div class='faq-item'>
+          <details>
+            <summary>هل تتوفر نتائج مباريات الأمس ومواعيد مباريات الغد؟</summary>
+            <p>نعم، تتيح المنصة مبدل الأيام في أعلى الجدول للانتقال بسهولة بين مباريات الأمس واليوم والغد بضغطة زر واحدة مع عرض النتائج والأهداف والمواعيد بتوقيت مكة والقاهرة.</p>
+          </details>
+        </div>
+        <div class='faq-item'>
+          <details>
+            <summary>ما هي الدوريات والبطولات المغطاة في الموقع؟</summary>
+            <p>نغطي دوري أبطال أوروبا، الدوري الإنجليزي، الدوري الإسباني، الدوري الإيطالي، الدوري الألماني، الدوري الفرنسي، دوري روشن السعودي، دوري أبطال أفريقيا، والدوريات العربية الكبرى.</p>
+          </details>
+        </div>
+        <div class='faq-item'>
+          <details>
+            <summary>هل يعمل الموقع بسلاسة على الهواتف المحمولة وسرعات الإنترنت الضعيفة؟</summary>
+            <p>نعم، تم تصميم واجهة كورة لايف بتصميم متجاوب وخفيف الوزن للغاية ليعمل بكفاءة وسرعة فائقة على جميع الهواتف المحمولة وشبكات الجيل الرابع والثالث.</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- Schema.org FAQPage JSON-LD -->
+      <script type='application/ld+json'>
+      {{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {{
+            "@type": "Question",
+            "name": "كيف يمكنني متابعة مباريات اليوم على كورة لايف؟",
+            "acceptedAnswer": {{
+              "@type": "Answer",
+              "text": "يمكنك ببساطة الدخول إلى الصفحة الرئيسية لموقع كورة لايف واختيار المباراة المطلوبة من جدول المباريات لمتابعة النتائج الحية والقنوات الناقلة."
+            }}
+          }},
+          {{
+            "@type": "Question",
+            "name": "هل تتوفر نتائج مباريات الأمس ومواعيد مباريات الغد؟",
+            "acceptedAnswer": {{
+              "@type": "Answer",
+              "text": "نعم، تتيح المنصة مبدل الأيام في أعلى الجدول للانتقال بسهولة بين مباريات الأمس واليوم والغد مع عرض النتائج والمواعيد."
+            }}
+          }},
+          {{
+            "@type": "Question",
+            "name": "ما هي الدوريات والبطولات المغطاة في الموقع؟",
+            "acceptedAnswer": {{
+              "@type": "Answer",
+              "text": "نغطي دوري أبطال أوروبا، الدوري الإنجليزي، الدوري الإسباني، الدوري الإيطالي، الدوري الألماني، ودوري روشن السعودي."
+            }}
+          }},
+          {{
+            "@type": "Question",
+            "name": "هل يعمل الموقع بسلاسة على الهواتف المحمولة وسرعات الإنترنت الضعيفة؟",
+            "acceptedAnswer": {{
+              "@type": "Answer",
+              "text": "نعم، تم تصميم واجهة كورة لايف بتصميم متجاوب وخفيف الوزن ليعمل بكفاءة فائقة على جميع الهواتف المحمولة."
+            }}
+          }}
+        ]
+      }}
+      </script>
+    </b:if>
+
+    <!-- Post Article View (for SEO blog articles) -->
+    <b:section id='main_blog' showaddelement='no'>
+      <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+        <b:includable id='main'>
+          <b:loop values='data:posts' var='post'>
+            <article class='article-post-body'>
+              <a class='cta-watch-btn' expr:data-title='data:post.title' expr:href='data:post.url' onclick='handlePostWatch(this, event); return false;'>
+                <span>📺</span>
+                مشاهدة البث المباشر الآن في مشغل كورة لايف ↗
+              </a>
+              <h2 style='font-size:22px; font-weight:900; margin-bottom:12px;'><data:post.title/></h2>
+              <div style='color:var(--text-silver); line-height:1.8;'><data:post.body/></div>
+            </article>
+          </b:loop>
+        </b:includable>
+      </b:widget>
+    </b:section>
+  </div>
+
+  <!-- In-Page Stream Modal (#koraStreamModal) -->
+  <div class='kora-modal' id='koraStreamModal' style='display:none;'>
+    <div class='kora-modal-backdrop' onclick='closeStreamModal()'></div>
+    <div class='kora-modal-content'>
+      <div class='kora-modal-header'>
+        <h3 id='modalMatchTitle'>مشاهدة البث المباشر</h3>
+        <button class='kora-modal-close' onclick='closeStreamModal()' type='button'>✕</button>
+      </div>
+      <div class='kora-modal-player' id='modalPlayerContainer'>
+        <div class='player-placeholder' id='modalPlayerNotice'>
+          <p>جاري تهيئة البث المباشر متعدد الجودات...</p>
+        </div>
+      </div>
+      <div class='kora-modal-servers'>
+        <button class='server-btn active' onclick='switchModalServer(1)' type='button'>سيرفر 1 (رئيسي)</button>
+        <button class='server-btn' onclick='switchModalServer(2)' type='button'>سيرفر 2 (VIP)</button>
+        <button class='server-btn' onclick='switchModalServer(3)' type='button'>سيرفر 3 (متعدد)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Bottom Ad Bar (Adsterra Smartlink) -->
+  <div class='sticky-ad-bar' id='stickyAdBar' data-ad-slot='ad-slot-sticky'>
+    <button class='close-sticky-btn' onclick="dismissStickyAd()" type='button'>✕</button>
+    <div style='font-size:12px; font-weight:bold; color:var(--text-silver); display:flex; align-items:center; gap:12px;'>
+      <span style='background:var(--accent-red); color:white; padding:2px 8px; border-radius:10px; font-size:10px;'>بث حي</span>
+      <span>مباريات اليوم مباشرة عبر السيرفرات السريعة (VIP)</span>
+      <a href='https://budgetezy.org/4/ae626546295ba9dbdec2ea24a521084c' id='stickySmartlinkBtn' rel='noopener noreferrer' style='background:var(--accent-emerald); color:white; padding:4px 14px; border-radius:20px; text-decoration:none; font-weight:800;' target='_blank'>شاهد الآن ⚡</a>
+      <a href='https://asiafilm.org/4/67d5c06c56eb1c96b2ff42f4dc88412e' id='stickySmartlinkVip' rel='noopener noreferrer' style='display:none;' target='_blank'>سيرفر VIP بديل</a>
+    </div>
+  </div>
+
+  <!-- Dynamic Live Sync Script -->
+  <script type='text/javascript'>
+  //<![CDATA[
+    var PLATFORM_URL = "{platform_url}";
+    var activeDayKey = "today";
+    var multiDayData = {json.dumps(MULTI_DAY_DATA, ensure_ascii=False)};
+    var FALLBACK_LOGO = "https://cdn-icons-png.flaticon.com/512/53/53283.png";
+
+    var currentStatusFilter = "all";
+    var currentLeagueFilter = "all";
+
+    function dismissStickyAd() {{
+      var el = document.getElementById("stickyAdBar");
+      if (el) el.style.display = "none";
+      try {{
+        sessionStorage.setItem("kora_blogger_sticky_dismissed", "1");
+      }} catch(e) {{}}
+    }}
+
+    function filterMatchesByStatus(status) {{
+      currentStatusFilter = status;
+      var btns = document.querySelectorAll(".status-chip-btn");
+      for (var i = 0; i < btns.length; i++) {{
+        var f = btns[i].getAttribute("data-filter");
+        if (f === status) btns[i].classList.add("active");
+        else btns[i].classList.remove("active");
+      }}
+      applyActiveFilters();
+    }}
+
+    function filterMatchesByLeague(league) {{
+      currentLeagueFilter = league;
+      var btns = document.querySelectorAll(".league-pill-btn");
+      for (var i = 0; i < btns.length; i++) {{
+        var l = btns[i].getAttribute("data-league");
+        if (l === league) btns[i].classList.add("active");
+        else btns[i].classList.remove("active");
+      }}
+      applyActiveFilters();
+    }}
+
+    function applyActiveFilters() {{
+      var cards = document.querySelectorAll(".match-row-card");
+      for (var i = 0; i < cards.length; i++) {{
+        var card = cards[i];
+        var cardStatus = card.getAttribute("data-status") || "SCHEDULED";
+        var cardLeague = card.getAttribute("data-league") || "";
+        var behindAd = card.nextElementSibling;
+        var matchStatus = (currentStatusFilter === "all") ||
+          (currentStatusFilter === "live" && (cardStatus === "LIVE" || cardStatus === "IN_PLAY")) ||
+          (currentStatusFilter === "finished" && cardStatus === "FINISHED") ||
+          (currentStatusFilter === "upcoming" && cardStatus === "SCHEDULED");
+        var matchLeague = (currentLeagueFilter === "all") || (cardLeague.indexOf(currentLeagueFilter) !== -1);
+        if (matchStatus && matchLeague) {{
+          card.style.display = "";
+          if (behindAd && behindAd.classList.contains("ad-card-behind-match")) behindAd.style.display = "";
+        }} else {{
+          card.style.display = "none";
+          if (behindAd && behindAd.classList.contains("ad-card-behind-match")) behindAd.style.display = "none";
+        }}
+      }}
+    }}
+
+    function openStreamModal(matchId, title) {{
+      var modal = document.getElementById("koraStreamModal");
+      var modalTitle = document.getElementById("modalMatchTitle");
+      var playerContainer = document.getElementById("modalPlayerContainer");
+      if (modalTitle) modalTitle.innerText = title || "مشاهدة البث المباشر";
+      if (modal) modal.style.display = "flex";
+      if (playerContainer) {{
+        var pUrl = (typeof PLATFORM_URL !== "undefined" && PLATFORM_URL) ? PLATFORM_URL : "";
+        var iframeSrc = (pUrl && matchId) ? (pUrl + "/match/" + matchId) : "https://budgetezy.org/4/ae626546295ba9dbdec2ea24a521084c";
+        playerContainer.innerHTML = '<iframe src="' + iframeSrc + '" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen="true" allow="autoplay; encrypted-media"></iframe>';
+      }}
+    }}
+
+    function closeStreamModal() {{
+      var modal = document.getElementById("koraStreamModal");
+      var playerContainer = document.getElementById("modalPlayerContainer");
+      if (playerContainer) playerContainer.innerHTML = '<div class="player-placeholder"><p>جاري تهيئة البث المباشر...</p></div>';
+      if (modal) modal.style.display = "none";
+    }}
+
+    function switchModalServer(serverNum) {{
+      var btns = document.querySelectorAll(".server-btn");
+      for (var i = 0; i < btns.length; i++) {{
+        if ((i + 1) === serverNum) btns[i].classList.add("active");
+        else btns[i].classList.remove("active");
+      }}
+      if (serverNum === 2) {{
+        var vipLinks = ["https://budgetezy.org/4/ae626546295ba9dbdec2ea24a521084c", "https://asiafilm.org/4/67d5c06c56eb1c96b2ff42f4dc88412e"];
+        var target = vipLinks[Math.floor(Math.random() * vipLinks.length)];
+        window.open(target, "_blank");
+      }}
+    }}
+
+    function initTunnelDiscovery() {{
+      try {{
+        var cached = localStorage.getItem("kora_active_tunnel");
+        var cachedTime = localStorage.getItem("kora_tunnel_time");
+        var now = Date.now();
+        if (cached && cachedTime && (now - parseInt(cachedTime, 10)) < 3600000) {{
+          PLATFORM_URL = cached;
+          return cached;
+        }}
+        fetch("/feeds/posts/default?alt=json&max-results=1")
+          .then(function(res) {{ return res.json(); }})
+          .then(function(data) {{
+            if (data && data.feed && data.feed.entry && data.feed.entry.length > 0) {{
+              var content = data.feed.entry[0].content ? data.feed.entry[0].content.$t : "";
+              var m = content.match(/data-tunnel="([^"]+)"/);
+              if (m && m[1]) {{
+                localStorage.setItem("kora_active_tunnel", m[1]);
+                localStorage.setItem("kora_tunnel_time", now.toString());
+                PLATFORM_URL = m[1];
+              }}
+            }}
+          }}).catch(function(err) {{}});
+      }} catch(e) {{}}
+    }}
+
+    function renderMatchCards(matches) {{
+      var container = document.getElementById("matchesContainer");
+      if (!container || !matches) return;
+      var html = "";
+      for (var i = 0; i < matches.length; i++) {{
+        var m = matches[i];
+        var matchUrl = PLATFORM_URL + "/match/" + m.id;
+        var homeLogo = m.home_logo || (m.home_team && m.home_team.logo_url) || FALLBACK_LOGO;
+        var homeName = m.home_name || (m.home_team && m.home_team.name_ar) || "";
+        var awayLogo = m.away_logo || (m.away_team && m.away_team.logo_url) || FALLBACK_LOGO;
+        var awayName = m.away_name || (m.away_team && m.away_team.name_ar) || "";
+        var kTime = m.kickoff_time || m.kickoff_time_local || "20:45";
+        var isFin = m.status === "FINISHED" || (m.status_note && m.status_note.indexOf("نهائية") !== -1) || (m.countdown && m.countdown.indexOf("انتهت") !== -1) || activeDayKey === "yesterday";
+        var statusVal = isFin ? "FINISHED" : (m.status || "SCHEDULED");
+        var leagueVal = m.league || (m.league && m.league.name_ar) || "دوري أبطال أوروبا";
+        var pillText = isFin ? (m.countdown && m.countdown.indexOf("انتهت") !== -1 ? m.countdown : ("انتهت " + (m.home_score||0) + " - " + (m.away_score||0))) : (m.countdown ? ("تبدأ بعد: " + m.countdown) : ("تبدأ: " + kTime));
+        var ch = m.channel || "beIN SPORTS 1 HD";
+        var note = m.status_note || (isFin ? "نتيجة نهائية للمباراة" : "سيتم تحديث روابط البث قبل انطلاق المباراة");
+
+        html += '<a href="' + matchUrl + '" target="_blank" class="match-row-card ay-match-compact" data-match-id="' + m.id + '" data-status="' + statusVal + '" data-league="' + leagueVal + '">'
+          + '<div class="team-cell home"><div class="team-logo-box"><img src="' + homeLogo + '" alt="' + homeName + '" loading="lazy" onerror="this.onerror=null;this.src=FALLBACK_LOGO;"/></div><span class="team-name">' + homeName + '</span></div>'
+          + '<div class="center-intel-cell"><span class="kickoff-time">' + kTime + '</span><span class="countdown-pill ' + (isFin ? 'finished' : '') + '">' + pillText + '</span>'
+          + '<div class="meta-channel-row"><span>📺 ' + ch + '</span><span>• ' + leagueVal + '</span></div><span class="meta-note">' + note + '</span>'
+          + '<div class="card-intel-drawer" style="margin-top:6px; font-size:10px; color:var(--text-muted); display:flex; gap:12px; align-items:center;">'
+          + '<span>🎙️ يحدد لاحقاً</span><span>🏟️ ملعب اللقاء</span>'
+          + '<button type="button" class="btn-quick-watch" data-modal-id="' + m.id + '" data-modal-title="' + homeName + ' ضد ' + awayName + '" onclick="handleQuickWatch(this, event);" style="background:var(--accent-emerald); color:white; border:none; padding:2px 8px; border-radius:10px; cursor:pointer; font-weight:bold;">مشاهدة سريعة 📺</button>'
+          + '</div></div>'
+          + '<div class="team-cell away"><div class="team-logo-box"><img src="' + awayLogo + '" alt="' + awayName + '" loading="lazy" onerror="this.onerror=null;this.src=FALLBACK_LOGO;"/></div><span class="team-name">' + awayName + '</span></div></a>'
+          + '<div class="ad-card-behind-match"><span>⚡ سيرفر بديل فائق السرعة لمباراة ' + homeName + ' vs ' + awayName + '</span>'
+          + '<a href="' + matchUrl + '" target="_blank" style="color:var(--accent-emerald-bright); font-weight:800; text-decoration:none;">' + (isFin ? 'مشاهدة ملخص وأهداف المباراة ↗' : 'مشاهدة البث ↗') + '</a></div>';
+      }}
+      container.innerHTML = html;
+      applyActiveFilters();
+    }}
+
+    function switchDayTab(dayKey) {{
+      activeDayKey = dayKey;
+      var tabs = ["yesterday", "today", "tomorrow"];
+      for (var i = 0; i < tabs.length; i++) {{
+        var btn = document.getElementById("dayTab_" + tabs[i]);
+        if (btn) {{
+          if (tabs[i] === dayKey) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }}
+      }}
+      var title = document.getElementById("sectionScheduleTitle");
+      if (title) {{
+        if (dayKey === "yesterday") title.innerText = "نتائج مباريات الأمس";
+        else if (dayKey === "tomorrow") title.innerText = "مواعيد مباريات الغد";
+        else title.innerText = "مباريات اليوم";
+      }}
+      if (multiDayData && multiDayData[dayKey]) {{
+        renderMatchCards(multiDayData[dayKey]);
+      }}
+      var lgTitle = document.querySelector(".league-group-title");
+      if (lgTitle) {{
+        if (dayKey === "yesterday") lgTitle.innerText = "أبرز مباريات الأمس والنتائج النهائية";
+        else if (dayKey === "tomorrow") lgTitle.innerText = "أبرز مواجهات الغد والقنوات الناقلة";
+        else lgTitle.innerText = "أهم مباريات اليوم المباشرة";
+      }}
+      if (PLATFORM_URL) {{
+        var selTz = localStorage.getItem("kora-selected-timezone") || "Asia/Riyadh";
+        var dateParam = "";
+        var now = new Date();
+        if (dayKey === "yesterday") {{
+          var y = new Date(now.getTime() - 24 * 3600 * 1000);
+          dateParam = "&date=" + y.toISOString().slice(0, 10);
+        }} else if (dayKey === "tomorrow") {{
+          var t = new Date(now.getTime() + 24 * 3600 * 1000);
+          dateParam = "&date=" + t.toISOString().slice(0, 10);
+        }}
+        fetch(PLATFORM_URL + "/api/v1/matches/today?tz=" + encodeURIComponent(selTz) + dateParam)
+          .then(function(res) {{ return res.json(); }})
+          .then(function(data) {{
+            if (data && data.matches && data.matches.length > 0) {{
+              var mapped = data.matches.map(function(m) {{
+                var isFin = m.status === "FINISHED";
+                var cDown = isFin ? ("انتهت " + (m.home_score||0) + " - " + (m.away_score||0)) : (m.countdown_seconds ? "تبدأ قريباً" : (m.kickoff_time_local || "20:45"));
+                return {{
+                  id: m.id,
+                  home_name: m.home_team ? m.home_team.name_ar : "",
+                  home_logo: m.home_team ? m.home_team.logo_url : FALLBACK_LOGO,
+                  away_name: m.away_team ? m.away_team.name_ar : "",
+                  away_logo: m.away_team ? m.away_team.logo_url : FALLBACK_LOGO,
+                  kickoff_time: m.kickoff_time_local || "20:45",
+                  countdown: cDown,
+                  status: m.status,
+                  home_score: m.home_score,
+                  away_score: m.away_score,
+                  channel: m.channel || "beIN SPORTS",
+                  league: m.league ? m.league.name_ar : "دوري أبطال أوروبا",
+                  status_note: isFin ? "نتيجة نهائية • دوري أبطال أوروبا" : "سيتم تحديث روابط البث قبل انطلاق المباراة"
+                }};
+              }});
+              multiDayData[dayKey] = mapped;
+              if (activeDayKey === dayKey) renderMatchCards(mapped);
+            }}
+          }})
+          .catch(function(e) {{}});
+      }}
+    }}
+
+    function toggleViewMode(mode) {{
+      if (mode === "compact") document.body.classList.add("compact-mode");
+      else document.body.classList.remove("compact-mode");
+    }}
+
+    function refreshLiveScores() {{
+      if (!PLATFORM_URL) return;
+      var selTz = localStorage.getItem("kora-selected-timezone") || "Asia/Riyadh";
+      var fetchUrl = PLATFORM_URL + "/api/v1/matches/today?tz=" + encodeURIComponent(selTz);
+      
+      fetch(fetchUrl)
+        .then(function(res) {{ return res.json(); }})
+        .then(function(data) {{
+          if (data && data.matches && data.matches.length > 0) {{
+            var mapped = data.matches.map(function(m) {{
+              var isFin = m.status === "FINISHED";
+              var cDown = isFin ? ("انتهت " + (m.home_score||0) + " - " + (m.away_score||0)) : (m.countdown_seconds ? "تبدأ قريباً" : (m.kickoff_time_local || "20:45"));
+              return {{
+                id: m.id,
+                home_name: m.home_team ? m.home_team.name_ar : "",
+                home_logo: m.home_team ? m.home_team.logo_url : FALLBACK_LOGO,
+                away_name: m.away_team ? m.away_team.name_ar : "",
+                away_logo: m.away_team ? m.away_team.logo_url : FALLBACK_LOGO,
+                kickoff_time: m.kickoff_time_local || "20:45",
+                countdown: cDown,
+                status: m.status,
+                home_score: m.home_score,
+                away_score: m.away_score,
+                channel: m.channel || "beIN SPORTS",
+                league: m.league ? m.league.name_ar : "دوري أبطال أوروبا",
+                status_note: isFin ? "نتيجة نهائية • دوري أبطال أوروبا" : "سيتم تحديث روابط البث قبل انطلاق المباراة"
+              }};
+            }});
+            multiDayData["today"] = mapped;
+            if (activeDayKey === "today") {{
+              renderMatchCards(mapped);
+            }}
+            try {{
+              localStorage.setItem("kora_cached_matches", JSON.stringify(mapped));
+            }} catch(e) {{}}
+          }}
+        }})
+        .catch(function(err) {{
+          try {{
+            var cached = localStorage.getItem("kora_cached_matches");
+            if (cached) {{
+              var parsed = JSON.parse(cached);
+              if (parsed && parsed.length > 0) {{
+                multiDayData["today"] = parsed;
+                if (activeDayKey === "today") renderMatchCards(parsed);
+              }}
+            }}
+          }} catch(e) {{}}
+        }});
+    }}
+
+    function handleQuickWatch(btn, evt) {{
+      if (evt) {{
+        evt.preventDefault();
+        evt.stopPropagation();
+      }}
+      var mId = btn ? btn.getAttribute("data-modal-id") : "";
+      var mTitle = btn ? btn.getAttribute("data-modal-title") : "مشاهدة البث المباشر";
+      openStreamModal(mId, mTitle);
+    }}
+
+    function handlePostWatch(btn, evt) {{
+      if (evt) evt.preventDefault();
+      var title = (btn && btn.getAttribute("data-title")) ? btn.getAttribute("data-title") : document.title;
+      openStreamModal("", title);
+      return false;
+    }}
+
+    window.switchDayTab = switchDayTab;
+    window.refreshLiveScores = refreshLiveScores;
+    window.openStreamModal = openStreamModal;
+    window.closeStreamModal = closeStreamModal;
+    window.switchModalServer = switchModalServer;
+    window.filterMatchesByStatus = filterMatchesByStatus;
+    window.filterMatchesByLeague = filterMatchesByLeague;
+    window.dismissStickyAd = dismissStickyAd;
+    window.handleQuickWatch = handleQuickWatch;
+    window.handlePostWatch = handlePostWatch;
+
+    document.addEventListener("DOMContentLoaded", function() {{
+      initTunnelDiscovery();
+      try {{
+        if (sessionStorage.getItem("kora_blogger_sticky_dismissed") === "1") {{
+          var bar = document.getElementById("stickyAdBar");
+          if (bar) bar.style.display = "none";
+        }}
+      }} catch(e) {{}}
+
+      var bY = document.getElementById("dayTab_yesterday");
+      if (bY) bY.addEventListener("click", function() {{ switchDayTab("yesterday"); }});
+      var bT = document.getElementById("dayTab_today");
+      if (bT) bT.addEventListener("click", function() {{ switchDayTab("today"); }});
+      var bTom = document.getElementById("dayTab_tomorrow");
+      if (bTom) bTom.addEventListener("click", function() {{ switchDayTab("tomorrow"); }});
+
+      refreshLiveScores();
+      applyActiveFilters();
+    }});
+  //]]>
+  </script>
+</body>
+</html>
+"""
+    return xml_content
+
+
+def generate_theme_preview() -> Path:
+    """Generate theme preview HTML file and return its Path."""
+    html = build_preview_html()
+    OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
+    OUT_HTML.write_text(html, encoding="utf-8")
+    return OUT_HTML
+
+
+def generate_blogger_xml() -> Path:
+    """Generate Blogger XML theme file and return its Path."""
+    xml = build_blogger_xml()
+    OUT_XML.parent.mkdir(parents=True, exist_ok=True)
+    OUT_XML.write_text(xml, encoding="utf-8")
+    return OUT_XML
+
+
+def main():
+    print("[*] Generating Ultra-Modern Blogger Theme Preview HTML...")
+    preview_path = generate_theme_preview()
+    print(f"[✓] Saved to: {preview_path}")
+
+    print("[*] Generating Blogger XML Theme...")
+    xml_path = generate_blogger_xml()
+    print(f"[✓] Saved to: {xml_path}")
+
+    print("[*] Validating Blogger XML schema with ET.parse()...")
+    try:
+        ET.parse(str(xml_path))
+        print("[✓] XML is strictly valid XHTML/Blogger format!")
+    except Exception as e:
+        print(f"[!] XML Validation Error: {e}")
+        raise
+
+
+if __name__ == "__main__":
+    main()

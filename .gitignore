@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local data / secrets
+*.db
+*.db-shm
+*.db-wal
+*.sqlite3
+.env
+data/tunnel_url.txt
+data/daily_articles/
+data/backups/
+data/*.html
+*.png
+test_clean_proxy.html
+test_proxied.html
+debug_playwright.py
+test_click.py
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+
+# Tooling installed inside the project
+.tools/
+
+# OS
+Thumbs.db
+.DS_Store

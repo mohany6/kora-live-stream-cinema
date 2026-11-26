@@ -1,0 +1,43 @@
+<script>
+  atOptions = {
+    'key' : 'bee904d3f2a415fcd8e41f64598a9680',
+    'format' : 'iframe',
+    'height' : 600,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script data-cfasync="false" src="https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680"></script>
+
+<script>
+  atOptions = {
+    'key' : '1cdf29d3af257663a92ffa6b5207a68a',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script data-cfasync="false" src="https://czernik.org/22/1cdf29d3af257663a92ffa6b5207a68a"></script>
+
+<script>
+  atOptions = {
+    'key' : '6703ea03ffb309455182c593d4e6ea81',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script data-cfasync="false" src="https://czernik.org/22/6703ea03ffb309455182c593d4e6ea81"></script>
+
+<script async fetchpriority="high" data-cfasync="false" src="https://czernik.org/21/f1180bd1a9f13152d2247022e3f6f1b0"></script>
+<div id="container-f1180bd1a9f13152d2247022e3f6f1b0"></div>
+
+<script data-cfasync="false" src="https://capitalhospitals.org/1/9d3379bfa7b20556e0328830cd7e5e7f"></script>
+
+https://budgetezy.org/4/ae626546295ba9dbdec2ea24a521084c
+
+<script data-cfasync="false" src="https://czernik.org/14/4d85a8908516d9c268b82f4a5df10c8a"></script>
+
+https://asiafilm.org/4/67d5c06c56eb1c96b2ff42f4dc88412e

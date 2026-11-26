@@ -356,6 +356,43 @@ def test_fetch_window_tolerates_partial_league_failures(monkeypatch: pytest.Monk
     assert [match.id for match in matches] == ["401879233"]
 
 
+def test_fetch_window_records_successful_and_failed_leagues(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    session = FakeSession(_fixture_payload())
+    client = LiveScoreV2Client(session=session, leagues=["eng.1", "esp.1"])
+
+    def fake_fixtures(slug: str, start: Any, end: Any) -> list[dict[str, Any]]:
+        if slug == "esp.1":
+            raise LiveScoreV2Error("esp.1 unavailable")
+        return _fixture_payload()["events"]
+
+    monkeypatch.setattr(client, "fetch_fixtures", fake_fixtures)
+
+    matches = client.fetch_window(date(2026, 11, 17), date(2026, 11, 21))
+
+    assert [match.id for match in matches] == ["401879233"]
+    assert client.last_window_success == frozenset({"eng.1"})
+    assert client.last_window_failed == frozenset({"esp.1"})
+
+
+def test_fetch_window_records_every_league_when_all_requests_fail(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    client = LiveScoreV2Client(session=FakeSession(_fixture_payload()), leagues=["eng.1"])
+
+    def fake_fixtures(slug: str, start: Any, end: Any) -> list[dict[str, Any]]:
+        raise LiveScoreV2Error("down")
+
+    monkeypatch.setattr(client, "fetch_fixtures", fake_fixtures)
+
+    with pytest.raises(LiveScoreV2Error):
+        client.fetch_window(date(2026, 11, 17), date(2026, 11, 21))
+
+    assert client.last_window_success == frozenset()
+    assert client.last_window_failed == frozenset({"eng.1"})
+
+
 def test_fetch_detail_maps_lineups_events_stats_and_standings() -> None:
     session = FakeSession(
         _fixture_payload(), summary=_summary_payload(), standings=_standings_payload()
@@ -438,6 +475,19 @@ def test_event_mapping_reads_participants_when_athletes_involved_is_absent() -> 
                 {"athlete": {"displayName": "Arthur Chaves"}},
             ],
         },
+        {
+            "id": "12",
+            "type": {"text": "Substitution"},
+            "clock": {"displayValue": "64'"},
+            "text": (
+                "Substitution, Barcelona. João Cancelo replaces Alejandro Balde "
+                "because of an injury."
+            ),
+            "participants": [
+                {"athlete": {"displayName": "João Cancelo"}},
+                {"athlete": {"displayName": "Alejandro Balde"}},
+            ],
+        },
     ]
     session = FakeSession(
         _fixture_payload(), summary=summary, standings=_standings_payload()
@@ -451,6 +501,8 @@ def test_event_mapping_reads_participants_when_athletes_involved_is_absent() -> 
     assert detail.events[0].description_ar == "هدف • صناعة Vitinho"
     assert detail.events[1].player_name == "Kaio Pantaleão"
     assert detail.events[1].description_ar == "تبديل • خروج Arthur Chaves"
+    assert detail.events[2].player_name == "João Cancelo"
+    assert detail.events[2].description_ar == "تبديل • خروج Alejandro Balde"
 
 
 def test_fetch_detail_survives_standings_failure() -> None:
@@ -577,6 +629,12 @@ def _match(match_id: str, score: int = 0) -> Match:
     )
 
 
+def _league_match(match_id: str, league_slug: str) -> Match:
+    match = _match(match_id)
+    match.source_ref = f"{league_slug}:{match_id}"
+    return match
+
+
 class FakeCatalogClient:
     def __init__(self, matches: list[Match], detail: Optional[MatchDetail] = None) -> None:
         self.matches = matches
@@ -584,6 +642,8 @@ class FakeCatalogClient:
         self.fail = False
         self.window_calls = 0
         self.detail_calls = 0
+        self.last_window_success: frozenset[str] = frozenset()
+        self.last_window_failed: frozenset[str] = frozenset()
 
     def fetch_window(self, start: Any, end: Any, leagues: Any = None) -> list[Match]:
         self.window_calls += 1
@@ -622,6 +682,107 @@ def test_catalog_caches_fixtures_between_ttl_windows() -> None:
     assert fake.window_calls == 1
     assert len(catalog.fixtures(NOW + timedelta(seconds=21))) == 1
     assert fake.window_calls == 2
+
+
+def test_catalog_keeps_fixtures_from_leagues_that_failed_to_refresh(
+    tmp_path: Path,
+) -> None:
+    snapshot = tmp_path / "fixtures.json"
+    english = _league_match("eng-1", "eng.1")
+    european = _league_match("ucl-1", "uefa.champions")
+    fake = FakeCatalogClient([english, european], detail=_detail(english))
+    fake.last_window_failed = frozenset({"uefa.champions"})
+    catalog = LiveFixturesCatalog(
+        fake,
+        ["eng.1", "uefa.champions"],
+        ttl_seconds=20,
+        background_refresh=False,
+        snapshot_path=str(snapshot),
+    )
+
+    catalog.fixtures(NOW)
+
+    updated_english = _league_match("eng-1", "eng.1")
+    updated_english.home_score = 2
+    fake.matches = [updated_english]
+    fixtures = catalog.fixtures(NOW + timedelta(seconds=30))
+
+    by_id = {item.match.id: item.match for item in fixtures}
+    assert set(by_id) == {"eng-1", "ucl-1"}
+    assert by_id["eng-1"].home_score == 2
+
+    saved = json.loads(snapshot.read_text(encoding="utf-8"))
+    assert {item["id"] for item in saved["matches"]} == {"eng-1", "ucl-1"}
+
+
+def test_catalog_drops_a_league_the_provider_reports_as_empty() -> None:
+    english = _league_match("eng-1", "eng.1")
+    european = _league_match("ucl-1", "uefa.champions")
+    fake = FakeCatalogClient([english, european], detail=_detail(english))
+    fake.last_window_success = frozenset({"eng.1", "uefa.champions"})
+    catalog = LiveFixturesCatalog(
+        fake,
+        ["eng.1", "uefa.champions"],
+        ttl_seconds=20,
+        background_refresh=False,
+    )
+
+    catalog.fixtures(NOW)
+
+    fake.matches = [english]
+    fixtures = catalog.fixtures(NOW + timedelta(seconds=30))
+
+    assert [item.match.id for item in fixtures] == ["eng-1"]
+
+
+def test_catalog_guards_against_a_drastically_smaller_slate() -> None:
+    english = [_league_match(f"eng-{index}", "eng.1") for index in range(8)]
+    european = [_league_match(f"ucl-{index}", "uefa.champions") for index in range(2)]
+    fake = FakeCatalogClient(english + european, detail=_detail(english[0]))
+    catalog = LiveFixturesCatalog(
+        fake,
+        ["eng.1", "uefa.champions"],
+        ttl_seconds=20,
+        background_refresh=False,
+    )
+
+    catalog.fixtures(NOW)
+
+    fake.matches = [_league_match(f"eng-{index}", "eng.1") for index in range(3)]
+    fixtures = catalog.fixtures(NOW + timedelta(seconds=30))
+
+    assert {item.match.id for item in fixtures} == {
+        "eng-0",
+        "eng-1",
+        "eng-2",
+        "ucl-0",
+        "ucl-1",
+    }
+
+
+def test_catalog_publishes_a_healthy_slate_that_shrinks_slightly() -> None:
+    previous = [
+        *(_league_match(f"eng-{index}", "eng.1") for index in range(10)),
+        *(_league_match(f"ucl-{index}", "uefa.champions") for index in range(10)),
+    ]
+    fake = FakeCatalogClient(previous, detail=_detail(previous[0]))
+    fake.last_window_success = frozenset({"eng.1", "uefa.champions"})
+    catalog = LiveFixturesCatalog(
+        fake,
+        ["eng.1", "uefa.champions"],
+        ttl_seconds=20,
+        background_refresh=False,
+    )
+
+    catalog.fixtures(NOW)
+
+    fake.matches = [
+        *(_league_match(f"eng-{index}", "eng.1") for index in range(8)),
+        *(_league_match(f"ucl-{index}", "uefa.champions") for index in range(8)),
+    ]
+    fixtures = catalog.fixtures(NOW + timedelta(seconds=30))
+
+    assert len(fixtures) == 16
 
 
 def test_catalog_refreshes_in_background_once_a_snapshot_exists() -> None:
@@ -1036,6 +1197,31 @@ def test_fallback_returns_to_the_primary_once_it_recovers() -> None:
         primary_match
     ]
     assert secondary.window_calls == 1
+
+
+def test_fallback_exposes_the_serving_providers_league_outcomes() -> None:
+    primary = _StubProvider(fail=True)
+    secondary = _StubProvider(matches=[_match("secondary-1")])
+    secondary.last_window_success = frozenset({"eng.1"})
+    secondary.last_window_failed = frozenset({"esp.1"})
+    client = FallbackSoccerClient(primary, secondary, clock=lambda: 0.0)
+
+    client.fetch_window(date(2026, 11, 19), date(2026, 11, 19))
+
+    assert client.last_window_success == frozenset({"eng.1"})
+    assert client.last_window_failed == frozenset({"esp.1"})
+
+    recovered = _StubProvider(matches=[_match("primary-1")])
+    recovered.last_window_success = frozenset({"eng.1", "esp.1"})
+    recovered.last_window_failed = frozenset()
+    client = FallbackSoccerClient(
+        recovered, _StubProvider(), clock=lambda: 0.0
+    )
+
+    client.fetch_window(date(2026, 11, 19), date(2026, 11, 19))
+
+    assert client.last_window_failed == frozenset()
+    assert client.last_window_success == frozenset({"eng.1", "esp.1"})
 
 
 def test_fallback_switches_details_to_the_secondary() -> None:

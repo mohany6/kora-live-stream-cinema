@@ -1,11 +1,11 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 
 import App from "./App";
 import StreamPlayerContainer from "./components/StreamPlayerContainer";
 import * as api from "./lib/api";
 
-describe("Cloudflare SPA Upgrades - Status Filter & Blogger Hub Bridge", () => {
+describe("Cloudflare SPA - Stream Cinema Match View & Blogger Bridge", () => {
   const mockMatches = [
     {
       id: "m-live-1",
@@ -21,33 +21,14 @@ describe("Cloudflare SPA Upgrades - Status Filter & Blogger Hub Bridge", () => {
       league: { name_ar: "الدوري الإسباني" },
       kickoff_time_local: "22:00",
       has_stream: true,
-    },
-    {
-      id: "m-upcoming-1",
-      home_team: { name_ar: "ليفربول", logo_url: "" },
-      away_team: { name_ar: "مانشستر سيتي", logo_url: "" },
-      home_score: 0,
-      away_score: 0,
-      status: "SCHEDULED",
-      status_label_ar: "لم تبدأ",
-      countdown_seconds: 3600,
-      competition_subtitle: "الدوري الإنجليزي",
-      league: { name_ar: "الدوري الإنجليزي" },
-      kickoff_time_local: "19:30",
-      has_stream: false,
-    },
-    {
-      id: "m-finished-1",
-      home_team: { name_ar: "الأهلي", logo_url: "" },
-      away_team: { name_ar: "الزمالك", logo_url: "" },
-      home_score: 3,
-      away_score: 0,
-      status: "FINISHED",
-      status_label_ar: "انتهت",
-      competition_subtitle: "الدوري المصري",
-      league: { name_ar: "الدوري المصري" },
-      kickoff_time_local: "17:00",
-      has_stream: false,
+      servers: [
+        { id: "s1", server_name: "سيرفر 1 (HD)", url: "https://example.com/embed", type: "iframe" },
+      ],
+      home_lineup: [],
+      away_lineup: [],
+      events: [],
+      stats: [],
+      standings: [],
     },
   ];
 
@@ -57,49 +38,36 @@ describe("Cloudflare SPA Upgrades - Status Filter & Blogger Hub Bridge", () => {
       matches: mockMatches,
       timezone_label_ar: "بتوقيت مكة المكرمة",
     });
+    vi.spyOn(api, "fetchMatchDetail").mockResolvedValue({
+      match: mockMatches[0],
+      servers: mockMatches[0].servers,
+      home_lineup: [],
+      away_lineup: [],
+      home_formation: "4-3-3",
+      away_formation: "4-3-3",
+      events: [],
+      stats: [],
+      standings: [],
+    });
     vi.spyOn(api, "trackSiteVisit").mockResolvedValue({});
   });
 
-  it("renders status filter chips with correct counts and filters matches", async () => {
-    render(<App />);
-
-    // Wait for matches to load
-    expect(await screen.findByTestId("status-filter-all")).toBeInTheDocument();
-    expect(screen.getByTestId("status-filter-live")).toBeInTheDocument();
-    expect(screen.getByTestId("status-filter-upcoming")).toBeInTheDocument();
-    expect(screen.getByTestId("status-filter-finished")).toBeInTheDocument();
-
-    // Verify all 3 match cards exist initially
-    expect(screen.getByTestId("match-card-m-live-1")).toBeInTheDocument();
-    expect(screen.getByTestId("match-card-m-upcoming-1")).toBeInTheDocument();
-    expect(screen.getByTestId("match-card-m-finished-1")).toBeInTheDocument();
-
-    // Filter by Live only
-    fireEvent.click(screen.getByTestId("status-filter-live"));
-    expect(screen.getByTestId("match-card-m-live-1")).toBeInTheDocument();
-    expect(screen.queryByTestId("match-card-m-upcoming-1")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("match-card-m-finished-1")).not.toBeInTheDocument();
-
-    // Filter by Upcoming only
-    fireEvent.click(screen.getByTestId("status-filter-upcoming"));
-    expect(screen.queryByTestId("match-card-m-live-1")).not.toBeInTheDocument();
-    expect(screen.getByTestId("match-card-m-upcoming-1")).toBeInTheDocument();
-    expect(screen.queryByTestId("match-card-m-finished-1")).not.toBeInTheDocument();
-
-    // Filter by Finished only
-    fireEvent.click(screen.getByTestId("status-filter-finished"));
-    expect(screen.queryByTestId("match-card-m-live-1")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("match-card-m-upcoming-1")).not.toBeInTheDocument();
-    expect(screen.getByTestId("match-card-m-finished-1")).toBeInTheDocument();
-
-    // Reset to All
-    fireEvent.click(screen.getByTestId("status-filter-all"));
-    expect(screen.getByTestId("match-card-m-live-1")).toBeInTheDocument();
-    expect(screen.getByTestId("match-card-m-upcoming-1")).toBeInTheDocument();
-    expect(screen.getByTestId("match-card-m-finished-1")).toBeInTheDocument();
+  afterEach(() => {
+    vi.restoreAllMocks();
+    window.history.pushState(null, "", "/");
   });
 
-  it("renders the Blogger Hub bridge link to kora-live-to.blogspot.com", async () => {
+  it("redirects root path to Blogger Hub where schedule lives", () => {
+    window.history.pushState(null, "", "/");
+    render(<App />);
+
+    expect(screen.getByTestId("stream-cinema-redirect")).toBeInTheDocument();
+    const redirectLink = screen.getByTestId("blogger-hub-redirect-link");
+    expect(redirectLink).toHaveAttribute("href", "https://kora-live-to.blogspot.com");
+  });
+
+  it("renders the Blogger Hub bridge link in cinema header on /match/:id", async () => {
+    window.history.pushState(null, "", "/match/m-live-1");
     render(<App />);
 
     const bloggerLink = await screen.findByTestId("blogger-hub-link");

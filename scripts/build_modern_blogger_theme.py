@@ -10,16 +10,20 @@ OUT_HTML = ROOT / "blogger_theme" / "theme_preview.html"
 OUT_XML = ROOT / "blogger_theme" / "kora_pro_blogger_theme.xml"
 
 def get_platform_url() -> str:
-    """Retrieve active Cloudflare Tunnel URL or fallback to localhost."""
+    """Retrieve active Stream Cinema URL or fallback to production Cloudflare Pages."""
+    import os
+    from_env = os.environ.get("STREAM_PLATFORM_URL")
+    if from_env:
+        return from_env.rstrip("/")
     tunnel_file = ROOT / "data" / "tunnel_url.txt"
     if tunnel_file.exists():
         try:
             url = tunnel_file.read_text(encoding="utf-8-sig").strip()
-            if "trycloudflare.com" in url or url.startswith("http"):
+            if "pages.dev" in url or url.startswith("http"):
                 return url.rstrip("/")
         except Exception:
             pass
-    return "http://127.0.0.1:8000"
+    return "https://kora-stream-cinema.pages.dev"
 
 
 # Multi-day datasets matching test expectations and live real football schedules
@@ -1555,27 +1559,10 @@ def build_preview_html() -> str:
     function initTunnelDiscovery() {{
       try {{
         var cached = localStorage.getItem("kora_active_tunnel");
-        var cachedTime = localStorage.getItem("kora_tunnel_time");
-        var now = Date.now();
-        if (cached && cachedTime && (now - parseInt(cachedTime, 10)) < 3600000) {{
-          PLATFORM_URL = cached;
-          platformUrl = cached;
-          return cached;
+        if (cached && (cached.indexOf("trycloudflare") !== -1 || cached.indexOf("127.0.0.1") !== -1 || cached.indexOf("localhost") !== -1)) {{
+          localStorage.removeItem("kora_active_tunnel");
+          localStorage.removeItem("kora_tunnel_time");
         }}
-        fetch("/feeds/posts/default?alt=json&max-results=1")
-          .then(function(res) {{ return res.json(); }})
-          .then(function(data) {{
-            if (data && data.feed && data.feed.entry && data.feed.entry.length > 0) {{
-              var content = data.feed.entry[0].content ? data.feed.entry[0].content.$t : "";
-              var m = content.match(/data-tunnel="([^"]+)"/);
-              if (m && m[1]) {{
-                localStorage.setItem("kora_active_tunnel", m[1]);
-                localStorage.setItem("kora_tunnel_time", now.toString());
-                PLATFORM_URL = m[1];
-                platformUrl = m[1];
-              }}
-            }}
-          }}).catch(function(err) {{}});
       }} catch(e) {{}}
     }}
 
@@ -1637,21 +1624,19 @@ def build_preview_html() -> str:
         else lgTitle.innerText = "أهم مباريات اليوم المباشرة";
       }}
       if (platformUrl) {{
-        var selTz = localStorage.getItem("kora-selected-timezone") || "Asia/Riyadh";
-        var dateParam = "";
-        var now = new Date();
-        if (dayKey === "yesterday") {{
-          var y = new Date(now.getTime() - 24 * 3600 * 1000);
-          dateParam = "&date=" + y.toISOString().slice(0, 10);
-        }} else if (dayKey === "tomorrow") {{
-          var t = new Date(now.getTime() + 24 * 3600 * 1000);
-          dateParam = "&date=" + t.toISOString().slice(0, 10);
-        }}
-        fetch(platformUrl + "/api/v1/matches/today?tz=" + encodeURIComponent(selTz) + dateParam)
+        fetch(platformUrl + "/data/matches.json")
           .then(function(res) {{ return res.json(); }})
           .then(function(data) {{
             if (data && data.matches && data.matches.length > 0) {{
-              var mapped = data.matches.map(function(m) {{
+              var allMatches = data.matches;
+              var filtered = allMatches;
+              if (dayKey === "yesterday") {{
+                filtered = allMatches.filter(function(m) {{ return m.status === "FINISHED"; }});
+              }} else if (dayKey === "tomorrow") {{
+                filtered = allMatches.filter(function(m) {{ return m.status === "SCHEDULED"; }});
+              }}
+              if (filtered.length === 0) filtered = allMatches;
+              var mapped = filtered.map(function(m) {{
                 var isFin = m.status === "FINISHED";
                 var cDown = isFin ? ("انتهت " + (m.home_score||0) + " - " + (m.away_score||0)) : (m.countdown_seconds ? "تبدأ قريباً" : (m.kickoff_time_local || "20:45"));
                 return {{
@@ -1681,6 +1666,40 @@ def build_preview_html() -> str:
     function toggleViewMode(mode) {{
       if (mode === "compact") document.body.classList.add("compact-mode");
       else document.body.classList.remove("compact-mode");
+    }}
+
+    function refreshLiveScores() {{
+      if (!platformUrl) return;
+      fetch(platformUrl + "/data/matches.json")
+        .then(function(res) {{ return res.json(); }})
+        .then(function(data) {{
+          if (data && data.matches && data.matches.length > 0) {{
+            var mapped = data.matches.map(function(m) {{
+              var isFin = m.status === "FINISHED";
+              var cDown = isFin ? ("انتهت " + (m.home_score||0) + " - " + (m.away_score||0)) : (m.countdown_seconds ? "تبدأ قريباً" : (m.kickoff_time_local || "20:45"));
+              return {{
+                id: m.id,
+                home_name: m.home_team ? m.home_team.name_ar : (m.home_name || ""),
+                home_logo: m.home_team ? m.home_team.logo_url : (m.home_logo || FALLBACK_LOGO),
+                away_name: m.away_team ? m.away_team.name_ar : (m.away_name || ""),
+                away_logo: m.away_team ? m.away_team.logo_url : (m.away_logo || FALLBACK_LOGO),
+                kickoff_time: m.kickoff_time_local || "20:45",
+                countdown: cDown,
+                status: m.status,
+                home_score: m.home_score,
+                away_score: m.away_score,
+                channel: m.channel || "beIN SPORTS",
+                league: (m.league && m.league.name_ar) ? m.league.name_ar : (m.league || "دوري أبطال أوروبا"),
+                status_note: isFin ? "نتيجة نهائية • دوري أبطال أوروبا" : "سيتم تحديث روابط البث قبل انطلاق المباراة"
+              }};
+            }});
+            multiDayData["today"] = mapped;
+            if (activeDayKey === "today") {{
+              renderMatchCards(mapped);
+            }}
+          }}
+        }})
+        .catch(function(e) {{}});
     }}
 
     function handleQuickWatch(btn, evt) {{
@@ -2133,25 +2152,10 @@ def build_blogger_xml() -> str:
     function initTunnelDiscovery() {{
       try {{
         var cached = localStorage.getItem("kora_active_tunnel");
-        var cachedTime = localStorage.getItem("kora_tunnel_time");
-        var now = Date.now();
-        if (cached && cachedTime && (now - parseInt(cachedTime, 10)) < 3600000) {{
-          PLATFORM_URL = cached;
-          return cached;
+        if (cached && (cached.indexOf("trycloudflare") !== -1 || cached.indexOf("127.0.0.1") !== -1 || cached.indexOf("localhost") !== -1)) {{
+          localStorage.removeItem("kora_active_tunnel");
+          localStorage.removeItem("kora_tunnel_time");
         }}
-        fetch("/feeds/posts/default?alt=json&max-results=1")
-          .then(function(res) {{ return res.json(); }})
-          .then(function(data) {{
-            if (data && data.feed && data.feed.entry && data.feed.entry.length > 0) {{
-              var content = data.feed.entry[0].content ? data.feed.entry[0].content.$t : "";
-              var m = content.match(/data-tunnel="([^"]+)"/);
-              if (m && m[1]) {{
-                localStorage.setItem("kora_active_tunnel", m[1]);
-                localStorage.setItem("kora_tunnel_time", now.toString());
-                PLATFORM_URL = m[1];
-              }}
-            }}
-          }}).catch(function(err) {{}});
       }} catch(e) {{}}
     }}
 
@@ -2216,21 +2220,19 @@ def build_blogger_xml() -> str:
         else lgTitle.innerText = "أهم مباريات اليوم المباشرة";
       }}
       if (PLATFORM_URL) {{
-        var selTz = localStorage.getItem("kora-selected-timezone") || "Asia/Riyadh";
-        var dateParam = "";
-        var now = new Date();
-        if (dayKey === "yesterday") {{
-          var y = new Date(now.getTime() - 24 * 3600 * 1000);
-          dateParam = "&date=" + y.toISOString().slice(0, 10);
-        }} else if (dayKey === "tomorrow") {{
-          var t = new Date(now.getTime() + 24 * 3600 * 1000);
-          dateParam = "&date=" + t.toISOString().slice(0, 10);
-        }}
-        fetch(PLATFORM_URL + "/api/v1/matches/today?tz=" + encodeURIComponent(selTz) + dateParam)
+        fetch(PLATFORM_URL + "/data/matches.json")
           .then(function(res) {{ return res.json(); }})
           .then(function(data) {{
             if (data && data.matches && data.matches.length > 0) {{
-              var mapped = data.matches.map(function(m) {{
+              var allMatches = data.matches;
+              var filtered = allMatches;
+              if (dayKey === "yesterday") {{
+                filtered = allMatches.filter(function(m) {{ return m.status === "FINISHED"; }});
+              }} else if (dayKey === "tomorrow") {{
+                filtered = allMatches.filter(function(m) {{ return m.status === "SCHEDULED"; }});
+              }}
+              if (filtered.length === 0) filtered = allMatches;
+              var mapped = filtered.map(function(m) {{
                 var isFin = m.status === "FINISHED";
                 var cDown = isFin ? ("انتهت " + (m.home_score||0) + " - " + (m.away_score||0)) : (m.countdown_seconds ? "تبدأ قريباً" : (m.kickoff_time_local || "20:45"));
                 return {{
@@ -2264,10 +2266,7 @@ def build_blogger_xml() -> str:
 
     function refreshLiveScores() {{
       if (!PLATFORM_URL) return;
-      var selTz = localStorage.getItem("kora-selected-timezone") || "Asia/Riyadh";
-      var fetchUrl = PLATFORM_URL + "/api/v1/matches/today?tz=" + encodeURIComponent(selTz);
-      
-      fetch(fetchUrl)
+      fetch(PLATFORM_URL + "/data/matches.json")
         .then(function(res) {{ return res.json(); }})
         .then(function(data) {{
           if (data && data.matches && data.matches.length > 0) {{
@@ -2276,17 +2275,17 @@ def build_blogger_xml() -> str:
               var cDown = isFin ? ("انتهت " + (m.home_score||0) + " - " + (m.away_score||0)) : (m.countdown_seconds ? "تبدأ قريباً" : (m.kickoff_time_local || "20:45"));
               return {{
                 id: m.id,
-                home_name: m.home_team ? m.home_team.name_ar : "",
-                home_logo: m.home_team ? m.home_team.logo_url : FALLBACK_LOGO,
-                away_name: m.away_team ? m.away_team.name_ar : "",
-                away_logo: m.away_team ? m.away_team.logo_url : FALLBACK_LOGO,
+                home_name: m.home_team ? m.home_team.name_ar : (m.home_name || ""),
+                home_logo: m.home_team ? m.home_team.logo_url : (m.home_logo || FALLBACK_LOGO),
+                away_name: m.away_team ? m.away_team.name_ar : (m.away_name || ""),
+                away_logo: m.away_team ? m.away_team.logo_url : (m.away_logo || FALLBACK_LOGO),
                 kickoff_time: m.kickoff_time_local || "20:45",
                 countdown: cDown,
                 status: m.status,
                 home_score: m.home_score,
                 away_score: m.away_score,
                 channel: m.channel || "beIN SPORTS",
-                league: m.league ? m.league.name_ar : "دوري أبطال أوروبا",
+                league: (m.league && m.league.name_ar) ? m.league.name_ar : (m.league || "دوري أبطال أوروبا"),
                 status_note: isFin ? "نتيجة نهائية • دوري أبطال أوروبا" : "سيتم تحديث روابط البث قبل انطلاق المباراة"
               }};
             }});

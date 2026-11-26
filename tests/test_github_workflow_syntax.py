@@ -284,7 +284,7 @@ def test_workflow_contains_required_steps_and_secrets() -> None:
     assert any(u.startswith("actions/checkout@v4") for u in uses_values)
     assert any(u.startswith("actions/setup-python@v5") for u in uses_values)
     assert any(u.startswith("actions/setup-node@v4") for u in uses_values)
-    assert any(u.startswith("cloudflare/pages-action@v1") for u in uses_values)
+    assert any(u.startswith("cloudflare/wrangler-action") for u in uses_values)
 
     checkout_step = next(s for s in steps if s.get("uses", "").startswith("actions/checkout@v4"))
     assert int(checkout_step["with"]["fetch-depth"]) == 0
@@ -322,9 +322,9 @@ def test_workflow_contains_required_steps_and_secrets() -> None:
         assert f"secrets.{secret_name}" in str(publish_env[secret_name])
 
     cf_step = next(
-        s for s in steps if s.get("uses", "").startswith("cloudflare/pages-action@v1")
+        s for s in steps if s.get("uses", "").startswith("cloudflare/wrangler-action")
     )
-    assert cf_step["with"]["directory"] == "frontend/dist"
+    assert "pages deploy frontend/dist" in str(cf_step["with"]["command"])
     assert "secrets.CLOUDFLARE_API_TOKEN" in str(cf_step["with"]["apiToken"])
     assert "secrets.CLOUDFLARE_ACCOUNT_ID" in str(cf_step["with"]["accountId"])
     assert cf_step.get("if") == "env.HAS_CLOUDFLARE_PAGES == 'true'"

@@ -91,12 +91,11 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         if: env.HAS_CLOUDFLARE_PAGES == 'true'
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME || 'kora-stream-cinema' }}
-          directory: frontend/dist
+          command: pages deploy frontend/dist --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME || 'kora-stream-cinema' }}
 
       - name: Upload frontend deployment artifact
         if: env.HAS_CLOUDFLARE_PAGES != 'true'

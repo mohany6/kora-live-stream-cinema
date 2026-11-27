@@ -1121,6 +1121,86 @@ def test_espn_standings_use_the_core_api_host() -> None:
     )
 
 
+def test_espn_client_defaults_to_the_urllib_transport() -> None:
+    from live_score.adapters.livescore_v2 import _UrllibSession
+
+    client = EspnSoccerClient(leagues=["eng.1"])
+
+    assert isinstance(client.session, _UrllibSession)
+
+
+def test_espn_client_honours_an_injected_session() -> None:
+    session = FakeSession({})
+    client = EspnSoccerClient(session=session, leagues=["eng.1"])
+
+    assert client.session is session
+
+
+def test_urllib_transport_fetches_json_without_requests(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    seen: list[tuple[str, Any]] = []
+
+    class StubUrlopenResponse:
+        status = 200
+
+        def __init__(self, payload: dict[str, Any]) -> None:
+            self._payload = payload
+
+        def read(self) -> bytes:
+            return json.dumps(self._payload).encode("utf-8")
+
+        def __enter__(self) -> "StubUrlopenResponse":
+            return self
+
+        def __exit__(self, *exc_info: Any) -> bool:
+            return False
+
+    def fake_urlopen(request: Any, timeout: Any = None) -> StubUrlopenResponse:
+        seen.append((request.full_url, timeout))
+        return StubUrlopenResponse({"events": []})
+
+    monkeypatch.setattr(
+        "live_score.adapters.livescore_v2.urllib.request.urlopen", fake_urlopen
+    )
+    client = EspnSoccerClient(timeout=9.0, leagues=["eng.1"])
+
+    payload = client._get_json("/eng.1/scoreboard", {"dates": "20261119"})
+
+    assert payload == {"events": []}
+    assert seen == [
+        (
+            "https://site.api.espn.com/apis/site/v2/sports/soccer"
+            "/eng.1/scoreboard?dates=20261119",
+            9.0,
+        )
+    ]
+
+
+def test_urllib_transport_turns_edge_denials_into_live_score_errors(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import io
+    import urllib.error
+
+    def fake_urlopen(request: Any, timeout: Any = None) -> Any:
+        raise urllib.error.HTTPError(
+            request.full_url,
+            403,
+            "Forbidden",
+            {},
+            io.BytesIO(b"Access Denied"),
+        )
+
+    monkeypatch.setattr(
+        "live_score.adapters.livescore_v2.urllib.request.urlopen", fake_urlopen
+    )
+    client = EspnSoccerClient(leagues=["eng.1"])
+
+    with pytest.raises(LiveScoreV2Error):
+        client.fetch_fixtures("eng.1", date(2026, 11, 19), date(2026, 11, 19))
+
+
 class _StubProvider:
     def __init__(
         self,

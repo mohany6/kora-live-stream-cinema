@@ -107,3 +107,21 @@ def test_generated_xml_is_strictly_valid():
     tree = ET.parse(xml_path)
     root = tree.getroot()
     assert root.tag.endswith("html")
+
+
+def test_blogger_xml_has_single_canonical_and_crawler_ad_guard():
+    """Verify no duplicate canonical tag, canonical homepage link, and crawler guard for Adsterra."""
+    html = build_preview_html()
+    xml = build_blogger_xml()
+
+    # all-head-content already emits the authoritative canonical link in Blogger
+    assert "all-head-content" in xml
+    assert "rel='canonical'" not in xml
+    assert 'rel="canonical"' not in xml
+    assert "data:blog.canonicalHomepageUrl" in xml
+
+    for content in (html, xml):
+        assert "isSearchCrawler" in content
+        assert "__koraIsCrawler" in content
+        assert "Googlebot" in content
+        assert "InspectionTool" in content

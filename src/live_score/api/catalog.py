@@ -34,6 +34,10 @@ DEFAULT_DETAIL_TTL_SECONDS = 25.0
 DEFAULT_WINDOW_DAYS = 2
 DEFAULT_RETRY_AFTER_FAILURE = 45.0
 DEFAULT_SNAPSHOT_MAX_AGE_HOURS = 36.0
+#: Reject a refresh smaller than this fraction of the previous slate unless the
+#: provider explicitly says the missing leagues failed.
+DEFAULT_MIN_SLATE_RATIO = 0.75
+DEFAULT_MIN_GUARDED_SLATE = 8
 
 
 class FixturesClient(Protocol):
@@ -95,6 +99,8 @@ class LiveFixturesCatalog:
         background_refresh: bool = True,
         snapshot_path: Optional[str] = None,
         snapshot_max_age_hours: float = DEFAULT_SNAPSHOT_MAX_AGE_HOURS,
+        min_slate_ratio: float = DEFAULT_MIN_SLATE_RATIO,
+        min_guarded_slate: int = DEFAULT_MIN_GUARDED_SLATE,
         clock: Optional[Callable[[], datetime]] = None,
         scraper: Optional[Any] = None,
         scraper_ttl_seconds: float = 120.0,
@@ -111,6 +117,8 @@ class LiveFixturesCatalog:
         self._background_refresh = background_refresh
         self._snapshot_path = Path(snapshot_path) if snapshot_path else None
         self._snapshot_max_age = timedelta(hours=max(0.0, float(snapshot_max_age_hours)))
+        self._min_slate_ratio = min(1.0, max(0.0, float(min_slate_ratio)))
+        self._min_guarded_slate = max(1, int(min_guarded_slate))
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._scraper = scraper
         self._scraper_ttl = max(1.0, float(scraper_ttl_seconds))
@@ -167,8 +175,9 @@ class LiveFixturesCatalog:
                 return
 
             if matches:
-                self._publish_live(matches, now)
-                self._save_snapshot(matches, now)
+                merged = self._merge_partial_slate(matches)
+                self._publish_live(merged, now)
+                self._save_snapshot(merged, now)
             elif not self._fixtures:
                 self._publish_demo(now)
                 logger.warning("Live scores: empty upstream window; using demo matchday")
@@ -307,6 +316,72 @@ class LiveFixturesCatalog:
             ):
                 return False
         return True
+
+    def _merge_partial_slate(self, matches: list[Any]) -> list[Any]:
+        """Keep stale fixtures when a refresh only covers part of the catalog.
+
+        Providers report the leagues that failed in the latest window.  Their
+        previously published fixtures are retained so a match that was already
+        on the schedule never disappears (and 404s) because of a transient
+        upstream failure.  When a provider reports no league failures, a
+        drastic slate shrink keeps fixtures from leagues that vanished, which
+        covers older providers and degenerate empty responses.
+        """
+        with self._state_lock:
+            previous = [detail.match for detail in self._fixtures.values()]
+
+        if not previous:
+            return matches
+
+        fresh_ids = {match.id for match in matches}
+        fresh_leagues = self._league_counts(matches)
+        previous_leagues = self._league_counts(previous)
+
+        failed = frozenset(
+            getattr(self._client, "last_window_failed", None) or frozenset()
+        )
+        keep_leagues = set(failed)
+
+        drastically_smaller = len(previous) >= self._min_guarded_slate and (
+            len(matches) < len(previous) * self._min_slate_ratio
+        )
+        if drastically_smaller:
+            keep_leagues.update(set(previous_leagues) - set(fresh_leagues))
+
+        if not keep_leagues:
+            return matches
+
+        merged = list(matches)
+        kept = 0
+        for old in previous:
+            if old.id in fresh_ids:
+                continue
+            ref = FixtureRef.parse(getattr(old, "source_ref", None))
+            if ref is None or ref.league_slug not in keep_leagues:
+                continue
+            merged.append(old)
+            fresh_ids.add(old.id)
+            kept += 1
+
+        if kept:
+            logger.warning(
+                "Live scores: refresh returned %d fixtures (previous %d); kept "
+                "%d stale fixtures from %d unavailable leagues",
+                len(matches),
+                len(previous),
+                kept,
+                len(keep_leagues),
+            )
+        return merged
+
+    @staticmethod
+    def _league_counts(matches: Iterable[Any]) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for match in matches:
+            ref = FixtureRef.parse(getattr(match, "source_ref", None))
+            if ref is not None:
+                counts[ref.league_slug] = counts.get(ref.league_slug, 0) + 1
+        return counts
 
     def _publish_live(self, matches: list[Any], now: datetime) -> None:
         fixtures = {match.id: MatchDetail(match=match) for match in matches}

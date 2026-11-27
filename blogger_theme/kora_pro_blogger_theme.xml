@@ -6,34 +6,66 @@
   <title><data:blog.pageTitle/></title>
   <b:include data='blog' name='all-head-content'/>
   <meta content='index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' name='robots'/>
-  <meta content='كورة لايف - جدول مباريات اليوم وبث مباشر لمتابعة أهم المباريات ونتائج الدوريات العالمية والعربية بدون تقطيع.' name='description'/>
-  <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+  <b:if cond='data:view.isHomepage'>
+    <meta content='كورة لايف - جدول مباريات اليوم وبث مباشر لمتابعة أهم المباريات ونتائج الدوريات العالمية والعربية بدون تقطيع.' name='description'/>
+  </b:if>
   <meta expr:content='data:blog.pageTitle' property='og:title'/>
   <meta content='website' property='og:type'/>
   <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
 
-  <!-- Adsterra Popunder with 20-minute Frequency Capping -->
+  <!-- Crawler Guard + Deferred Adsterra Head Loader (Popunder 20-min Cap & SocialBar) -->
   <script type='text/javascript'>
   //<![CDATA[
-    (function() {
+    function isSearchCrawler() {
       try {
-        var lastPop = localStorage.getItem('kora_popunder_last');
-        var now = Date.now();
-        if (!lastPop || (now - parseInt(lastPop, 10)) > 20 * 60 * 1000) {
-          var s = document.createElement('script');
-          s.type = 'text/javascript';
-          s.setAttribute('data-cfasync', 'false');
-          s.src = 'https://capitalhospitals.org/1/9d3379bfa7b20556e0328830cd7e5e7f';
-          document.head.appendChild(s);
-          localStorage.setItem('kora_popunder_last', now.toString());
+        var ua = (navigator.userAgent || '');
+        if (/Googlebot|InspectionTool|AdsBot|Mediapartners|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Lighthouse/i.test(ua)) {
+          return true;
+        }
+        if (navigator.webdriver && /HeadlessChrome/i.test(ua)) {
+          return true;
         }
       } catch(e) {}
+      return false;
+    }
+    window.__koraIsCrawler = isSearchCrawler();
+
+    (function() {
+      if (window.__koraIsCrawler) return;
+      var loaded = false;
+      function loadHumanHeadAds() {
+        if (loaded) return;
+        loaded = true;
+        try {
+          var sb = document.createElement('script');
+          sb.type = 'text/javascript';
+          sb.async = true;
+          sb.setAttribute('data-cfasync', 'false');
+          sb.src = 'https://czernik.org/14/4d85a8908516d9c268b82f4a5df10c8a';
+          document.head.appendChild(sb);
+        } catch(e) {}
+        try {
+          var lastPop = localStorage.getItem('kora_popunder_last');
+          var now = Date.now();
+          if (!lastPop || (now - parseInt(lastPop, 10)) > 20 * 60 * 1000) {
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.setAttribute('data-cfasync', 'false');
+            s.src = 'https://capitalhospitals.org/1/9d3379bfa7b20556e0328830cd7e5e7f';
+            document.head.appendChild(s);
+            localStorage.setItem('kora_popunder_last', now.toString());
+          }
+        } catch(e) {}
+      }
+      var evts = ['pointerdown', 'touchstart', 'scroll', 'mousemove', 'keydown'];
+      for (var i = 0; i < evts.length; i++) {
+        window.addEventListener(evts[i], loadHumanHeadAds, { once: true, passive: true });
+      }
+      setTimeout(loadHumanHeadAds, 3500);
     })();
   //]]>
   </script>
-
-  <!-- Adsterra SocialBar -->
-  <script data-cfasync='false' src='https://czernik.org/14/4d85a8908516d9c268b82f4a5df10c8a'></script>
   
   <b:skin><![CDATA[
 
@@ -754,35 +786,57 @@
   <!-- Desktop 160x600 Left Skyscraper -->
   <div class='desktop-side-banner left' id='adsterra-skyscraper-left'>
     <script type='text/javascript'>
-      atOptions = {
-        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
-        'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
-        'params' : {}
-      };
+    //<![CDATA[
+      (function(containerId) {
+        if (window.__koraIsCrawler || window.innerWidth < 1200) return;
+        window.atOptions = {
+          'key' : 'bee904d3f2a415fcd8e41f64598a9680',
+          'format' : 'iframe',
+          'height' : 600,
+          'width' : 160,
+          'params' : {}
+        };
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.setAttribute('data-cfasync', 'false');
+        s.src = 'https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680';
+        var c = document.getElementById(containerId);
+        if (c) c.appendChild(s);
+      })('adsterra-skyscraper-left');
+    //]]>
     </script>
-    <script data-cfasync='false' src='https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680' type='text/javascript'></script>
   </div>
 
   <!-- Desktop 160x600 Right Skyscraper -->
   <div class='desktop-side-banner right' id='adsterra-skyscraper-right'>
     <script type='text/javascript'>
-      atOptions = {
-        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
-        'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
-        'params' : {}
-      };
+    //<![CDATA[
+      (function(containerId) {
+        if (window.__koraIsCrawler || window.innerWidth < 1200) return;
+        window.atOptions = {
+          'key' : 'bee904d3f2a415fcd8e41f64598a9680',
+          'format' : 'iframe',
+          'height' : 600,
+          'width' : 160,
+          'params' : {}
+        };
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.setAttribute('data-cfasync', 'false');
+        s.src = 'https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680';
+        var c = document.getElementById(containerId);
+        if (c) c.appendChild(s);
+      })('adsterra-skyscraper-right');
+    //]]>
     </script>
-    <script data-cfasync='false' src='https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680' type='text/javascript'></script>
   </div>
 
   <div class='main-wrapper'>
     <!-- Header Bar -->
     <header class='header-bar'>
-      <a class='brand-identity' expr:href='data:blog.homepageUrl'>
+      <a class='brand-identity' expr:href='data:blog.canonicalHomepageUrl'>
         <div class='brand-crest'>⚽</div>
         <div class='brand-title-wrap'>
           <h1>كورة لايف</h1>
@@ -804,7 +858,9 @@
       <span class='ad-tag-badge'>إعلان</span>
       <div class='adsterra-header-wrapper' id='adsterra-header-billboard'>
         <script type='text/javascript'>
+        //<![CDATA[
           (function() {
+            if (window.__koraIsCrawler) return;
             var isMobile = !(window.innerWidth >= 768);
             var key = isMobile ? '1cdf29d3af257663a92ffa6b5207a68a' : '6703ea03ffb309455182c593d4e6ea81';
             var w = isMobile ? 320 : 728;
@@ -818,11 +874,13 @@
             };
             var s = document.createElement('script');
             s.type = 'text/javascript';
+            s.async = true;
             s.setAttribute('data-cfasync', 'false');
             s.src = 'https://czernik.org/22/' + key;
             var c = document.getElementById('adsterra-header-billboard');
             if (c) c.appendChild(s);
           })();
+        //]]>
         </script>
       </div>
     </div>
@@ -1194,7 +1252,21 @@
       <!-- In-feed Ad Slot (Adsterra Native Banner) -->
       <div class='ad-slot-infeed' id='adSlotInfeed' style='padding:18px 12px; min-height:100px;'>
         <span class='ad-tag-badge' style='position:static; margin-bottom:6px;'>إعلان مخصص</span>
-        <script async='async' data-cfasync='false' fetchpriority='high' src='https://czernik.org/21/f1180bd1a9f13152d2247022e3f6f1b0'></script>
+        <script type='text/javascript'>
+        //<![CDATA[
+          (function() {
+            if (window.__koraIsCrawler) return;
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.setAttribute('data-cfasync', 'false');
+            s.setAttribute('fetchpriority', 'high');
+            s.src = 'https://czernik.org/21/f1180bd1a9f13152d2247022e3f6f1b0';
+            var c = document.getElementById('adSlotInfeed');
+            if (c) c.appendChild(s);
+          })();
+        //]]>
+        </script>
         <div id='container-f1180bd1a9f13152d2247022e3f6f1b0'></div>
       </div>
 

@@ -37,6 +37,9 @@ class FallbackSoccerClient:
         self._clock = clock or time.monotonic
         self._primary_down_until = 0.0
         self.leagues = tuple(getattr(primary, "leagues", ()) or ())
+        #: Mirrors the serving provider's per-league outcome for the catalog.
+        self.last_window_success: frozenset[str] = frozenset()
+        self.last_window_failed: frozenset[str] = frozenset()
 
     # ------------------------------------------------------------------
     # Provider selection
@@ -50,6 +53,15 @@ class FallbackSoccerClient:
             "Live scores: primary provider failed (%s); using fallback for %.0fs",
             exc,
             self.cooldown_seconds,
+        )
+
+    def _remember_window_source(self, provider: Any) -> None:
+        """Expose the provider's league results to the catalog."""
+        self.last_window_success = frozenset(
+            getattr(provider, "last_window_success", ()) or ()
+        )
+        self.last_window_failed = frozenset(
+            getattr(provider, "last_window_failed", ()) or ()
         )
 
     @staticmethod
@@ -70,17 +82,22 @@ class FallbackSoccerClient:
         primary_error: Optional[Exception] = None
         if self._primary_ready():
             try:
-                return self.primary.fetch_window(start, end, leagues)
+                matches = self.primary.fetch_window(start, end, leagues)
             except Exception as exc:  # noqa: BLE001 - provider boundary
                 primary_error = exc
                 self._mark_primary_down(exc)
+            else:
+                self._remember_window_source(self.primary)
+                return matches
 
         try:
-            return self.secondary.fetch_window(start, end, leagues)
+            matches = self.secondary.fetch_window(start, end, leagues)
         except Exception as exc:  # noqa: BLE001 - provider boundary
             if primary_error is not None:
                 raise self._combined_error(primary_error, exc) from exc
             raise
+        self._remember_window_source(self.secondary)
+        return matches
 
     def fetch_detail(
         self,

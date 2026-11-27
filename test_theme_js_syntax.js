@@ -39,6 +39,7 @@ function checkFile(filepath) {
       console.log(`  Script #${count} (inline, ${body.length} chars): SYNTAX OK`);
     } catch (err) {
       console.error(`  Script #${count} (inline): SYNTAX ERROR:`, err.message);
+      console.error(err.stack);
       hasErrors = true;
       const lines = body.split('\n');
       console.error('  Lines:');

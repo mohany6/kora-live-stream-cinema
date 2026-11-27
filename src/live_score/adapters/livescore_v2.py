@@ -18,10 +18,13 @@ owns TTLs and demo fallback.
 
 from __future__ import annotations
 
+import json
 import logging
 import re
 import threading
 import time
+import urllib.error
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
@@ -238,6 +241,10 @@ class LiveScoreV2Client:
             tuple[str, str], tuple[float, dict[str, Any]]
         ] = {}
         self._standings_lock = threading.Lock()
+        #: Leagues that answered the latest :meth:`fetch_window` call.
+        self.last_window_success: frozenset[str] = frozenset()
+        #: Leagues whose latest fixture request failed.
+        self.last_window_failed: frozenset[str] = frozenset()
 
     # ------------------------------------------------------------------
     # HTTP
@@ -306,10 +313,13 @@ class LiveScoreV2Client:
         """
         slugs = tuple(leagues or self.leagues)
         if not slugs:
+            self.last_window_success = frozenset()
+            self.last_window_failed = frozenset()
             return []
 
         raw_by_league: dict[str, list[dict[str, Any]]] = {}
         errors: list[str] = []
+        failed_slugs: set[str] = set()
         with ThreadPoolExecutor(max_workers=min(self.max_workers, len(slugs))) as pool:
             futures = {
                 pool.submit(self.fetch_fixtures, slug, start, end): slug for slug in slugs
@@ -319,7 +329,14 @@ class LiveScoreV2Client:
                     raw_by_league[slug] = future.result()
                 except Exception as exc:  # noqa: BLE001 - isolated per league
                     errors.append(f"{slug}: {exc}")
+                    failed_slugs.add(slug)
                     logger.warning("Live scores: league %s failed (%s)", slug, exc)
+
+        # Give the catalog enough information to retain stale fixtures for the
+        # leagues that could not be refreshed instead of publishing a partial
+        # slate that would 404 matches users already had on screen.
+        self.last_window_success = frozenset(raw_by_league)
+        self.last_window_failed = frozenset(failed_slugs)
 
         if errors and len(errors) == len(slugs):
             raise LiveScoreV2Error("all league requests failed: " + "; ".join(errors))
@@ -895,7 +912,10 @@ class LiveScoreV2Client:
         match = re.search(r"\.\s*(.+?)\s+replaces\s+(.+?)\.\s*$", text)
         if not match:
             return []
-        return [match.group(1).strip(), match.group(2).strip()]
+        outgoing = re.sub(
+            r"\s+(?:because of|due to)\s+.*$", "", match.group(2).strip(), flags=re.I
+        )
+        return [match.group(1).strip(), outgoing]
 
     @staticmethod
     def _event_type(item: dict[str, Any]) -> Optional[str]:
@@ -989,6 +1009,71 @@ class LiveScoreV2Client:
 ESPN_SITE_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer"
 ESPN_CORE_BASE = "https://site.api.espn.com/apis/v2/sports/soccer"
 
+_ESPN_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/131.0 Safari/537.36"
+)
+
+
+class _UrllibResponse:
+    """Small ``requests.Response`` look-alike used by the urllib transport."""
+
+    def __init__(self, status_code: int, body: bytes, url: str) -> None:
+        self.status_code = status_code
+        self.content = body
+        self.url = url
+
+    def raise_for_status(self) -> None:
+        if self.status_code >= 400:
+            raise requests.HTTPError(
+                f"{self.status_code} Client Error for url: {self.url}",
+                response=self,
+            )
+
+    def json(self) -> Any:
+        return json.loads(self.content.decode("utf-8"))
+
+
+class _UrllibSession:
+    """Minimal session-compatible transport for ESPN's public API.
+
+    ESPN's edge rejects the TLS fingerprint of the ``requests``/urllib3 stack
+    with HTTP 403 while answering the standard-library client normally, so the
+    default ESPN transport uses urllib.  An injected session (tests, callers)
+    still takes precedence.
+    """
+
+    def __init__(self, timeout: float = 12.0) -> None:
+        self.timeout = timeout
+        self.headers = {
+            "Accept": "application/json",
+            "Accept-Language": "ar,en;q=0.9",
+            "User-Agent": _ESPN_USER_AGENT,
+        }
+
+    def get(
+        self,
+        url: str,
+        timeout: Optional[float] = None,
+        **_: Any,
+    ) -> _UrllibResponse:
+        request = urllib.request.Request(url, headers=self.headers)
+        try:
+            with urllib.request.urlopen(
+                request, timeout=timeout or self.timeout
+            ) as response:
+                return _UrllibResponse(
+                    getattr(response, "status", 200),
+                    response.read(),
+                    url,
+                )
+        except urllib.error.HTTPError as exc:
+            # Surface the status through raise_for_status() for parity with
+            # requests; the caller's error handling stays unchanged.
+            return _UrllibResponse(exc.code, exc.read(), url)
+        except (urllib.error.URLError, OSError) as exc:
+            raise requests.RequestException(str(exc)) from exc
+
 
 class EspnSoccerClient(LiveScoreV2Client):
     """Direct ESPN client used when the hosted wrapper is unavailable.
@@ -1011,7 +1096,7 @@ class EspnSoccerClient(LiveScoreV2Client):
     ) -> None:
         super().__init__(
             base_url=ESPN_SITE_BASE,
-            session=session,
+            session=session or _UrllibSession(timeout=timeout),
             timeout=timeout,
             leagues=leagues,
             max_workers=max_workers,

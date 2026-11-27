@@ -1191,10 +1191,131 @@ def render_match_card(m: dict, platform_url: str) -> str:
 """
 
 
+ADSTERRA_HEAD_GUARD_AND_LOADER = """  <!-- Crawler Guard + Deferred Adsterra Head Loader (Popunder 20-min Cap & SocialBar) -->
+  <script type='text/javascript'>
+  //<![CDATA[
+    function isSearchCrawler() {
+      try {
+        var ua = (navigator.userAgent || '');
+        if (/Googlebot|InspectionTool|AdsBot|Mediapartners|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Lighthouse/i.test(ua)) {
+          return true;
+        }
+        if (navigator.webdriver && /HeadlessChrome/i.test(ua)) {
+          return true;
+        }
+      } catch(e) {}
+      return false;
+    }
+    window.__koraIsCrawler = isSearchCrawler();
+
+    (function() {
+      if (window.__koraIsCrawler) return;
+      var loaded = false;
+      function loadHumanHeadAds() {
+        if (loaded) return;
+        loaded = true;
+        try {
+          var sb = document.createElement('script');
+          sb.type = 'text/javascript';
+          sb.async = true;
+          sb.setAttribute('data-cfasync', 'false');
+          sb.src = 'https://czernik.org/14/4d85a8908516d9c268b82f4a5df10c8a';
+          document.head.appendChild(sb);
+        } catch(e) {}
+        try {
+          var lastPop = localStorage.getItem('kora_popunder_last');
+          var now = Date.now();
+          if (!lastPop || (now - parseInt(lastPop, 10)) > 20 * 60 * 1000) {
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.setAttribute('data-cfasync', 'false');
+            s.src = 'https://capitalhospitals.org/1/9d3379bfa7b20556e0328830cd7e5e7f';
+            document.head.appendChild(s);
+            localStorage.setItem('kora_popunder_last', now.toString());
+          }
+        } catch(e) {}
+      }
+      var evts = ['pointerdown', 'touchstart', 'scroll', 'mousemove', 'keydown'];
+      for (var i = 0; i < evts.length; i++) {
+        window.addEventListener(evts[i], loadHumanHeadAds, { once: true, passive: true });
+      }
+      setTimeout(loadHumanHeadAds, 3500);
+    })();
+  //]]>
+  </script>"""
+
+ADSTERRA_SKYSCRAPER_SCRIPT = """    <script type='text/javascript'>
+    //<![CDATA[
+      (function(containerId) {
+        if (window.__koraIsCrawler || window.innerWidth < 1200) return;
+        window.atOptions = {
+          'key' : 'bee904d3f2a415fcd8e41f64598a9680',
+          'format' : 'iframe',
+          'height' : 600,
+          'width' : 160,
+          'params' : {}
+        };
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.setAttribute('data-cfasync', 'false');
+        s.src = 'https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680';
+        var c = document.getElementById(containerId);
+        if (c) c.appendChild(s);
+      })('__CONTAINER_ID__');
+    //]]>
+    </script>"""
+
+ADSTERRA_BILLBOARD_SCRIPT = """        <script type='text/javascript'>
+        //<![CDATA[
+          (function() {
+            if (window.__koraIsCrawler) return;
+            var isMobile = !(window.innerWidth >= 768);
+            var key = isMobile ? '1cdf29d3af257663a92ffa6b5207a68a' : '6703ea03ffb309455182c593d4e6ea81';
+            var w = isMobile ? 320 : 728;
+            var h = isMobile ? 50 : 90;
+            window.atOptions = {
+              'key' : key,
+              'format' : 'iframe',
+              'height' : h,
+              'width' : w,
+              'params' : {}
+            };
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.setAttribute('data-cfasync', 'false');
+            s.src = 'https://czernik.org/22/' + key;
+            var c = document.getElementById('adsterra-header-billboard');
+            if (c) c.appendChild(s);
+          })();
+        //]]>
+        </script>"""
+
+ADSTERRA_NATIVE_SCRIPT = """        <script type='text/javascript'>
+        //<![CDATA[
+          (function() {
+            if (window.__koraIsCrawler) return;
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.setAttribute('data-cfasync', 'false');
+            s.setAttribute('fetchpriority', 'high');
+            s.src = 'https://czernik.org/21/f1180bd1a9f13152d2247022e3f6f1b0';
+            var c = document.getElementById('adSlotInfeed');
+            if (c) c.appendChild(s);
+          })();
+        //]]>
+        </script>"""
+
+
 def build_preview_html() -> str:
     """Build standalone browser preview of the Blogger Cyber-Stadium theme."""
     platform_url = get_platform_url()
     today_cards = "\n".join(render_match_card(m, platform_url) for m in MULTI_DAY_DATA["today"])
+    sky_left = ADSTERRA_SKYSCRAPER_SCRIPT.replace("__CONTAINER_ID__", "adsterra-skyscraper-left")
+    sky_right = ADSTERRA_SKYSCRAPER_SCRIPT.replace("__CONTAINER_ID__", "adsterra-skyscraper-right")
 
     return f"""<!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -1203,26 +1324,7 @@ def build_preview_html() -> str:
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>كورة لايف - جدول المباريات والبث المباشر</title>
   
-  <!-- Adsterra Popunder with 20-minute Frequency Capping -->
-  <script type="text/javascript">
-    (function() {{
-      try {{
-        var lastPop = localStorage.getItem('kora_popunder_last');
-        var now = Date.now();
-        if (!lastPop || (now - parseInt(lastPop, 10)) > 20 * 60 * 1000) {{
-          var s = document.createElement('script');
-          s.type = 'text/javascript';
-          s.setAttribute('data-cfasync', 'false');
-          s.src = 'https://capitalhospitals.org/1/9d3379bfa7b20556e0328830cd7e5e7f';
-          document.head.appendChild(s);
-          localStorage.setItem('kora_popunder_last', now.toString());
-        }}
-      }} catch(e) {{}}
-    }})();
-  </script>
-
-  <!-- Adsterra SocialBar -->
-  <script data-cfasync="false" src="https://czernik.org/14/4d85a8908516d9c268b82f4a5df10c8a"></script>
+{ADSTERRA_HEAD_GUARD_AND_LOADER}
   
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
@@ -1232,30 +1334,12 @@ def build_preview_html() -> str:
 <body>
   <!-- Desktop 160x600 Left Skyscraper -->
   <div class="desktop-side-banner left" id="adsterra-skyscraper-left">
-    <script type="text/javascript">
-      atOptions = {{
-        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
-        'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
-        'params' : {{}}
-      }};
-    </script>
-    <script type="text/javascript" data-cfasync="false" src="https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680"></script>
+{sky_left}
   </div>
 
   <!-- Desktop 160x600 Right Skyscraper -->
   <div class="desktop-side-banner right" id="adsterra-skyscraper-right">
-    <script type="text/javascript">
-      atOptions = {{
-        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
-        'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
-        'params' : {{}}
-      }};
-    </script>
-    <script type="text/javascript" data-cfasync="false" src="https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680"></script>
+{sky_right}
   </div>
 
   <div class="main-wrapper">
@@ -1282,27 +1366,7 @@ def build_preview_html() -> str:
     <div class="sponsor-billboard-card" data-ad-slot="ad-slot-header" style="padding:14px 10px;">
       <span class="ad-tag-badge">إعلان</span>
       <div class="adsterra-header-wrapper" id="adsterra-header-billboard">
-        <script type="text/javascript">
-          (function() {{
-            var isMobile = !(window.innerWidth >= 768);
-            var key = isMobile ? '1cdf29d3af257663a92ffa6b5207a68a' : '6703ea03ffb309455182c593d4e6ea81';
-            var w = isMobile ? 320 : 728;
-            var h = isMobile ? 50 : 90;
-            window.atOptions = {{
-              'key' : key,
-              'format' : 'iframe',
-              'height' : h,
-              'width' : w,
-              'params' : {{}}
-            }};
-            var s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.setAttribute('data-cfasync', 'false');
-            s.src = 'https://czernik.org/22/' + key;
-            var c = document.getElementById('adsterra-header-billboard');
-            if (c) c.appendChild(s);
-          }})();
-        </script>
+{ADSTERRA_BILLBOARD_SCRIPT}
       </div>
     </div>
 
@@ -1346,9 +1410,9 @@ def build_preview_html() -> str:
     </div>
 
     <!-- In-feed Ad Slot (Adsterra Native Banner) -->
-    <div class="ad-slot-infeed" data-ad-slot="ad-slot-infeed" style="padding:18px 12px; min-height:100px;">
+    <div class="ad-slot-infeed" id="adSlotInfeed" data-ad-slot="ad-slot-infeed" style="padding:18px 12px; min-height:100px;">
       <span class="ad-tag-badge" style="position:static; margin-bottom:6px;">إعلان مخصص</span>
-      <script async="async" fetchpriority="high" data-cfasync="false" src="https://czernik.org/21/f1180bd1a9f13152d2247022e3f6f1b0"></script>
+{ADSTERRA_NATIVE_SCRIPT}
       <div id="container-f1180bd1a9f13152d2247022e3f6f1b0"></div>
     </div>
 
@@ -1749,6 +1813,8 @@ def build_blogger_xml() -> str:
     """Build strictly valid Blogger XML Theme with layout parity and deep links to /match/{id}."""
     platform_url = get_platform_url()
     today_cards = "\n".join(render_match_card(m, platform_url) for m in MULTI_DAY_DATA["today"])
+    sky_left = ADSTERRA_SKYSCRAPER_SCRIPT.replace("__CONTAINER_ID__", "adsterra-skyscraper-left")
+    sky_right = ADSTERRA_SKYSCRAPER_SCRIPT.replace("__CONTAINER_ID__", "adsterra-skyscraper-right")
 
     xml_content = f"""<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
@@ -1758,34 +1824,14 @@ def build_blogger_xml() -> str:
   <title><data:blog.pageTitle/></title>
   <b:include data='blog' name='all-head-content'/>
   <meta content='index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' name='robots'/>
-  <meta content='كورة لايف - جدول مباريات اليوم وبث مباشر لمتابعة أهم المباريات ونتائج الدوريات العالمية والعربية بدون تقطيع.' name='description'/>
-  <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+  <b:if cond='data:view.isHomepage'>
+    <meta content='كورة لايف - جدول مباريات اليوم وبث مباشر لمتابعة أهم المباريات ونتائج الدوريات العالمية والعربية بدون تقطيع.' name='description'/>
+  </b:if>
   <meta expr:content='data:blog.pageTitle' property='og:title'/>
   <meta content='website' property='og:type'/>
   <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
 
-  <!-- Adsterra Popunder with 20-minute Frequency Capping -->
-  <script type='text/javascript'>
-  //<![CDATA[
-    (function() {{
-      try {{
-        var lastPop = localStorage.getItem('kora_popunder_last');
-        var now = Date.now();
-        if (!lastPop || (now - parseInt(lastPop, 10)) > 20 * 60 * 1000) {{
-          var s = document.createElement('script');
-          s.type = 'text/javascript';
-          s.setAttribute('data-cfasync', 'false');
-          s.src = 'https://capitalhospitals.org/1/9d3379bfa7b20556e0328830cd7e5e7f';
-          document.head.appendChild(s);
-          localStorage.setItem('kora_popunder_last', now.toString());
-        }}
-      }} catch(e) {{}}
-    }})();
-  //]]>
-  </script>
-
-  <!-- Adsterra SocialBar -->
-  <script data-cfasync='false' src='https://czernik.org/14/4d85a8908516d9c268b82f4a5df10c8a'></script>
+{ADSTERRA_HEAD_GUARD_AND_LOADER}
   
   <b:skin><![CDATA[
 {CSS_STYLES}
@@ -1797,36 +1843,18 @@ def build_blogger_xml() -> str:
 <body>
   <!-- Desktop 160x600 Left Skyscraper -->
   <div class='desktop-side-banner left' id='adsterra-skyscraper-left'>
-    <script type='text/javascript'>
-      atOptions = {{
-        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
-        'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
-        'params' : {{}}
-      }};
-    </script>
-    <script data-cfasync='false' src='https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680' type='text/javascript'></script>
+{sky_left}
   </div>
 
   <!-- Desktop 160x600 Right Skyscraper -->
   <div class='desktop-side-banner right' id='adsterra-skyscraper-right'>
-    <script type='text/javascript'>
-      atOptions = {{
-        'key' : 'bee904d3f2a415fcd8e41f64598a9680',
-        'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
-        'params' : {{}}
-      }};
-    </script>
-    <script data-cfasync='false' src='https://czernik.org/22/bee904d3f2a415fcd8e41f64598a9680' type='text/javascript'></script>
+{sky_right}
   </div>
 
   <div class='main-wrapper'>
     <!-- Header Bar -->
     <header class='header-bar'>
-      <a class='brand-identity' expr:href='data:blog.homepageUrl'>
+      <a class='brand-identity' expr:href='data:blog.canonicalHomepageUrl'>
         <div class='brand-crest'>⚽</div>
         <div class='brand-title-wrap'>
           <h1>كورة لايف</h1>
@@ -1847,27 +1875,7 @@ def build_blogger_xml() -> str:
     <div class='sponsor-billboard-card' id='adSlotHeader' data-ad-slot='ad-slot-header' style='padding:14px 10px;'>
       <span class='ad-tag-badge'>إعلان</span>
       <div class='adsterra-header-wrapper' id='adsterra-header-billboard'>
-        <script type='text/javascript'>
-          (function() {{
-            var isMobile = !(window.innerWidth >= 768);
-            var key = isMobile ? '1cdf29d3af257663a92ffa6b5207a68a' : '6703ea03ffb309455182c593d4e6ea81';
-            var w = isMobile ? 320 : 728;
-            var h = isMobile ? 50 : 90;
-            window.atOptions = {{
-              'key' : key,
-              'format' : 'iframe',
-              'height' : h,
-              'width' : w,
-              'params' : {{}}
-            }};
-            var s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.setAttribute('data-cfasync', 'false');
-            s.src = 'https://czernik.org/22/' + key;
-            var c = document.getElementById('adsterra-header-billboard');
-            if (c) c.appendChild(s);
-          }})();
-        </script>
+{ADSTERRA_BILLBOARD_SCRIPT}
       </div>
     </div>
 
@@ -1915,7 +1923,7 @@ def build_blogger_xml() -> str:
       <!-- In-feed Ad Slot (Adsterra Native Banner) -->
       <div class='ad-slot-infeed' id='adSlotInfeed' style='padding:18px 12px; min-height:100px;'>
         <span class='ad-tag-badge' style='position:static; margin-bottom:6px;'>إعلان مخصص</span>
-        <script async='async' data-cfasync='false' fetchpriority='high' src='https://czernik.org/21/f1180bd1a9f13152d2247022e3f6f1b0'></script>
+{ADSTERRA_NATIVE_SCRIPT}
         <div id='container-f1180bd1a9f13152d2247022e3f6f1b0'></div>
       </div>
 

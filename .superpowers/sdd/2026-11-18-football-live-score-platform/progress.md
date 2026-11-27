@@ -81,3 +81,26 @@
 | Admin override | Set 3–1/FINISHED, read path reflected `is_admin_override=true`, clear restored 2–1/IN_PLAY |
 | Admin stream | Added server appeared first, delete restored the base list |
 | Browser smoke | Home + detail, timeline/lineup/stats/standings, RTL and dark theme verified with no console errors |
+
+---
+
+## Live Data Verification (2026-11-25)
+
+| Check | Result |
+|---|---|
+| Backend suite (`pytest -q`) | 203 passed, 1 failed (unrelated Blogger-theme test `test_theme_contains_tunnel_discovery_logic`; concurrent theme workstream) |
+| Targeted live-score suite (`tests/live_score/test_livescore_v2.py`) | 48 passed |
+| Frontend suite (`npm test`) | 62 passed (11 files) |
+| Production build (`npm run build`) | Succeeded (Vite 6.4.6); emits `dist/wrangler.json`; Cloudflare plugin is build-only |
+| ESPN client coverage | Multi-day scoreboard fetch + event dedupe, `/summary?event=` detail hydration, core-API standings host, scoreboard cache reuse |
+| Failover coverage | Primary→secondary switch, 5-minute cooldown skip, recovery to primary, detail failover, both-fail error |
+| Partial-refresh protection | Per-league `last_window_success`/`last_window_failed` from both providers; catalog keeps previous fixtures for failed leagues and (for providers without failure metadata) keeps vanished leagues when the new slate drops below 75% of a ≥8-match slate |
+| `GET /health` | `data_source: live`, 92 fixtures, 10 competitions, `last_error: null`, refresh cadence ~30s |
+| `GET /api/v1/matches/today?date=2026-11-25` | 9 UEFA Champions League fixtures in Mecca time; `401915378` present on every sampled refresh |
+| `GET /api/v1/matches/401915378` | 11+11 lineups, 4-2-3-1/4-3-3, 16 events, 5 stats, 36 standings rows |
+| Event parsing | Goal scorers and substitution in/out names resolved from both `athletesInvolved` and `participants` payload shapes; injury suffixes removed (10/10 substitution descriptions clean) |
+| Standings highlight | Home/away rows flagged by club name (verified on Corinthians–Botafogo) |
+| Snapshot safety | Last live slate persists and reloads after restart; `data/live_fixtures_snapshot.json` holds the full 92-fixture slate; snapshots older than 36h are ignored |
+| Startup behavior | Demo slate seeds instantly; live refresh runs in the background, so the API never blocks on an outage |
+| Runtime topology | One backend only (`scripts/serve_persistent.py` supervisor → uvicorn on `0.0.0.0:8000`); the leftover 8-worker `start_production.py` stack was stopped after it caused 92↔21 oscillation and intermittent 404s |
+| Frontend data path | Vite dev proxy `/api` returns 200; match detail page renders timeline, tabs and Arabic score from the live API with no console errors |

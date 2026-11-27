@@ -63,11 +63,37 @@ jobs:
           LIVE_SCORE_LEAGUES: ${{ secrets.LIVE_SCORE_LEAGUES }}
         run: python scripts/auto_blogger_publisher.py
 
+      - name: Publish daily match & results posters to Facebook Page
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          LIVE_SCORE_API_URL: ${{ secrets.LIVE_SCORE_API_URL }}
+          LIVE_SCORE_SCRAPER_URL: ${{ secrets.LIVE_SCORE_SCRAPER_URL }}
+          LIVE_SCORE_LEAGUES: ${{ secrets.LIVE_SCORE_LEAGUES }}
+        run: python scripts/auto_facebook_publisher.py --mode auto
+
+      - name: Set up Node.js 22 for Remotion Reels
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Remotion Reels dependencies
+        run: cd video_reels && npm install --no-audit --no-fund
+
+      - name: Publish automated Facebook Reels
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          LIVE_SCORE_API_URL: ${{ secrets.LIVE_SCORE_API_URL }}
+          LIVE_SCORE_SCRAPER_URL: ${{ secrets.LIVE_SCORE_SCRAPER_URL }}
+          LIVE_SCORE_LEAGUES: ${{ secrets.LIVE_SCORE_LEAGUES }}
+        run: python scripts/auto_facebook_reels_publisher.py --mode auto
+
       - name: Commit and push updated data files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for file in frontend/public/data/matches.json data/matches.json data/published_articles.json; do
+          for file in frontend/public/data/matches.json data/matches.json data/published_articles.json data/published_facebook.json data/published_facebook_reels.json; do
             if [ -f "$file" ]; then
               git add "$file"
             fi

@@ -153,6 +153,8 @@ def _serialize_match_detail(detail: Any, score: int, fallback_now: datetime) -> 
         "id": str(m.id),
         "home_team": m.home_team.name_ar or m.home_team.name_en,
         "away_team": m.away_team.name_ar or m.away_team.name_en,
+        "home_team_en": m.home_team.name_en,
+        "away_team_en": m.away_team.name_en,
         "home_team_id": getattr(m.home_team, "id", None),
         "away_team_id": getattr(m.away_team, "id", None),
         "home_logo": getattr(m.home_team, "logo_url", None),
@@ -301,11 +303,12 @@ def record_published_article(
     title: str,
     labels: list[str] | None = None,
     method: str = "email",
+    post_url: str | None = None,
 ) -> dict[str, Any]:
     """Record a published article entry in ``cache_data`` in place."""
     articles = cache_data.setdefault("articles", {})
     key = article_cache_key(str(match_id), stage)
-    articles[key] = {
+    entry: dict[str, Any] = {
         "match_id": str(match_id),
         "stage": stage,
         "date": date_str,
@@ -314,6 +317,9 @@ def record_published_article(
         "method": method,
         "published_at": datetime.now(timezone.utc).isoformat(),
     }
+    if post_url:
+        entry["url"] = post_url
+    articles[key] = entry
     return cache_data
 
 
@@ -383,6 +389,7 @@ def publish_article_via_blogger_api(
     title: str,
     html_content: str,
     labels: list[str] | None = None,
+    out_meta: dict[str, Any] | None = None,
 ) -> bool | None:
     """Publish directly via Blogger REST API v3 if credentials are configured.
 
@@ -417,6 +424,13 @@ def publish_article_via_blogger_api(
             timeout=20,
         )
         resp.raise_for_status()
+        if out_meta is not None:
+            try:
+                body = resp.json()
+                if isinstance(body, dict) and body.get("url"):
+                    out_meta["url"] = str(body["url"])
+            except Exception:
+                pass
         print("  [🎉] تم النشر عبر Blogger API v3 بنجاح!")
         return True
     except Exception as exc:
@@ -558,10 +572,12 @@ def run_auto_publisher(
         out_file = out_dir / f"{today_str}_{safe_id}_{stage}.html"
         out_file.write_text(article["content"], encoding="utf-8")
 
+        api_meta: dict[str, Any] = {}
         api_result = publish_article_via_blogger_api(
             article["title"],
             article["content"],
             labels=article.get("labels"),
+            out_meta=api_meta,
         )
         method = ""
         published = False
@@ -590,6 +606,7 @@ def run_auto_publisher(
                 title=article["title"],
                 labels=article.get("labels"),
                 method=method,
+                post_url=api_meta.get("url"),
             )
             published_today_ids.add(match_id)
             save_published_articles(cache_data, cache_path)

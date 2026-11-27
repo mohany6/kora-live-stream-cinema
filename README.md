@@ -98,7 +98,8 @@ Environment variables (see `.env.example`):
 | `LIVE_SCORE_TIMEZONE` | `Asia/Riyadh` | Default display timezone. |
 | `LIVE_SCORE_API_URL` | empty (ESPN primary) | Hosted livescoreFootball API. Defaults to ESPN primary with `worldcup26.ir` secondary. Set `demo` to force offline demo data. |
 | `LIVE_SCORE_SCRAPER_URL` | empty (disabled) | Optional streaming portal URL for automated live stream scraping. |
-| `LIVE_SCORE_LEAGUES` | 18 major leagues | Comma-separated upstream slugs (e.g. `eng.1,esp.1,ksa.1`). |
+| `LIVE_SCORE_LEAGUES` | 10 top competitions | Comma-separated upstream slugs (e.g. `eng.1,esp.1,uefa.champions`). |
+| `LIVE_SCORE_ESPN_FALLBACK` | `on` | Automatic failover between ESPN and the hosted API (5-minute cooldown). |
 | `LIVE_SCORE_SNAPSHOT` | `on` | Persist the last good live slate (set `off` to disable). |
 | `LIVE_SCORE_SNAPSHOT_PATH` | `data/live_fixtures_snapshot.json` | Snapshot file used after a restart during an outage. |
 | `LIVE_SCORE_SNAPSHOT_MAX_AGE_HOURS` | `36` | Ignore snapshots older than this. |
@@ -177,11 +178,15 @@ The override is persisted in SQLite and re-applied after every API/scraper sync.
 
 - **Zero video proxying:** streams are embedded directly client-side. Iframe embeds are sandboxed; URLs must be absolute `http(s)`.
 - **Admin precedence is read-time:** base fixtures may refresh freely, but stored admin patches are applied last, so automated sync can never silently overwrite an emergency decision.
-- **Live data by default:** fixtures come from the hosted
-  [livescoreFootball API](https://worldcup26.ir/football-api) across 18 major
-  leagues. A five-day window is cached for 25 seconds; match summaries
-  (lineups, timeline, stats, standings) hydrate lazily when a match is opened.
-  The frontend polls today's slate and the open match center every 30 seconds.
+- **Live data by default:** fixtures come from ESPN's public soccer API, with
+  the [livescoreFootball API](https://worldcup26.ir/football-api) as an
+  automatic secondary, across 10 top competitions (Europe's big five, the three
+  UEFA club competitions, and the Saudi and Turkish leagues). The two providers
+  share the same payload shape; if one fails the other is used for five
+  minutes before retrying the primary. A five-day window is cached for 25
+  seconds; match summaries (lineups, timeline, stats, standings) hydrate lazily
+  when a match is opened. The frontend polls today's slate and the open match
+  center every 30 seconds.
 - **Graceful degradation:** upstream failures keep the last good snapshot;
   the demo matchday is used only when no live snapshot has ever loaded.
   `LIVE_SCORE_API_URL=demo` forces the offline demo. The last live slate is

@@ -2,7 +2,7 @@
   "date": "2026-11-27",
   "timezone": "Asia/Riyadh",
   "timezone_label_ar": "بتوقيت مكة المكرمة",
-  "updated_at": "2026-11-26T22:44:53.469139Z",
+  "updated_at": "2026-11-27T04:39:20.689210Z",
   "count": 92,
   "matches": [
     {
@@ -890,591 +890,13 @@
       "referee": null,
       "has_stream": false,
       "servers": [],
-      "home_lineup": [
-        {
-          "id": "228326",
-          "name": "Adrian Semper",
-          "number": 1,
-          "position": "GK",
-          "is_starter": true,
-          "grid_position": "1:1"
-        },
-        {
-          "id": "422231",
-          "name": "Abdulaziz Anwar Abdulrahman Al Suwailem",
-          "number": 78,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:1"
-        },
-        {
-          "id": "390036",
-          "name": "Muntathir Al Shaqaq",
-          "number": 63,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:2"
-        },
-        {
-          "id": "274928",
-          "name": "Kennedy Boateng",
-          "number": 3,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:3"
-        },
-        {
-          "id": "3141529",
-          "name": "Ali Alamine Ali",
-          "number": 27,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:4"
-        },
-        {
-          "id": "322756",
-          "name": "Mihai Lixandru",
-          "number": 8,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:5"
-        },
-        {
-          "id": "309320",
-          "name": "Ali Al-Hassan",
-          "number": 6,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:1"
-        },
-        {
-          "id": "194966",
-          "name": "Lukás Haraslín",
-          "number": 10,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:2"
-        },
-        {
-          "id": "232639",
-          "name": "Mourad Batna",
-          "number": 11,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:3"
-        },
-        {
-          "id": "250566",
-          "name": "Zaydou Youssef",
-          "number": 28,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:4"
-        },
-        {
-          "id": "241689",
-          "name": "Wilfried Kanga",
-          "number": 9,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:1"
-        }
-      ],
-      "away_lineup": [
-        {
-          "id": "157292",
-          "name": "Milan Borjan",
-          "number": 82,
-          "position": "GK",
-          "is_starter": true,
-          "grid_position": "1:1"
-        },
-        {
-          "id": "329133",
-          "name": "Hussain Salem",
-          "number": 23,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:1"
-        },
-        {
-          "id": "218262",
-          "name": "Rodrigo Abascal",
-          "number": 26,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:2"
-        },
-        {
-          "id": "408237",
-          "name": "Awad Dahal",
-          "number": 32,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:3"
-        },
-        {
-          "id": "371416",
-          "name": "Hossam Majrashi",
-          "number": 5,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:4"
-        },
-        {
-          "id": "376223",
-          "name": "Bernard Mensah",
-          "number": 43,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:1"
-        },
-        {
-          "id": "320951",
-          "name": "Abdul Keita",
-          "number": 6,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:2"
-        },
-        {
-          "id": "392639",
-          "name": "Fahad Al Jayzani",
-          "number": 79,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:3"
-        },
-        {
-          "id": "373566",
-          "name": "Leandro Antunes",
-          "number": 77,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:1"
-        },
-        {
-          "id": "157825",
-          "name": "Trézéguet",
-          "number": 7,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:2"
-        },
-        {
-          "id": "255773",
-          "name": "Teddy Okou",
-          "number": 10,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:3"
-        }
-      ],
-      "home_formation": "5-4-1",
-      "away_formation": "4-3-3",
-      "events": [
-        {
-          "id": "55683848",
-          "minute": 12,
-          "type": "yellow_card",
-          "player_name": "Kennedy Boateng",
-          "team_id": "13033",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55683857",
-          "minute": 25,
-          "type": "yellow_card",
-          "player_name": "Awad Dahal",
-          "team_id": "21965",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55683858",
-          "minute": 31,
-          "type": "yellow_card",
-          "player_name": "Muntathir Al Shaqaq",
-          "team_id": "13033",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55683860",
-          "minute": 37,
-          "type": "yellow_card",
-          "player_name": "Hussain Salem",
-          "team_id": "21965",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55683978",
-          "minute": 53,
-          "type": "yellow_card",
-          "player_name": "Ali Al-Hassan",
-          "team_id": "13033",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55684097",
-          "minute": 59,
-          "type": "yellow_card",
-          "player_name": "Zaydou Youssef",
-          "team_id": "13033",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55684216",
-          "minute": 68,
-          "type": "substitution",
-          "player_name": "Hassan Hashim Al Ali",
-          "team_id": "21965",
-          "description_ar": "تبديل • خروج Leandro Antunes"
-        },
-        {
-          "id": "55684276",
-          "minute": 70,
-          "type": "goal",
-          "player_name": "Mourad Batna",
-          "team_id": "13033",
-          "description_ar": "هدف"
-        },
-        {
-          "id": "55684412",
-          "minute": 77,
-          "type": "substitution",
-          "player_name": "Osama Zaid Abdulaziz Al Bowardi",
-          "team_id": "21965",
-          "description_ar": "تبديل • خروج Fahad Al Jayzani"
-        },
-        {
-          "id": "55684413",
-          "minute": 77,
-          "type": "substitution",
-          "player_name": "Hussain Al Shurafaa",
-          "team_id": "21965",
-          "description_ar": "تبديل • خروج Awad Dahal"
-        },
-        {
-          "id": "55684451",
-          "minute": 79,
-          "type": "substitution",
-          "player_name": "Sattam Al Tumbukti",
-          "team_id": "13033",
-          "description_ar": "تبديل • خروج Ali Alamine Ali"
-        },
-        {
-          "id": "55684452",
-          "minute": 79,
-          "type": "substitution",
-          "player_name": "Abdulelah Al Khaibari",
-          "team_id": "13033",
-          "description_ar": "تبديل • خروج Lukás Haraslín"
-        },
-        {
-          "id": "55684563",
-          "minute": 85,
-          "type": "substitution",
-          "player_name": "Essam Bahri",
-          "team_id": "21965",
-          "description_ar": "تبديل • خروج Hussain Salem"
-        },
-        {
-          "id": "55684691",
-          "minute": 90,
-          "type": "yellow_card",
-          "player_name": "Milan Borjan",
-          "team_id": "21965",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55684669",
-          "minute": 90,
-          "type": "substitution",
-          "player_name": "Robin Kelder",
-          "team_id": "13033",
-          "description_ar": "تبديل • خروج Zaydou Youssef"
-        },
-        {
-          "id": "55684670",
-          "minute": 90,
-          "type": "substitution",
-          "player_name": "Mohammed Al-Sahihi",
-          "team_id": "13033",
-          "description_ar": "تبديل • خروج Muntathir Al Shaqaq"
-        }
-      ],
-      "stats": [
-        {
-          "key": "possessionPct",
-          "label_ar": "الاستحواذ",
-          "home": 50.3,
-          "away": 49.7,
-          "unit": "%"
-        },
-        {
-          "key": "totalShots",
-          "label_ar": "التسديدات",
-          "home": 14.0,
-          "away": 14.0,
-          "unit": ""
-        },
-        {
-          "key": "shotsOnTarget",
-          "label_ar": "على المرمى",
-          "home": 5.0,
-          "away": 5.0,
-          "unit": ""
-        },
-        {
-          "key": "wonCorners",
-          "label_ar": "الركنيات",
-          "home": 8.0,
-          "away": 5.0,
-          "unit": ""
-        },
-        {
-          "key": "foulsCommitted",
-          "label_ar": "الأخطاء",
-          "home": 17.0,
-          "away": 12.0,
-          "unit": ""
-        }
-      ],
-      "standings": [
-        {
-          "position": 1,
-          "team_name_ar": "الهلال",
-          "played": 11,
-          "won": 10,
-          "drawn": 0,
-          "lost": 1,
-          "goals_for": 32,
-          "goals_against": 9,
-          "points": 30,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 2,
-          "team_name_ar": "القادسية",
-          "played": 12,
-          "won": 9,
-          "drawn": 1,
-          "lost": 2,
-          "goals_for": 32,
-          "goals_against": 12,
-          "points": 28,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 3,
-          "team_name_ar": "النصر",
-          "played": 12,
-          "won": 9,
-          "drawn": 1,
-          "lost": 2,
-          "goals_for": 29,
-          "goals_against": 14,
-          "points": 28,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 4,
-          "team_name_ar": "الأهلي السعودي",
-          "played": 12,
-          "won": 8,
-          "drawn": 0,
-          "lost": 4,
-          "goals_for": 31,
-          "goals_against": 20,
-          "points": 24,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 5,
-          "team_name_ar": "الاتحاد",
-          "played": 11,
-          "won": 7,
-          "drawn": 3,
-          "lost": 1,
-          "goals_for": 21,
-          "goals_against": 11,
-          "points": 24,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 6,
-          "team_name_ar": "Neom SC",
-          "played": 12,
-          "won": 7,
-          "drawn": 1,
-          "lost": 4,
-          "goals_for": 18,
-          "goals_against": 10,
-          "points": 22,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 7,
-          "team_name_ar": "الاتفاق",
-          "played": 12,
-          "won": 5,
-          "drawn": 4,
-          "lost": 3,
-          "goals_for": 18,
-          "goals_against": 17,
-          "points": 19,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 8,
-          "team_name_ar": "الشباب",
-          "played": 12,
-          "won": 4,
-          "drawn": 5,
-          "lost": 3,
-          "goals_for": 21,
-          "goals_against": 15,
-          "points": 17,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 9,
-          "team_name_ar": "Al Diriyah",
-          "played": 13,
-          "won": 4,
-          "drawn": 4,
-          "lost": 5,
-          "goals_for": 12,
-          "goals_against": 15,
-          "points": 16,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 10,
-          "team_name_ar": "الخليج",
-          "played": 12,
-          "won": 3,
-          "drawn": 6,
-          "lost": 3,
-          "goals_for": 14,
-          "goals_against": 19,
-          "points": 15,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 11,
-          "team_name_ar": "الخلود",
-          "played": 11,
-          "won": 3,
-          "drawn": 3,
-          "lost": 5,
-          "goals_for": 17,
-          "goals_against": 26,
-          "points": 12,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 12,
-          "team_name_ar": "الرياض",
-          "played": 12,
-          "won": 3,
-          "drawn": 3,
-          "lost": 6,
-          "goals_for": 11,
-          "goals_against": 26,
-          "points": 12,
-          "is_home": false,
-          "is_away": true
-        },
-        {
-          "position": 13,
-          "team_name_ar": "الفيحاء",
-          "played": 12,
-          "won": 2,
-          "drawn": 5,
-          "lost": 5,
-          "goals_for": 16,
-          "goals_against": 20,
-          "points": 11,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 14,
-          "team_name_ar": "Al Faisaly",
-          "played": 13,
-          "won": 2,
-          "drawn": 5,
-          "lost": 6,
-          "goals_for": 15,
-          "goals_against": 26,
-          "points": 11,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 15,
-          "team_name_ar": "الحزم",
-          "played": 12,
-          "won": 2,
-          "drawn": 4,
-          "lost": 6,
-          "goals_for": 14,
-          "goals_against": 20,
-          "points": 10,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 16,
-          "team_name_ar": "الفتح",
-          "played": 13,
-          "won": 2,
-          "drawn": 3,
-          "lost": 8,
-          "goals_for": 11,
-          "goals_against": 25,
-          "points": 9,
-          "is_home": true,
-          "is_away": false
-        },
-        {
-          "position": 17,
-          "team_name_ar": "التعاون",
-          "played": 12,
-          "won": 0,
-          "drawn": 5,
-          "lost": 7,
-          "goals_for": 6,
-          "goals_against": 20,
-          "points": 5,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 18,
-          "team_name_ar": "Abha",
-          "played": 12,
-          "won": 0,
-          "drawn": 3,
-          "lost": 9,
-          "goals_for": 7,
-          "goals_against": 20,
-          "points": 3,
-          "is_home": false,
-          "is_away": false
-        }
-      ]
+      "home_lineup": [],
+      "away_lineup": [],
+      "home_formation": null,
+      "away_formation": null,
+      "events": [],
+      "stats": [],
+      "standings": []
     },
     {
       "id": "401900443",
@@ -1534,575 +956,13 @@
           "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
         }
       ],
-      "home_lineup": [
-        {
-          "id": "164165",
-          "name": "Donovan Léon",
-          "number": 16,
-          "position": "GK",
-          "is_starter": true,
-          "grid_position": "1:1"
-        },
-        {
-          "id": "280862",
-          "name": "Abdulbasit Hindi",
-          "number": 37,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:1"
-        },
-        {
-          "id": "392555",
-          "name": "Mohammed Al Zaid",
-          "number": 39,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:2"
-        },
-        {
-          "id": "246281",
-          "name": "Juriën Gaari",
-          "number": 3,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:3"
-        },
-        {
-          "id": "286049",
-          "name": "Mohammad Al-Dawsari",
-          "number": 23,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:4"
-        },
-        {
-          "id": "384215",
-          "name": "Feras Al Ghamdi",
-          "number": 7,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:1"
-        },
-        {
-          "id": "276127",
-          "name": "Loreintz Rosier",
-          "number": 32,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:2"
-        },
-        {
-          "id": "341474",
-          "name": "Faisal Al Sibyani",
-          "number": 6,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:3"
-        },
-        {
-          "id": "192055",
-          "name": "Georges-Kévin N'Koudou",
-          "number": 14,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:1"
-        },
-        {
-          "id": "372853",
-          "name": "Abdulkarim Darisi",
-          "number": 17,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:2"
-        },
-        {
-          "id": "238392",
-          "name": "Alimani Gory",
-          "number": 11,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:3"
-        }
-      ],
-      "away_lineup": [
-        {
-          "id": "197631",
-          "name": "Mory Diaw",
-          "number": 1,
-          "position": "GK",
-          "is_starter": true,
-          "grid_position": "1:1"
-        },
-        {
-          "id": "253195",
-          "name": "Ali Al-Bulayhi",
-          "number": 55,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:1"
-        },
-        {
-          "id": "357671",
-          "name": "Dhari Al Anazi",
-          "number": 21,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:2"
-        },
-        {
-          "id": "357664",
-          "name": "Abdullah Al Hawsawi",
-          "number": 27,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:3"
-        },
-        {
-          "id": "189988",
-          "name": "Mamadou Barry",
-          "number": 3,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:4"
-        },
-        {
-          "id": "213924",
-          "name": "Daniel Podence",
-          "number": 11,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:1"
-        },
-        {
-          "id": "265911",
-          "name": "Yacine Adli",
-          "number": 29,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:2"
-        },
-        {
-          "id": "194557",
-          "name": "Josh Brownhill",
-          "number": 8,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:3"
-        },
-        {
-          "id": "189972",
-          "name": "Thomas Partey",
-          "number": 18,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:4"
-        },
-        {
-          "id": "361364",
-          "name": "Ricardo Mathias",
-          "number": 49,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:1"
-        },
-        {
-          "id": "192180",
-          "name": "Roger Martínez",
-          "number": 9,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:2"
-        }
-      ],
-      "home_formation": "4-3-3",
-      "away_formation": "4-4-2",
-      "events": [
-        {
-          "id": "55684050",
-          "minute": 35,
-          "type": "substitution",
-          "player_name": "Abdou Diallo",
-          "team_id": "21833",
-          "description_ar": "تبديل • خروج Juriën Gaari"
-        },
-        {
-          "id": "55684116",
-          "minute": 39,
-          "type": "goal",
-          "player_name": "Josh Brownhill",
-          "team_id": "793",
-          "description_ar": "هدف"
-        },
-        {
-          "id": "55684215",
-          "minute": 45,
-          "type": "yellow_card",
-          "player_name": "Daniel Podence",
-          "team_id": "793",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55684628",
-          "minute": 51,
-          "type": "yellow_card",
-          "player_name": "Mamadou Barry",
-          "team_id": "793",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55684696",
-          "minute": 55,
-          "type": "substitution",
-          "player_name": "Mateo Borrell",
-          "team_id": "21833",
-          "description_ar": "تبديل • خروج Faisal Al Sibyani"
-        },
-        {
-          "id": "55684697",
-          "minute": 56,
-          "type": "substitution",
-          "player_name": "Khaled Al Shamrani",
-          "team_id": "21833",
-          "description_ar": "تبديل • خروج Mohammed Al Zaid"
-        },
-        {
-          "id": "55684701",
-          "minute": 57,
-          "type": "yellow_card",
-          "player_name": "Abdulbasit Hindi",
-          "team_id": "21833",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55684707",
-          "minute": 62,
-          "type": "red_card",
-          "player_name": "Mamadou Barry",
-          "team_id": "793",
-          "description_ar": "بطاقة حمراء"
-        },
-        {
-          "id": "55684709",
-          "minute": 65,
-          "type": "substitution",
-          "player_name": "Mohammed Al Shwirekh",
-          "team_id": "793",
-          "description_ar": "تبديل • خروج Roger Martínez"
-        },
-        {
-          "id": "55684710",
-          "minute": 66,
-          "type": "substitution",
-          "player_name": "Hammam Al-Hammami",
-          "team_id": "793",
-          "description_ar": "تبديل • خروج Thomas Partey"
-        },
-        {
-          "id": "55684720",
-          "minute": 72,
-          "type": "substitution",
-          "player_name": "Michy Batshuayi",
-          "team_id": "21833",
-          "description_ar": "تبديل • خروج Feras Al Ghamdi"
-        },
-        {
-          "id": "55684721",
-          "minute": 72,
-          "type": "substitution",
-          "player_name": "Amar Al Yuhaybi",
-          "team_id": "21833",
-          "description_ar": "تبديل • خروج Abdulkarim Darisi"
-        },
-        {
-          "id": "55684882",
-          "minute": 78,
-          "type": "substitution",
-          "player_name": "Mohammed Al Thani",
-          "team_id": "793",
-          "description_ar": "تبديل • خروج Daniel Podence"
-        },
-        {
-          "id": "55685098",
-          "minute": 90,
-          "type": "substitution",
-          "player_name": "Sultan",
-          "team_id": "793",
-          "description_ar": "تبديل • خروج Dhari Al Anazi"
-        }
-      ],
-      "stats": [
-        {
-          "key": "possessionPct",
-          "label_ar": "الاستحواذ",
-          "home": 50.3,
-          "away": 49.7,
-          "unit": "%"
-        },
-        {
-          "key": "totalShots",
-          "label_ar": "التسديدات",
-          "home": 11.0,
-          "away": 12.0,
-          "unit": ""
-        },
-        {
-          "key": "shotsOnTarget",
-          "label_ar": "على المرمى",
-          "home": 1.0,
-          "away": 4.0,
-          "unit": ""
-        },
-        {
-          "key": "wonCorners",
-          "label_ar": "الركنيات",
-          "home": 3.0,
-          "away": 4.0,
-          "unit": ""
-        },
-        {
-          "key": "foulsCommitted",
-          "label_ar": "الأخطاء",
-          "home": 15.0,
-          "away": 11.0,
-          "unit": ""
-        }
-      ],
-      "standings": [
-        {
-          "position": 1,
-          "team_name_ar": "الهلال",
-          "played": 11,
-          "won": 10,
-          "drawn": 0,
-          "lost": 1,
-          "goals_for": 32,
-          "goals_against": 9,
-          "points": 30,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 2,
-          "team_name_ar": "القادسية",
-          "played": 12,
-          "won": 9,
-          "drawn": 1,
-          "lost": 2,
-          "goals_for": 32,
-          "goals_against": 12,
-          "points": 28,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 3,
-          "team_name_ar": "النصر",
-          "played": 12,
-          "won": 9,
-          "drawn": 1,
-          "lost": 2,
-          "goals_for": 29,
-          "goals_against": 14,
-          "points": 28,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 4,
-          "team_name_ar": "الأهلي السعودي",
-          "played": 12,
-          "won": 8,
-          "drawn": 0,
-          "lost": 4,
-          "goals_for": 31,
-          "goals_against": 20,
-          "points": 24,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 5,
-          "team_name_ar": "الاتحاد",
-          "played": 11,
-          "won": 7,
-          "drawn": 3,
-          "lost": 1,
-          "goals_for": 21,
-          "goals_against": 11,
-          "points": 24,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 6,
-          "team_name_ar": "Neom SC",
-          "played": 12,
-          "won": 7,
-          "drawn": 1,
-          "lost": 4,
-          "goals_for": 18,
-          "goals_against": 10,
-          "points": 22,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 7,
-          "team_name_ar": "الاتفاق",
-          "played": 12,
-          "won": 5,
-          "drawn": 4,
-          "lost": 3,
-          "goals_for": 18,
-          "goals_against": 17,
-          "points": 19,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 8,
-          "team_name_ar": "الشباب",
-          "played": 12,
-          "won": 4,
-          "drawn": 5,
-          "lost": 3,
-          "goals_for": 21,
-          "goals_against": 15,
-          "points": 17,
-          "is_home": false,
-          "is_away": true
-        },
-        {
-          "position": 9,
-          "team_name_ar": "Al Diriyah",
-          "played": 13,
-          "won": 4,
-          "drawn": 4,
-          "lost": 5,
-          "goals_for": 12,
-          "goals_against": 15,
-          "points": 16,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 10,
-          "team_name_ar": "الخليج",
-          "played": 12,
-          "won": 3,
-          "drawn": 6,
-          "lost": 3,
-          "goals_for": 14,
-          "goals_against": 19,
-          "points": 15,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 11,
-          "team_name_ar": "الخلود",
-          "played": 11,
-          "won": 3,
-          "drawn": 3,
-          "lost": 5,
-          "goals_for": 17,
-          "goals_against": 26,
-          "points": 12,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 12,
-          "team_name_ar": "الرياض",
-          "played": 12,
-          "won": 3,
-          "drawn": 3,
-          "lost": 6,
-          "goals_for": 11,
-          "goals_against": 26,
-          "points": 12,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 13,
-          "team_name_ar": "الفيحاء",
-          "played": 12,
-          "won": 2,
-          "drawn": 5,
-          "lost": 5,
-          "goals_for": 16,
-          "goals_against": 20,
-          "points": 11,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 14,
-          "team_name_ar": "Al Faisaly",
-          "played": 13,
-          "won": 2,
-          "drawn": 5,
-          "lost": 6,
-          "goals_for": 15,
-          "goals_against": 26,
-          "points": 11,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 15,
-          "team_name_ar": "الحزم",
-          "played": 12,
-          "won": 2,
-          "drawn": 4,
-          "lost": 6,
-          "goals_for": 14,
-          "goals_against": 20,
-          "points": 10,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 16,
-          "team_name_ar": "الفتح",
-          "played": 13,
-          "won": 2,
-          "drawn": 3,
-          "lost": 8,
-          "goals_for": 11,
-          "goals_against": 25,
-          "points": 9,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 17,
-          "team_name_ar": "التعاون",
-          "played": 12,
-          "won": 0,
-          "drawn": 5,
-          "lost": 7,
-          "goals_for": 6,
-          "goals_against": 20,
-          "points": 5,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 18,
-          "team_name_ar": "Abha",
-          "played": 12,
-          "won": 0,
-          "drawn": 3,
-          "lost": 9,
-          "goals_for": 7,
-          "goals_against": 20,
-          "points": 3,
-          "is_home": true,
-          "is_away": false
-        }
-      ]
+      "home_lineup": [],
+      "away_lineup": [],
+      "home_formation": null,
+      "away_formation": null,
+      "events": [],
+      "stats": [],
+      "standings": []
     },
     {
       "id": "401915816",
@@ -2162,777 +1022,13 @@
           "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
         }
       ],
-      "home_lineup": [
-        {
-          "id": "306134",
-          "name": "Temirlan Anarbekov",
-          "number": 1,
-          "position": "GK",
-          "is_starter": true,
-          "grid_position": "1:1"
-        },
-        {
-          "id": "336780",
-          "name": "Damir Kasabulat",
-          "number": 4,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:1"
-        },
-        {
-          "id": "140152",
-          "name": "Alyaksandr Martynovich",
-          "number": 14,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:2"
-        },
-        {
-          "id": "306131",
-          "name": "Aleksandr Shirobokov",
-          "number": 25,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:3"
-        },
-        {
-          "id": "227259",
-          "name": "Luis Mata",
-          "number": 3,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:1"
-        },
-        {
-          "id": "385789",
-          "name": "Oiva Jukkola",
-          "number": 19,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:2"
-        },
-        {
-          "id": "352200",
-          "name": "Gustavo Mendonça",
-          "number": 22,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:3"
-        },
-        {
-          "id": "287874",
-          "name": "Erkin Tapalov",
-          "number": 20,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:4"
-        },
-        {
-          "id": "275994",
-          "name": "Jaakko Oksanen",
-          "number": 13,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:5"
-        },
-        {
-          "id": "250068",
-          "name": "Marc Gual",
-          "number": 28,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:1"
-        },
-        {
-          "id": "352291",
-          "name": "Edmilson",
-          "number": 9,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:2"
-        }
-      ],
-      "away_lineup": [
-        {
-          "id": "151931",
-          "name": "Alexander Lundin",
-          "number": 35,
-          "position": "GK",
-          "is_starter": true,
-          "grid_position": "1:1"
-        },
-        {
-          "id": "305080",
-          "name": "Martin Agnarsson",
-          "number": 3,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:1"
-        },
-        {
-          "id": "172917",
-          "name": "Tom Pettersson",
-          "number": 24,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:2"
-        },
-        {
-          "id": "306289",
-          "name": "Axel Norén",
-          "number": 4,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:3"
-        },
-        {
-          "id": "356281",
-          "name": "Abdullah Iqbal",
-          "number": 5,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:4"
-        },
-        {
-          "id": "357140",
-          "name": "Villiam Granath",
-          "number": 14,
-          "position": "DF",
-          "is_starter": true,
-          "grid_position": "2:5"
-        },
-        {
-          "id": "389637",
-          "name": "Romeo Leandersson",
-          "number": 39,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:1"
-        },
-        {
-          "id": "192793",
-          "name": "Jesper Gustavsson",
-          "number": 22,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:2"
-        },
-        {
-          "id": "303651",
-          "name": "Viktor Gustafson",
-          "number": 7,
-          "position": "MF",
-          "is_starter": true,
-          "grid_position": "3:3"
-        },
-        {
-          "id": "282562",
-          "name": "Ali Youssef",
-          "number": 9,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:1"
-        },
-        {
-          "id": "305758",
-          "name": "Jeppe Kjaer Jensen",
-          "number": 10,
-          "position": "FW",
-          "is_starter": true,
-          "grid_position": "4:2"
-        }
-      ],
-      "home_formation": "3-5-2",
-      "away_formation": "5-3-2",
-      "events": [
-        {
-          "id": "55684152",
-          "minute": 14,
-          "type": "goal",
-          "player_name": "Erkin Tapalov",
-          "team_id": "2528",
-          "description_ar": "هدف • صناعة Marc Gual"
-        },
-        {
-          "id": "55684883",
-          "minute": 55,
-          "type": "yellow_card",
-          "player_name": "Luis Mata",
-          "team_id": "2528",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55684970",
-          "minute": 59,
-          "type": "substitution",
-          "player_name": "Azamat Tuyakbayev",
-          "team_id": "2528",
-          "description_ar": "تبديل • خروج Oiva Jukkola"
-        },
-        {
-          "id": "55685047",
-          "minute": 64,
-          "type": "substitution",
-          "player_name": "Áki Samuelsen",
-          "team_id": "20301",
-          "description_ar": "تبديل • خروج Romeo Leandersson"
-        },
-        {
-          "id": "55685048",
-          "minute": 64,
-          "type": "substitution",
-          "player_name": "Max Nielsen",
-          "team_id": "20301",
-          "description_ar": "تبديل • خروج Martin Agnarsson"
-        },
-        {
-          "id": "55685153",
-          "minute": 72,
-          "type": "yellow_card",
-          "player_name": "Viktor Gustafson",
-          "team_id": "20301",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55685166",
-          "minute": 73,
-          "type": "substitution",
-          "player_name": "Aleksandr Mrynskiy",
-          "team_id": "2528",
-          "description_ar": "تبديل • خروج Erkin Tapalov"
-        },
-        {
-          "id": "55685167",
-          "minute": 73,
-          "type": "substitution",
-          "player_name": "Ismail Bekbolat",
-          "team_id": "2528",
-          "description_ar": "تبديل • خروج Edmilson"
-        },
-        {
-          "id": "55685216",
-          "minute": 76,
-          "type": "yellow_card",
-          "player_name": "Damir Kasabulat",
-          "team_id": "2528",
-          "description_ar": "بطاقة صفراء"
-        },
-        {
-          "id": "55685369",
-          "minute": 87,
-          "type": "substitution",
-          "player_name": "Mansur Birkurmanov",
-          "team_id": "2528",
-          "description_ar": "تبديل • خروج Marc Gual"
-        }
-      ],
-      "stats": [
-        {
-          "key": "possessionPct",
-          "label_ar": "الاستحواذ",
-          "home": 44.3,
-          "away": 55.7,
-          "unit": "%"
-        },
-        {
-          "key": "totalShots",
-          "label_ar": "التسديدات",
-          "home": 16.0,
-          "away": 14.0,
-          "unit": ""
-        },
-        {
-          "key": "shotsOnTarget",
-          "label_ar": "على المرمى",
-          "home": 6.0,
-          "away": 6.0,
-          "unit": ""
-        },
-        {
-          "key": "wonCorners",
-          "label_ar": "الركنيات",
-          "home": 3.0,
-          "away": 5.0,
-          "unit": ""
-        },
-        {
-          "key": "foulsCommitted",
-          "label_ar": "الأخطاء",
-          "home": 19.0,
-          "away": 9.0,
-          "unit": ""
-        }
-      ],
-      "standings": [
-        {
-          "position": 1,
-          "team_name_ar": "AS Monaco",
-          "played": 4,
-          "won": 4,
-          "drawn": 0,
-          "lost": 0,
-          "goals_for": 10,
-          "goals_against": 3,
-          "points": 12,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 2,
-          "team_name_ar": "برايتون",
-          "played": 4,
-          "won": 3,
-          "drawn": 1,
-          "lost": 0,
-          "goals_for": 9,
-          "goals_against": 0,
-          "points": 10,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 3,
-          "team_name_ar": "Sint-Truidense",
-          "played": 4,
-          "won": 3,
-          "drawn": 1,
-          "lost": 0,
-          "goals_for": 6,
-          "goals_against": 1,
-          "points": 10,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 4,
-          "team_name_ar": "Ajax Amsterdam",
-          "played": 4,
-          "won": 3,
-          "drawn": 0,
-          "lost": 1,
-          "goals_for": 13,
-          "goals_against": 3,
-          "points": 9,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 5,
-          "team_name_ar": "Panathinaikos",
-          "played": 4,
-          "won": 3,
-          "drawn": 0,
-          "lost": 1,
-          "goals_for": 11,
-          "goals_against": 6,
-          "points": 9,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 6,
-          "team_name_ar": "FC Lugano",
-          "played": 4,
-          "won": 3,
-          "drawn": 0,
-          "lost": 1,
-          "goals_for": 11,
-          "goals_against": 6,
-          "points": 9,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 7,
-          "team_name_ar": "تفينتي",
-          "played": 4,
-          "won": 3,
-          "drawn": 0,
-          "lost": 1,
-          "goals_for": 9,
-          "goals_against": 4,
-          "points": 9,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 8,
-          "team_name_ar": "طرابزون سبور",
-          "played": 4,
-          "won": 3,
-          "drawn": 0,
-          "lost": 1,
-          "goals_for": 8,
-          "goals_against": 4,
-          "points": 9,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 9,
-          "team_name_ar": "فرايبورغ",
-          "played": 4,
-          "won": 3,
-          "drawn": 0,
-          "lost": 1,
-          "goals_for": 6,
-          "goals_against": 6,
-          "points": 9,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 10,
-          "team_name_ar": "Braga",
-          "played": 4,
-          "won": 2,
-          "drawn": 1,
-          "lost": 1,
-          "goals_for": 6,
-          "goals_against": 3,
-          "points": 7,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 11,
-          "team_name_ar": "Mjällby AIF",
-          "played": 4,
-          "won": 2,
-          "drawn": 1,
-          "lost": 1,
-          "goals_for": 5,
-          "goals_against": 2,
-          "points": 7,
-          "is_home": false,
-          "is_away": true
-        },
-        {
-          "position": 12,
-          "team_name_ar": "F.C. København",
-          "played": 4,
-          "won": 2,
-          "drawn": 1,
-          "lost": 1,
-          "goals_for": 7,
-          "goals_against": 5,
-          "points": 7,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 13,
-          "team_name_ar": "SK Brann",
-          "played": 4,
-          "won": 2,
-          "drawn": 1,
-          "lost": 1,
-          "goals_for": 8,
-          "goals_against": 7,
-          "points": 7,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 14,
-          "team_name_ar": "أتالانتا",
-          "played": 4,
-          "won": 2,
-          "drawn": 1,
-          "lost": 1,
-          "goals_for": 7,
-          "goals_against": 6,
-          "points": 7,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 15,
-          "team_name_ar": "Universitatea Craiova",
-          "played": 4,
-          "won": 2,
-          "drawn": 1,
-          "lost": 1,
-          "goals_for": 6,
-          "goals_against": 6,
-          "points": 7,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 16,
-          "team_name_ar": "Hajduk Split",
-          "played": 4,
-          "won": 2,
-          "drawn": 0,
-          "lost": 2,
-          "goals_for": 3,
-          "goals_against": 4,
-          "points": 6,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 17,
-          "team_name_ar": "AGF",
-          "played": 4,
-          "won": 1,
-          "drawn": 2,
-          "lost": 1,
-          "goals_for": 5,
-          "goals_against": 3,
-          "points": 5,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 18,
-          "team_name_ar": "Jablonec",
-          "played": 4,
-          "won": 1,
-          "drawn": 2,
-          "lost": 1,
-          "goals_for": 5,
-          "goals_against": 4,
-          "points": 5,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 19,
-          "team_name_ar": "Red Star Belgrade",
-          "played": 4,
-          "won": 1,
-          "drawn": 2,
-          "lost": 1,
-          "goals_for": 7,
-          "goals_against": 7,
-          "points": 5,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 20,
-          "team_name_ar": "FC Nordsjælland",
-          "played": 4,
-          "won": 1,
-          "drawn": 2,
-          "lost": 1,
-          "goals_for": 6,
-          "goals_against": 7,
-          "points": 5,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 21,
-          "team_name_ar": "Egnatia",
-          "played": 4,
-          "won": 1,
-          "drawn": 2,
-          "lost": 1,
-          "goals_for": 4,
-          "goals_against": 5,
-          "points": 5,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 22,
-          "team_name_ar": "KAA Gent",
-          "played": 4,
-          "won": 1,
-          "drawn": 2,
-          "lost": 1,
-          "goals_for": 2,
-          "goals_against": 3,
-          "points": 5,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 23,
-          "team_name_ar": "Kairat Almaty",
-          "played": 4,
-          "won": 1,
-          "drawn": 2,
-          "lost": 1,
-          "goals_for": 4,
-          "goals_against": 7,
-          "points": 5,
-          "is_home": true,
-          "is_away": false
-        },
-        {
-          "position": 24,
-          "team_name_ar": "Iberia 1999",
-          "played": 4,
-          "won": 1,
-          "drawn": 1,
-          "lost": 2,
-          "goals_for": 3,
-          "goals_against": 5,
-          "points": 4,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 25,
-          "team_name_ar": "FC Midtjylland",
-          "played": 4,
-          "won": 1,
-          "drawn": 1,
-          "lost": 2,
-          "goals_for": 4,
-          "goals_against": 8,
-          "points": 4,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 26,
-          "team_name_ar": "Borac Banja Luka",
-          "played": 4,
-          "won": 1,
-          "drawn": 0,
-          "lost": 3,
-          "goals_for": 5,
-          "goals_against": 7,
-          "points": 3,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 27,
-          "team_name_ar": "Riga FC",
-          "played": 4,
-          "won": 0,
-          "drawn": 3,
-          "lost": 1,
-          "goals_for": 3,
-          "goals_against": 5,
-          "points": 3,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 28,
-          "team_name_ar": "Inter D'Escaldes",
-          "played": 4,
-          "won": 1,
-          "drawn": 0,
-          "lost": 3,
-          "goals_for": 4,
-          "goals_against": 7,
-          "points": 3,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 29,
-          "team_name_ar": "Lincoln Red Imps",
-          "played": 4,
-          "won": 1,
-          "drawn": 0,
-          "lost": 3,
-          "goals_for": 4,
-          "goals_against": 8,
-          "points": 3,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 30,
-          "team_name_ar": "FC Thun",
-          "played": 4,
-          "won": 1,
-          "drawn": 0,
-          "lost": 3,
-          "goals_for": 3,
-          "goals_against": 7,
-          "points": 3,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 31,
-          "team_name_ar": "Kauno Zalgiris",
-          "played": 4,
-          "won": 1,
-          "drawn": 0,
-          "lost": 3,
-          "goals_for": 3,
-          "goals_against": 11,
-          "points": 3,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 32,
-          "team_name_ar": "CSKA Sofia",
-          "played": 4,
-          "won": 0,
-          "drawn": 1,
-          "lost": 3,
-          "goals_for": 5,
-          "goals_against": 8,
-          "points": 1,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 33,
-          "team_name_ar": "هارتس",
-          "played": 4,
-          "won": 0,
-          "drawn": 1,
-          "lost": 3,
-          "goals_for": 4,
-          "goals_against": 9,
-          "points": 1,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 34,
-          "team_name_ar": "خيتافي",
-          "played": 4,
-          "won": 0,
-          "drawn": 1,
-          "lost": 3,
-          "goals_for": 3,
-          "goals_against": 8,
-          "points": 1,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 35,
-          "team_name_ar": "Pafos",
-          "played": 4,
-          "won": 0,
-          "drawn": 1,
-          "lost": 3,
-          "goals_for": 3,
-          "goals_against": 9,
-          "points": 1,
-          "is_home": false,
-          "is_away": false
-        },
-        {
-          "position": 36,
-          "team_name_ar": "KuPS Kuopio",
-          "played": 4,
-          "won": 0,
-          "drawn": 1,
-          "lost": 3,
-          "goals_for": 2,
-          "goals_against": 10,
-          "points": 1,
-          "is_home": false,
-          "is_away": false
-        }
-      ]
+      "home_lineup": [],
+      "away_lineup": [],
+      "home_formation": null,
+      "away_formation": null,
+      "events": [],
+      "stats": [],
+      "standings": []
     },
     {
       "id": "401900871",
@@ -2955,16 +1051,16 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2488.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:30:00Z",
       "kickoff_time_local": "20:30",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 2,
+      "away_score": 2,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري روشن السعودي",
       "is_admin_override": false,
       "channel": "SSC 1 HD",
@@ -7119,43 +5215,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
+      "home_score": 4,
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 2 HD",
       "commentator": null,
       "stadium": "Doosan Arena",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-2_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-2/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-2_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-2/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "387869",
@@ -10721,43 +8798,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
+      "home_score": 2,
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
       "commentator": null,
       "stadium": "S. Darius and S. Gireno Stadium",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-4_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-4_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "175221",
@@ -11607,52 +9665,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 1,
+      "away_score": 4,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Brann Stadium",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "234970",
@@ -12478,43 +10508,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
       "home_score": 0,
-      "away_score": 0,
+      "away_score": 2,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
       "commentator": null,
       "stadium": "Alphamega Stadium",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-4_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-4_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "238952",
@@ -13364,43 +11375,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 2,
+      "away_score": 1,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
       "commentator": null,
       "stadium": "Air Albania Stadium",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-4_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-4_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "241783",
@@ -14258,52 +12250,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 2,
+      "away_score": 3,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Tynecastle Park",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "277882",
@@ -15185,43 +13149,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
+      "home_score": 2,
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
       "commentator": null,
       "stadium": "Stadion Strelnice",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-4_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-4_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "276091",
@@ -16063,52 +14008,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Mikheil Meskhi Stadioni",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "136682",
@@ -16955,8 +14872,8 @@
       },
       "away_team": {
         "id": "8089",
-        "name_ar": "CSU Craiova",
-        "name_en": "CSU Craiova",
+        "name_ar": "Universitatea Craiova",
+        "name_en": "Universitatea Craiova",
         "logo_url": "https://a.espncdn.com/i/teamlogos/soccer/500/8089.png"
       },
       "league": {
@@ -16966,43 +14883,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
+      "home_score": 4,
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
       "commentator": null,
       "stadium": "American Express Stadium",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-4_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-4_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "111114",
@@ -17570,7 +15468,7 @@
           "goals_against": 6,
           "points": 7,
           "is_home": false,
-          "is_away": false
+          "is_away": true
         },
         {
           "position": 16,
@@ -17868,52 +15766,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T17:45:00Z",
       "kickoff_time_local": "20:45",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
+      "home_score": 4,
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Johan Cruijff Arena",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "140740",
@@ -18763,8 +16633,8 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
@@ -18772,43 +16642,15 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Groupama Stadium",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "221278",
@@ -19626,52 +17468,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 4,
+      "away_score": 1,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 1 HD",
       "commentator": null,
       "stadium": "Allianz Stadium",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-1",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-1_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-1/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-1_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-1/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "138398",
@@ -20004,8 +17818,8 @@
         {
           "key": "possessionPct",
           "label_ar": "الاستحواذ",
-          "home": 60.2,
-          "away": 39.8,
+          "home": 60.1,
+          "away": 39.9,
           "unit": "%"
         },
         {
@@ -20529,43 +18343,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 1,
+      "away_score": 3,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 2 HD",
       "commentator": null,
       "stadium": "Pankritio Stadium",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-2_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-2/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-2_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-2/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "369489",
@@ -21447,52 +19242,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 2,
+      "away_score": 1,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Selhurst Park",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "234172",
@@ -21765,20 +19532,20 @@
           "description_ar": "بطاقة صفراء"
         },
         {
-          "id": "55732016",
-          "minute": 76,
-          "type": "substitution",
-          "player_name": "Igor Zubeldia",
-          "team_id": "89",
-          "description_ar": "تبديل • خروج Héctor Fort"
-        },
-        {
           "id": "55732017",
           "minute": 76,
           "type": "substitution",
           "player_name": "Sergio Gómez",
           "team_id": "89",
           "description_ar": "تبديل • خروج Arsen Zakharyan"
+        },
+        {
+          "id": "55732016",
+          "minute": 76,
+          "type": "substitution",
+          "player_name": "Igor Zubeldia",
+          "team_id": "89",
+          "description_ar": "تبديل • خروج Héctor Fort"
         },
         {
           "id": "55732915",
@@ -21789,20 +19556,20 @@
           "description_ar": "تبديل • خروج Jaydee Canvot"
         },
         {
+          "id": "55732917",
+          "minute": 79,
+          "type": "substitution",
+          "player_name": "Jørgen Strand Larsen",
+          "team_id": "384",
+          "description_ar": "تبديل • خروج Will Hughes"
+        },
+        {
           "id": "55732918",
           "minute": 80,
           "type": "substitution",
           "player_name": "Tyrick Mitchell",
           "team_id": "384",
           "description_ar": "تبديل • خروج Ben Chilwell"
-        },
-        {
-          "id": "55732917",
-          "minute": 80,
-          "type": "substitution",
-          "player_name": "Jørgen Strand Larsen",
-          "team_id": "384",
-          "description_ar": "تبديل • خروج Will Hughes"
         },
         {
           "id": "55733201",
@@ -21841,8 +19608,8 @@
         {
           "key": "possessionPct",
           "label_ar": "الاستحواذ",
-          "home": 43.1,
-          "away": 56.9,
+          "home": 43.4,
+          "away": 56.6,
           "unit": "%"
         },
         {
@@ -22366,52 +20133,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 3,
+      "away_score": 1,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 1 HD",
       "commentator": null,
       "stadium": "Goffertstadion",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-1",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-1_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-1/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-1_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-1/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "292223",
@@ -23285,43 +21024,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 1,
+      "away_score": 2,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 2 HD",
       "commentator": null,
       "stadium": "Estádio Dr. Magalhaes Pessoa",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-2_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-2/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-2_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-2/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "315681",
@@ -23570,20 +21290,20 @@
           "description_ar": "بطاقة صفراء"
         },
         {
-          "id": "55730860",
-          "minute": 66,
-          "type": "substitution",
-          "player_name": "André Simões",
-          "team_id": "21615",
-          "description_ar": "تبديل • خروج João Marques"
-        },
-        {
           "id": "55731166",
           "minute": 66,
           "type": "substitution",
           "player_name": "Amine Oudrhiri",
           "team_id": "21615",
           "description_ar": "تبديل • خروج Stopira"
+        },
+        {
+          "id": "55730860",
+          "minute": 66,
+          "type": "substitution",
+          "player_name": "André Simões",
+          "team_id": "21615",
+          "description_ar": "تبديل • خروج João Marques"
         },
         {
           "id": "55732341",
@@ -23646,8 +21366,8 @@
         {
           "key": "possessionPct",
           "label_ar": "الاستحواذ",
-          "home": 37.9,
-          "away": 62.1,
+          "home": 38.2,
+          "away": 61.8,
           "unit": "%"
         },
         {
@@ -24171,52 +21891,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 1,
+      "away_score": 1,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Stadium of Light",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "301449",
@@ -25050,52 +22742,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 2,
+      "away_score": 4,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 1 HD",
       "commentator": null,
       "stadium": "Generali Arena",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-1",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-1_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-1/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-1_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-1/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "336530",
@@ -25961,43 +23625,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 3,
+      "away_score": 1,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 2 HD",
       "commentator": null,
       "stadium": "PreZero Arena",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-2_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-2/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-2_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-2/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "138213",
@@ -26322,8 +23967,8 @@
         {
           "key": "possessionPct",
           "label_ar": "الاستحواذ",
-          "home": 61.5,
-          "away": 38.5,
+          "home": 61.6,
+          "away": 38.4,
           "unit": "%"
         },
         {
@@ -26847,8 +24492,8 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/2310.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
@@ -26856,43 +24501,15 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "الدوري الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Groupama Arena",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "239414",
@@ -27145,8 +24762,8 @@
         {
           "key": "possessionPct",
           "label_ar": "الاستحواذ",
-          "home": 48.9,
-          "away": 51.1,
+          "home": 48.8,
+          "away": 51.2,
           "unit": "%"
         },
         {
@@ -27670,52 +25287,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
+      "home_score": 2,
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Estadi de la FAF d'Encamp",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "96595",
@@ -28533,43 +26122,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 2,
+      "away_score": 1,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
       "commentator": null,
       "stadium": "Europa-Park Stadion",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-4_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-4_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "338852",
@@ -29443,52 +27013,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
+      "home_score": 4,
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Estádio Municipal de Braga",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "340560",
@@ -30338,43 +27880,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 1,
+      "away_score": 2,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
       "commentator": null,
       "stadium": "Balgarska Armia Stadium",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-4_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-4_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "343364",
@@ -30573,6 +28096,14 @@
           "player_name": "Sidny Lopes Cabral",
           "team_id": "10834",
           "description_ar": "هدف"
+        },
+        {
+          "id": "55738069",
+          "minute": 35,
+          "type": "yellow_card",
+          "player_name": "Mohamed Salah",
+          "team_id": "997",
+          "description_ar": "بطاقة صفراء"
         },
         {
           "id": "55721821",
@@ -31224,52 +28755,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 1,
+      "away_score": 1,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Ghelamco Arena",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "178363",
@@ -32111,43 +29614,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
       "home_score": 0,
-      "away_score": 0,
+      "away_score": 2,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
       "commentator": null,
       "stadium": "Stadion Poljud",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-4_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-4_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "322096",
@@ -32989,52 +30473,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 2,
+      "away_score": 3,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
       "commentator": null,
       "stadium": "Gradski Stadion Banja Luka",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "hls_bein-sports-hd-3",
-          "server_name": "سيرفر 1 - بث مباشر فائق السرعة (FHD)",
-          "url": "https://ylp.akhbarnewscdn.store/cdn/live2/master.m3u8",
-          "type": "m3u8",
-          "is_active": true,
-          "quality": "1080p FHD",
-          "sandbox": "allow-scripts allow-same-origin allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_0",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-3_1",
-          "server_name": "سيرفر 3 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-3/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "401246",
@@ -33908,43 +31364,24 @@
         "round": null,
         "logo_url": "https://a.espncdn.com/i/leaguelogos/soccer/500/20296.png"
       },
-      "status": "SCHEDULED",
-      "status_label_ar": "لم تبدأ",
+      "status": "FINISHED",
+      "status_label_ar": "انتهت",
       "kickoff_time_utc": "2026-11-26T20:00:00Z",
       "kickoff_time_local": "23:00",
       "kickoff_date_local": "2026-11-26",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 3,
+      "away_score": 2,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 0,
+      "countdown_seconds": null,
       "competition_subtitle": "دوري المؤتمر الأوروبي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
       "commentator": null,
       "stadium": "Right to Dream Park",
       "referee": null,
-      "has_stream": true,
-      "servers": [
-        {
-          "id": "alba_bein-sports-hd-4_0",
-          "server_name": "سيرفر 1 - مشغل AlbaPlayer البديل",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        },
-        {
-          "id": "alba_bein-sports-hd-4_1",
-          "server_name": "سيرفر 2 - مشغل AlbaPlayer (احتياطي)",
-          "url": "https://24.shootinggames1.com/albaplayer/bein-sports-hd-4/?serv=1",
-          "type": "iframe",
-          "is_active": true,
-          "quality": "multi",
-          "sandbox": "allow-forms allow-same-origin allow-scripts allow-presentation"
-        }
-      ],
+      "has_stream": false,
+      "servers": [],
       "home_lineup": [
         {
           "id": "145645",
@@ -34811,7 +32248,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 48606,
+      "countdown_seconds": 27339,
       "competition_subtitle": "دوري روشن السعودي",
       "is_admin_override": false,
       "channel": "SSC EXTRA 1 HD",
@@ -35101,7 +32538,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 56106,
+      "countdown_seconds": 34839,
       "competition_subtitle": "دوري روشن السعودي",
       "is_admin_override": false,
       "channel": "SSC 2 HD",
@@ -35391,7 +32828,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 65706,
+      "countdown_seconds": 44439,
       "competition_subtitle": "سوبر ليغ التركي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 2 HD",
@@ -35681,7 +33118,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 65706,
+      "countdown_seconds": 44439,
       "competition_subtitle": "سوبر ليغ التركي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
@@ -35971,7 +33408,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 67506,
+      "countdown_seconds": 46239,
       "competition_subtitle": "دوري روشن السعودي",
       "is_admin_override": false,
       "channel": "SSC 1 HD",
@@ -36261,7 +33698,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 74706,
+      "countdown_seconds": 53439,
       "competition_subtitle": "الدوري الألماني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 5 HD",
@@ -36551,7 +33988,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 75606,
+      "countdown_seconds": 54339,
       "competition_subtitle": "الدوري الإيطالي",
       "is_admin_override": false,
       "channel": "StarzPlay",
@@ -36867,7 +34304,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 75606,
+      "countdown_seconds": 54339,
       "competition_subtitle": "الدوري الفرنسي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
@@ -37157,7 +34594,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 76506,
+      "countdown_seconds": 55239,
       "competition_subtitle": "الدوري الإنجليزي الممتاز",
       "is_admin_override": false,
       "channel": "beIN SPORTS Xtra 1",
@@ -37473,7 +34910,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 76506,
+      "countdown_seconds": 55239,
       "competition_subtitle": "الدوري الإسباني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 1 HD",
@@ -37789,7 +35226,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 135006,
+      "countdown_seconds": 113739,
       "competition_subtitle": "دوري روشن السعودي",
       "is_admin_override": false,
       "channel": "SSC 1 HD",
@@ -37836,7 +35273,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 137706,
+      "countdown_seconds": 116439,
       "competition_subtitle": "الدوري الإسباني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
@@ -37883,7 +35320,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 137706,
+      "countdown_seconds": 116439,
       "competition_subtitle": "سوبر ليغ التركي",
       "is_admin_override": false,
       "channel": "beIN CONNECT",
@@ -37930,7 +35367,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 141306,
+      "countdown_seconds": 120039,
       "competition_subtitle": "الدوري الإيطالي",
       "is_admin_override": false,
       "channel": "AD SPORTS Premium 2",
@@ -37977,7 +35414,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 142506,
+      "countdown_seconds": 121239,
       "competition_subtitle": "دوري روشن السعودي",
       "is_admin_override": false,
       "channel": "SSC 1 HD",
@@ -38024,7 +35461,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 143106,
+      "countdown_seconds": 121839,
       "competition_subtitle": "الدوري الألماني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 5 HD",
@@ -38071,7 +35508,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 143106,
+      "countdown_seconds": 121839,
       "competition_subtitle": "الدوري الألماني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
@@ -38118,7 +35555,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 143106,
+      "countdown_seconds": 121839,
       "competition_subtitle": "الدوري الألماني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 5 HD",
@@ -38165,7 +35602,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 143106,
+      "countdown_seconds": 121839,
       "competition_subtitle": "الدوري الألماني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
@@ -38212,7 +35649,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 144906,
+      "countdown_seconds": 123639,
       "competition_subtitle": "الدوري الإنجليزي الممتاز",
       "is_admin_override": false,
       "channel": "beIN SPORTS 1 HD",
@@ -38259,7 +35696,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 144906,
+      "countdown_seconds": 123639,
       "competition_subtitle": "الدوري الإنجليزي الممتاز",
       "is_admin_override": false,
       "channel": "beIN SPORTS 2 HD",
@@ -38306,7 +35743,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 145806,
+      "countdown_seconds": 124539,
       "competition_subtitle": "الدوري الإسباني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
@@ -38353,7 +35790,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 148506,
+      "countdown_seconds": 127239,
       "competition_subtitle": "سوبر ليغ التركي",
       "is_admin_override": false,
       "channel": "beIN CONNECT",
@@ -38400,7 +35837,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 149406,
+      "countdown_seconds": 128139,
       "competition_subtitle": "الدوري الفرنسي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
@@ -38447,7 +35884,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 152106,
+      "countdown_seconds": 130839,
       "competition_subtitle": "الدوري الإيطالي",
       "is_admin_override": false,
       "channel": "AD SPORTS Premium 2",
@@ -38494,7 +35931,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 153906,
+      "countdown_seconds": 132639,
       "competition_subtitle": "الدوري الإنجليزي الممتاز",
       "is_admin_override": false,
       "channel": "beIN SPORTS 1 HD",
@@ -38541,7 +35978,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 153906,
+      "countdown_seconds": 132639,
       "competition_subtitle": "الدوري الإسباني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",
@@ -38588,7 +36025,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 153906,
+      "countdown_seconds": 132639,
       "competition_subtitle": "الدوري الألماني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 5 HD",
@@ -38635,7 +36072,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 153906,
+      "countdown_seconds": 132639,
       "competition_subtitle": "دوري روشن السعودي",
       "is_admin_override": false,
       "channel": "SSC 2 HD",
@@ -38682,7 +36119,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 162006,
+      "countdown_seconds": 140739,
       "competition_subtitle": "الدوري الإيطالي",
       "is_admin_override": false,
       "channel": "StarzPlay",
@@ -38729,7 +36166,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 162006,
+      "countdown_seconds": 140739,
       "competition_subtitle": "الدوري الفرنسي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
@@ -38776,7 +36213,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 162006,
+      "countdown_seconds": 140739,
       "competition_subtitle": "الدوري الفرنسي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 2 HD",
@@ -38823,7 +36260,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 162006,
+      "countdown_seconds": 140739,
       "competition_subtitle": "الدوري الفرنسي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 4 HD",
@@ -38870,7 +36307,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 162006,
+      "countdown_seconds": 140739,
       "competition_subtitle": "الدوري الفرنسي",
       "is_admin_override": false,
       "channel": "beIN SPORTS 2 HD",
@@ -38917,7 +36354,7 @@
       "away_score": 0,
       "elapsed_time": null,
       "live_minute_label": null,
-      "countdown_seconds": 162906,
+      "countdown_seconds": 141639,
       "competition_subtitle": "الدوري الإسباني",
       "is_admin_override": false,
       "channel": "beIN SPORTS 3 HD",

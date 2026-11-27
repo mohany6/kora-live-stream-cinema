@@ -40,6 +40,7 @@ from src.live_score.domain.facebook_poster import (
     build_match_poster_html,
     render_poster_png,
 )
+from src.live_score.domain.facebook_reel_script import fetch_club_star_player
 
 FB_CACHE_PATH = ROOT / "data" / "published_facebook.json"
 FB_ASSETS_DIR = ROOT / "assets" / "facebook"
@@ -201,7 +202,18 @@ def _run_single_facebook_post(
     access_token: str,
 ) -> dict[str, Any]:
     if mode == "match":
-        target_match = next((m for m in matches if str(m["id"]) == str(match_id)), matches[0]) if match_id else matches[0]
+        base_match = next((m for m in matches if str(m["id"]) == str(match_id)), matches[0]) if match_id else matches[0]
+        target_match = dict(base_match)
+        if not target_match.get("home_player_img"):
+            target_match["home_player_img"] = fetch_club_star_player(
+                str(target_match.get("home_team") or ""),
+                team_name_en=str(target_match.get("home_team_en") or ""),
+            )["image_url"]
+        if not target_match.get("away_player_img"):
+            target_match["away_player_img"] = fetch_club_star_player(
+                str(target_match.get("away_team") or ""),
+                team_name_en=str(target_match.get("away_team_en") or ""),
+            )["image_url"]
         stage = str(target_match.get("stage") or ("post_match" if target_match.get("status") == "FINISHED" else "pre_match"))
         cache_key = f"match:{target_match['id']}:{stage}:{today_str}"
         html = build_match_poster_html(target_match, stage=stage)

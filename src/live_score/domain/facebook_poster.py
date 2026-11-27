@@ -16,6 +16,30 @@ from src.live_score.domain.facebook_caption import (
 )
 
 FALLBACK_LOGO_URL = "https://cdn-icons-png.flaticon.com/512/53/53283.png"
+STADIUM_BACKDROP_PATH = Path(__file__).resolve().parents[3] / "assets" / "facebook" / "stadium_backdrop.jpg"
+
+
+def _stadium_backdrop_css() -> str:
+    if not STADIUM_BACKDROP_PATH.exists():
+        return ""
+    uri = STADIUM_BACKDROP_PATH.resolve().as_uri()
+    return f"""
+    .canvas::before {{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("{uri}") center/cover no-repeat;
+      filter: blur(2.5px) brightness(0.42) contrast(1.2) saturate(1.25);
+      z-index: 0;
+    }}
+    .canvas::after {{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }}"""
 
 _BROWSER_CANDIDATES = (
     r"C:\Program Files\Google\Chrome\Application\chrome.exe",
@@ -46,11 +70,12 @@ _BASE_POSTER_CSS = """
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      overflow: hidden;
       background:
-        radial-gradient(circle at 18% 0%, rgba(16, 185, 129, 0.22) 0%, transparent 48%),
-        radial-gradient(circle at 82% 0%, rgba(6, 182, 212, 0.20) 0%, transparent 48%),
-        radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.14) 0%, transparent 55%),
-        linear-gradient(180deg, #070c18 0%, #050811 100%);
+        radial-gradient(circle at 18% 0%, rgba(16, 185, 129, 0.28) 0%, transparent 48%),
+        radial-gradient(circle at 82% 0%, rgba(56, 189, 248, 0.24) 0%, transparent 48%),
+        radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.18) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(7, 12, 24, 0.86) 0%, rgba(5, 8, 17, 0.94) 100%);
     }
     .pitch-bg {
       position: absolute;
@@ -330,6 +355,10 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
         h_col = _render_squad_column(str(match.get("home_team") or ""), match.get("home_formation"), match.get("home_lineup"), "home-col")
         a_col = _render_squad_column(str(match.get("away_team") or ""), match.get("away_formation"), match.get("away_lineup"), "away-col")
         squads_html = f"<div class='squads-grid'>{h_col}{a_col}</div>"
+    h_player_img = _esc(match.get("home_player_img") or "")
+    a_player_img = _esc(match.get("away_player_img") or "")
+    h_player_html = f"<img class='player-cutout home' src='{h_player_img}' alt='' onerror='this.style.display=\"none\"'/>" if h_player_img else ""
+    a_player_html = f"<img class='player-cutout away' src='{a_player_img}' alt='' onerror='this.style.display=\"none\"'/>" if a_player_img else ""
     spotlight_cls = "spotlight compact" if has_squads else "spotlight"
 
     return f"""<!DOCTYPE html>
@@ -341,12 +370,24 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Chakra+Petch:wght@700;800&display=swap" rel="stylesheet" />
   <style>
 {_BASE_POSTER_CSS}
+{_stadium_backdrop_css()}
     .spotlight {{
-      position: relative; z-index: 2; flex: 1; margin: 28px 0;
+      position: relative; z-index: 2; flex: 1; margin: 28px 0; overflow: hidden;
       border-radius: 30px; border: 1.5px solid rgba(16, 185, 129, 0.48);
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(15, 23, 42, 0.94) 50%, rgba(6, 182, 212, 0.14) 100%);
+      backdrop-filter: blur(8px);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(7, 12, 24, 0.72) 50%, rgba(56, 189, 248, 0.16) 100%);
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; padding: 48px;
+      box-shadow: 0 32px 90px rgba(0, 0, 0, 0.75);
     }}
+    .player-cutout {{
+      position: absolute; bottom: 0; width: 320px; height: 390px; object-fit: contain; object-position: bottom;
+      opacity: 0.9; pointer-events: none; z-index: 1;
+      -webkit-mask-image: linear-gradient(to bottom, black 68%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 68%, transparent 100%);
+    }}
+    .player-cutout.home {{ right: -10px; filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.65)); }}
+    .player-cutout.away {{ left: -10px; filter: drop-shadow(0 0 28px rgba(56, 189, 248, 0.65)); }}
+    .spotlight > *:not(.player-cutout) {{ position: relative; z-index: 2; }}
     .comp-pill {{
       font-size: 24px; font-weight: 800; color: #38bdf8;
       background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.35);
@@ -361,8 +402,10 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
     .big-logo img {{ width: 160px; height: 160px; object-fit: contain; }}
     .big-name {{ font-size: 36px; font-weight: 900; color: #ffffff; }}
     .score-hero {{
-      font-family: 'Chakra Petch', sans-serif; font-size: 86px; font-weight: 800;
-      color: #34d399; text-align: center; text-shadow: 0 0 36px rgba(16, 185, 129, 0.45);
+      font-family: 'Chakra Petch', sans-serif; font-size: 88px; font-weight: 800;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 46%, #64748b 52%, #f8fafc 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-align: center; filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.55));
     }}
     .info-bar {{
       font-size: 24px; font-weight: 800; color: #e2e8f0;
@@ -379,8 +422,8 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
     .spotlight.compact .info-bar {{ font-size: 19px; padding: 8px 24px; }}
     .squads-grid {{ width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }}
     .squad-col {{
-      background: rgba(15, 23, 42, 0.85); border-radius: 18px; padding: 14px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(6, 11, 22, 0.74); backdrop-filter: blur(18px); border-radius: 18px; padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.16); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
     }}
     .squad-col.home-col {{ border-top: 3px solid #10b981; }}
     .squad-col.away-col {{ border-top: 3px solid #38bdf8; }}
@@ -421,6 +464,8 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
       <div class="date-pill">{_esc(badge_text)}</div>
     </header>
     <main class="{spotlight_cls}">
+      {h_player_html}
+      {a_player_html}
       <div class="comp-pill">{comp}</div>
       <div class="vs-grid">
         <div class="big-team">

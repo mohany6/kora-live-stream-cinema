@@ -283,6 +283,31 @@ def build_daily_results_poster_html(
     )
 
 
+def _render_squad_column(team_name: str, formation: Any, lineup: Any, accent_cls: str) -> str:
+    starters = [p for p in (lineup or []) if isinstance(p, Mapping) and p.get("is_starter", True)][:11]
+    if not starters and isinstance(lineup, Sequence) and not isinstance(lineup, (str, bytes)):
+        starters = [p for p in lineup if isinstance(p, Mapping)][:11]
+    form_badge = f"<span class='form-badge'>{_esc(formation)}</span>" if formation else ""
+    rows = []
+    for p in starters:
+        name = _esc(p.get("name") or p.get("player_name") or "")
+        if not name:
+            continue
+        num = _esc(p.get("number") or "-")
+        pos = _esc(p.get("position") or "")
+        pos_html = f"<span class='pos-tag'>{pos}</span>" if pos else ""
+        rows.append(
+            f"<div class='player-row'><span class='jersey'>{num}</span><span class='p-name'>{name}</span>{pos_html}</div>"
+        )
+    if not rows:
+        rows.append("<div class='player-empty'>التشكيلة لم تُعلن بعد</div>")
+    return f"""
+        <div class="squad-col {accent_cls}">
+          <div class="squad-head"><span>{_esc(team_name)}</span>{form_badge}</div>
+          <div class="squad-list">{''.join(rows)}</div>
+        </div>"""
+
+
 def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match") -> str:
     """Build 1200x1200 Cyber-Stadium HTML for a single pre-match VS or post-match result card."""
     home = _esc(match.get("home_team") or "")
@@ -296,9 +321,16 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
     a_score = int(match.get("away_score") or 0)
 
     is_post = stage == "post_match"
-    badge_text = "النتيجة النهائية" if is_post else "قمة اليوم"
+    has_squads = (not is_post) and bool(match.get("home_lineup") or match.get("away_lineup"))
+    badge_text = "النتيجة النهائية" if is_post else ("التشكيلة الرسمية" if has_squads else "قمة اليوم")
     center_main = f"{h_score} - {a_score}" if is_post else "VS"
     center_sub = "ملخص الأهداف والتقييمات في أول تعليق" if is_post else f"{times['mecca']} مكة • {times['cairo']} القاهرة"
+    squads_html = ""
+    if has_squads:
+        h_col = _render_squad_column(str(match.get("home_team") or ""), match.get("home_formation"), match.get("home_lineup"), "home-col")
+        a_col = _render_squad_column(str(match.get("away_team") or ""), match.get("away_formation"), match.get("away_lineup"), "away-col")
+        squads_html = f"<div class='squads-grid'>{h_col}{a_col}</div>"
+    spotlight_cls = "spotlight compact" if has_squads else "spotlight"
 
     return f"""<!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -338,6 +370,40 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
       padding: 14px 36px; border-radius: 999px;
     }}
     .channel-sub {{ font-size: 20px; font-weight: 700; color: #94a3b8; }}
+    .spotlight.compact {{ margin: 16px 0; padding: 24px 30px; gap: 14px; }}
+    .spotlight.compact .big-logo {{ width: 112px; height: 112px; border-radius: 24px; padding: 14px; }}
+    .spotlight.compact .big-logo img {{ width: 84px; height: 84px; }}
+    .spotlight.compact .big-team {{ gap: 8px; }}
+    .spotlight.compact .big-name {{ font-size: 26px; }}
+    .spotlight.compact .score-hero {{ font-size: 56px; }}
+    .spotlight.compact .info-bar {{ font-size: 19px; padding: 8px 24px; }}
+    .squads-grid {{ width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }}
+    .squad-col {{
+      background: rgba(15, 23, 42, 0.85); border-radius: 18px; padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }}
+    .squad-col.home-col {{ border-top: 3px solid #10b981; }}
+    .squad-col.away-col {{ border-top: 3px solid #38bdf8; }}
+    .squad-head {{
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 19px; font-weight: 900; color: #ffffff; margin-bottom: 10px;
+      padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }}
+    .form-badge {{
+      font-family: 'Chakra Petch', sans-serif; font-size: 15px; font-weight: 800;
+      color: #34d399; background: rgba(16, 185, 129, 0.16); padding: 2px 10px; border-radius: 999px;
+    }}
+    .squad-list {{ display: flex; flex-direction: column; gap: 5px; }}
+    .player-row {{
+      display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: #e2e8f0;
+    }}
+    .jersey {{
+      font-family: 'Chakra Petch', sans-serif; width: 26px; text-align: center;
+      background: rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 1px 4px; color: #fbbf24; font-size: 13px;
+    }}
+    .p-name {{ flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }}
+    .pos-tag {{ font-size: 11px; font-weight: 800; color: #94a3b8; }}
+    .player-empty {{ font-size: 15px; color: #94a3b8; text-align: center; padding: 14px 0; }}
   </style>
 </head>
 <body>
@@ -354,7 +420,7 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
       </div>
       <div class="date-pill">{_esc(badge_text)}</div>
     </header>
-    <main class="spotlight">
+    <main class="{spotlight_cls}">
       <div class="comp-pill">{comp}</div>
       <div class="vs-grid">
         <div class="big-team">
@@ -368,6 +434,7 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
         </div>
       </div>
       <div class="info-bar">{_esc(center_sub)}</div>
+      {squads_html}
       <div class="channel-sub">📺 القناة الناقلة: {ch}</div>
     </main>
     <footer class="footer">

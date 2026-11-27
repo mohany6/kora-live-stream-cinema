@@ -317,3 +317,30 @@ def test_auto_mode_publishes_slate_then_results_when_matches_finish(tmp_path: Pa
     assert "today_matches_" in posted_modes[0]
     assert "match_401879225_pre_match_" in posted_modes[2]
     assert "today_results_" in posted_modes[-1]
+
+
+def test_pre_match_poster_and_caption_include_live_squads():
+    with_squad = dict(
+        SAMPLE_MATCHES[0],
+        home_formation="4-3-3",
+        away_formation="4-2-3-1",
+        home_lineup=[
+            {"name": "Matz Sels", "number": 26, "position": "GK", "is_starter": True},
+            {"name": "Chris Wood", "number": 11, "position": "FW", "is_starter": True},
+        ],
+        away_lineup=[
+            {"name": "Robert Sanchez", "number": 1, "position": "GK", "is_starter": True},
+            {"name": "Cole Palmer", "number": 20, "position": "MF", "is_starter": True},
+        ],
+    )
+    copy = build_match_copy(with_squad, stage="pre_match")
+    assert "التشكيلة الرسمية للمباراة" in copy["caption"]
+    assert "Chris Wood" in copy["caption"]
+    assert "Cole Palmer" in copy["caption"]
+    assert "4-3-3" in copy["caption"]
+
+    html = build_match_poster_html(with_squad, stage="pre_match")
+    assert "squads-grid" in html
+    assert "Chris Wood" in html
+    assert "Cole Palmer" in html
+    assert "4-2-3-1" in html

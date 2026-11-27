@@ -162,6 +162,46 @@ def build_match_hashtags(
     return tags
 
 
+def _extract_starters(lineup: Any, *, limit: int = 11) -> list[dict[str, str]]:
+    """Extract up to 11 starting XI players from lineup data."""
+    if not isinstance(lineup, Sequence) or isinstance(lineup, (str, bytes)):
+        return []
+    starters = [p for p in lineup if isinstance(p, Mapping) and p.get("is_starter", True)]
+    if not starters:
+        starters = [p for p in lineup if isinstance(p, Mapping)]
+    out: list[dict[str, str]] = []
+    for p in starters[:limit]:
+        name = str(p.get("name") or p.get("player_name") or "").strip()
+        if not name:
+            continue
+        num = str(p.get("number") or "").strip()
+        pos = str(p.get("position") or "").strip()
+        out.append({"name": name, "number": num, "position": pos})
+    return out
+
+
+def _format_squad_caption_lines(match: Mapping[str, Any]) -> list[str]:
+    home = str(match.get("home_team") or "").strip()
+    away = str(match.get("away_team") or "").strip()
+    h_starters = _extract_starters(match.get("home_lineup"))
+    a_starters = _extract_starters(match.get("away_lineup"))
+    if not (h_starters or a_starters):
+        return []
+
+    lines = ["", "📋 التشكيلة الرسمية للمباراة:"]
+    if h_starters:
+        h_form = str(match.get("home_formation") or "").strip()
+        h_hdr = f"🟢 {home} ({h_form}):" if h_form else f"🟢 {home}:"
+        names = " • ".join(f"{p['name']} ({p['number']})" if p["number"] else p["name"] for p in h_starters)
+        lines.append(f"{h_hdr} {names}")
+    if a_starters:
+        a_form = str(match.get("away_formation") or "").strip()
+        a_hdr = f"🔵 {away} ({a_form}):" if a_form else f"🔵 {away}:"
+        names = " • ".join(f"{p['name']} ({p['number']})" if p["number"] else p["name"] for p in a_starters)
+        lines.append(f"{a_hdr} {names}")
+    return lines
+
+
 def build_match_copy(
     match: Mapping[str, Any],
     *,
@@ -191,11 +231,13 @@ def build_match_copy(
         ]
         comment_prefix = "🎥 لمتابعة ملخص وأهداف المباراة وتفاصيل اللقاء كاملة:"
     else:
+        squad_lines = _format_squad_caption_lines(match)
         caption_lines = [
             f"🔥 قمة منتظرة اليوم | {home} 🆚 {away} ⚽✨",
             f"🏆 {comp}",
             f"⏰ {times['cairo']} بتوقيت القاهرة | {times['mecca']} بتوقيت مكة",
             f"📺 القناة الناقلة: {ch}",
+            *squad_lines,
             "",
             "👇 رابط التشكيلة الرسمية ومتابعة اللقاء لحظة بلحظة في أول تعليق!",
             "",

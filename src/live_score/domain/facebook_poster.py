@@ -28,8 +28,8 @@ def _stadium_backdrop_css() -> str:
       content: "";
       position: absolute;
       inset: 0;
-      background: url("{uri}") center/cover no-repeat;
-      filter: blur(2.5px) brightness(0.42) contrast(1.2) saturate(1.25);
+      background: url("{uri}") center top/cover no-repeat;
+      filter: blur(1px) brightness(0.62) contrast(1.16) saturate(1.22);
       z-index: 0;
     }}
     .canvas::after {{
@@ -66,16 +66,15 @@ _BASE_POSTER_CSS = """
       position: relative;
       width: 1200px;
       height: 1200px;
-      padding: 44px 52px 38px;
+      padding: 36px 46px 32px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       overflow: hidden;
       background:
-        radial-gradient(circle at 18% 0%, rgba(16, 185, 129, 0.28) 0%, transparent 48%),
-        radial-gradient(circle at 82% 0%, rgba(56, 189, 248, 0.24) 0%, transparent 48%),
-        radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.18) 0%, transparent 55%),
-        linear-gradient(180deg, rgba(7, 12, 24, 0.86) 0%, rgba(5, 8, 17, 0.94) 100%);
+        radial-gradient(circle at 20% 15%, rgba(16, 185, 129, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 80% 15%, rgba(56, 189, 248, 0.25) 0%, transparent 45%),
+        linear-gradient(180deg, rgba(5, 8, 17, 0.45) 0%, rgba(5, 8, 17, 0.72) 48%, rgba(5, 8, 17, 0.96) 100%);
     }
     .pitch-bg {
       position: absolute;
@@ -372,80 +371,86 @@ def build_match_poster_html(match: Mapping[str, Any], *, stage: str = "pre_match
 {_BASE_POSTER_CSS}
 {_stadium_backdrop_css()}
     .spotlight {{
-      position: relative; z-index: 2; flex: 1; margin: 28px 0; overflow: hidden;
-      border-radius: 30px; border: 1.5px solid rgba(16, 185, 129, 0.48);
-      backdrop-filter: blur(8px);
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(7, 12, 24, 0.72) 50%, rgba(56, 189, 248, 0.16) 100%);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; padding: 48px;
+      position: relative; z-index: 2; flex: 1; margin: 18px 0; overflow: hidden;
+      border-radius: 28px; border: 1.5px solid rgba(16, 185, 129, 0.42);
+      background: linear-gradient(180deg, rgba(7, 12, 24, 0.25) 0%, rgba(7, 12, 24, 0.65) 42%, rgba(5, 8, 17, 0.92) 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding: 36px;
       box-shadow: 0 32px 90px rgba(0, 0, 0, 0.75);
     }}
     .player-cutout {{
-      position: absolute; bottom: 0; width: 320px; height: 390px; object-fit: contain; object-position: bottom;
-      opacity: 0.9; pointer-events: none; z-index: 1;
-      -webkit-mask-image: linear-gradient(to bottom, black 68%, transparent 100%);
-      mask-image: linear-gradient(to bottom, black 68%, transparent 100%);
+      position: absolute; top: 14px; width: 290px; height: 340px; object-fit: contain; object-position: top center;
+      opacity: 0.95; pointer-events: none; z-index: 1;
+      -webkit-mask-image: linear-gradient(to bottom, black 72%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 72%, transparent 100%);
     }}
-    .player-cutout.home {{ right: -10px; filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.65)); }}
-    .player-cutout.away {{ left: -10px; filter: drop-shadow(0 0 28px rgba(56, 189, 248, 0.65)); }}
+    .player-cutout.home {{ right: 12px; filter: drop-shadow(0 0 26px rgba(16, 185, 129, 0.7)); }}
+    .player-cutout.away {{ left: 12px; filter: drop-shadow(0 0 26px rgba(56, 189, 248, 0.7)); }}
     .spotlight > *:not(.player-cutout) {{ position: relative; z-index: 2; }}
     .comp-pill {{
-      font-size: 24px; font-weight: 800; color: #38bdf8;
-      background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.35);
-      padding: 8px 30px; border-radius: 999px;
+      font-size: 21px; font-weight: 900; color: #ffffff;
+      background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(56, 189, 248, 0.55);
+      padding: 6px 26px; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
     }}
-    .vs-grid {{ width: 100%; display: grid; grid-template-columns: 1fr 260px 1fr; align-items: center; gap: 24px; }}
-    .big-team {{ display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }}
+    .vs-grid {{ width: 64%; display: grid; grid-template-columns: 1fr 140px 1fr; align-items: center; gap: 12px; }}
+    .big-team {{ display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }}
     .big-logo {{
-      width: 210px; height: 210px; border-radius: 36px; background: rgba(255, 255, 255, 0.06);
-      border: 1.5px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; padding: 24px;
+      width: 170px; height: 170px; display: flex; align-items: center; justify-content: center;
+      filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.85));
     }}
-    .big-logo img {{ width: 160px; height: 160px; object-fit: contain; }}
-    .big-name {{ font-size: 36px; font-weight: 900; color: #ffffff; }}
+    .big-logo img {{ width: 155px; height: 155px; object-fit: contain; }}
+    .big-name {{ font-size: 32px; font-weight: 900; color: #ffffff; text-shadow: 0 4px 16px rgba(0,0,0,0.95); }}
     .score-hero {{
-      font-family: 'Chakra Petch', sans-serif; font-size: 88px; font-weight: 800;
+      font-family: 'Chakra Petch', sans-serif; font-size: 76px; font-weight: 800;
       background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 46%, #64748b 52%, #f8fafc 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      text-align: center; filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.55));
+      text-align: center; filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.65));
     }}
     .info-bar {{
-      font-size: 24px; font-weight: 800; color: #e2e8f0;
-      background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.10);
-      padding: 14px 36px; border-radius: 999px;
+      font-size: 21px; font-weight: 800; color: #f8fafc;
+      background: rgba(10, 16, 30, 0.9); border: 1px solid rgba(16, 185, 129, 0.45);
+      padding: 10px 30px; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
     }}
-    .channel-sub {{ font-size: 20px; font-weight: 700; color: #94a3b8; }}
-    .spotlight.compact {{ margin: 16px 0; padding: 24px 30px; gap: 14px; }}
-    .spotlight.compact .big-logo {{ width: 112px; height: 112px; border-radius: 24px; padding: 14px; }}
-    .spotlight.compact .big-logo img {{ width: 84px; height: 84px; }}
-    .spotlight.compact .big-team {{ gap: 8px; }}
-    .spotlight.compact .big-name {{ font-size: 26px; }}
-    .spotlight.compact .score-hero {{ font-size: 56px; }}
-    .spotlight.compact .info-bar {{ font-size: 19px; padding: 8px 24px; }}
-    .squads-grid {{ width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }}
+    .channel-sub {{ font-size: 18px; font-weight: 700; color: #cbd5e1; }}
+    .spotlight.compact {{ margin: 12px 0; padding: 20px 26px 16px; gap: 12px; justify-content: space-between; }}
+    .spotlight.compact .vs-grid {{ width: 58%; margin-top: 4px; }}
+    .spotlight.compact .big-logo {{ width: 112px; height: 112px; }}
+    .spotlight.compact .big-logo img {{ width: 102px; height: 102px; }}
+    .spotlight.compact .big-team {{ gap: 6px; }}
+    .spotlight.compact .big-name {{ font-size: 24px; }}
+    .spotlight.compact .score-hero {{ font-size: 58px; }}
+    .spotlight.compact .info-bar {{ font-size: 18px; padding: 7px 24px; margin-top: 6px; }}
+    .squads-grid {{ width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 4px; }}
     .squad-col {{
-      background: rgba(6, 11, 22, 0.74); backdrop-filter: blur(18px); border-radius: 18px; padding: 14px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.16); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      background: rgba(7, 11, 22, 0.88); backdrop-filter: blur(16px); border-radius: 18px; padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: 0 18px 44px rgba(0, 0, 0, 0.65);
     }}
     .squad-col.home-col {{ border-top: 3px solid #10b981; }}
     .squad-col.away-col {{ border-top: 3px solid #38bdf8; }}
     .squad-head {{
       display: flex; justify-content: space-between; align-items: center;
-      font-size: 19px; font-weight: 900; color: #ffffff; margin-bottom: 10px;
-      padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 18px; font-weight: 900; color: #ffffff; margin-bottom: 8px;
+      padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }}
     .form-badge {{
       font-family: 'Chakra Petch', sans-serif; font-size: 15px; font-weight: 800;
-      color: #34d399; background: rgba(16, 185, 129, 0.16); padding: 2px 10px; border-radius: 999px;
+      color: #050811; background: #34d399; padding: 2px 10px; border-radius: 999px;
     }}
-    .squad-list {{ display: flex; flex-direction: column; gap: 5px; }}
+    .away-col .form-badge {{ background: #38bdf8; }}
+    .squad-list {{ display: flex; flex-direction: column; gap: 4px; }}
     .player-row {{
-      display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: #e2e8f0;
+      display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 800; color: #f1f5f9;
+      padding: 2px 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.03);
     }}
     .jersey {{
       font-family: 'Chakra Petch', sans-serif; width: 26px; text-align: center;
-      background: rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 1px 4px; color: #fbbf24; font-size: 13px;
+      background: rgba(251, 191, 36, 0.16); border: 1px solid rgba(251, 191, 36, 0.35);
+      border-radius: 6px; padding: 1px 4px; color: #fbbf24; font-size: 13px;
     }}
     .p-name {{ flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }}
-    .pos-tag {{ font-size: 11px; font-weight: 800; color: #94a3b8; }}
+    .pos-tag {{
+      font-family: 'Chakra Petch', sans-serif; font-size: 11px; font-weight: 800;
+      color: #94a3b8; background: rgba(255,255,255,0.06); padding: 1px 7px; border-radius: 4px;
+    }}
     .player-empty {{ font-size: 15px; color: #94a3b8; text-align: center; padding: 14px 0; }}
   </style>
 </head>
